@@ -1,0 +1,50 @@
+{
+  "name": "verbs",
+  "version": "0.0.1",
+  "description": "learning irregular verbs",
+  "main": "index.html",
+  "scripts": {
+    "dist": "build --tasks win-x64 --mirror https://dl.nwjs.io/ .",
+    "start": "run --x64 --mirror https://dl.nwjs.io/ .",
+    "css": "webpack"
+  },
+  "author": "MX",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "0.28.9",
+    "extract-text-webpack-plugin": "3.0.2",
+    "node-sass": "4.7.2",
+    "nwjs-builder-phoenix": "1.14.6",
+    "sass-loader": "6.0.6",
+    "style-loader": "0.20.1",
+    "webpack": "3.11.0"
+  },
+  "window": {
+    "title": "Program",
+    "width": 700,
+    "height": 400,
+    "position": "center"
+  },
+  "build": {
+    "appId": "io.github.evshiron.nwjs-builder-phoenix.project",
+    "nwVersion": "0.28.1",
+    "packed": true,
+    "targets": [
+      "zip"
+    ],
+    "strippedProperties": [
+      "build"
+    ],
+    "outputPattern": "${NAME} ${VERSION} ${PLATFORM} ${ARCH}",
+    "win": {
+      "productName": "Irregular verbs",
+      "companyName": "Phoenix",
+      "copyright": "copyright"
+    }
+  },
+  "dependencies": {
+    "express": "4.16.2",
+    "nedb": "1.8.0",
+    "pug": "2.0.0-rc.4"
+  }
+}
