@@ -2,7 +2,8 @@
   "name": "verbs",
   "version": "0.0.1",
   "description": "learning irregular verbs",
-  "main": "index.html",
+  "main": "http://localhost:3000",
+  "node-main": "./server.js",
   "scripts": {
     "dist": "build --tasks win-x64 --mirror https://dl.nwjs.io/ .",
     "start": "run --x64 --mirror https://dl.nwjs.io/ .",
