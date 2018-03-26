@@ -21,6 +21,18 @@ module.exports = {
 					fallback:'style-loader',
 					use:['css-loader','sass-loader']
 				})
+			},
+			{
+				test:/\.(svg|jpe?g|gif|png)$/i,
+				use: [
+						{
+							loader: 'file-loader',
+							options: {
+								name: '[name].[ext]',
+								outputPath: '../images/'
+							}  
+						}
+					 ]
 			}
 		]
 	},
