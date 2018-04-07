@@ -25,10 +25,10 @@
     "title": "Program",
     "position": "center",
     "width": 790,
-    "height": 600,
-    "min-height": 600,
+    "height": 590,
+    "min-height": 590,
     "min-width": 790,
-    "max-height": 600,
+    "max-height": 590,
     "max-width": 790,
     "resizable": false
   },
@@ -50,6 +50,7 @@
     }
   },
   "dependencies": {
+    "bootstrap": "4.0.0",
     "express": "4.16.2",
     "nedb": "1.8.0",
     "pug": "2.0.0-rc.4"

@@ -1,6 +1,10 @@
+block variables
+	
 doctype html
 html
-  include head-block/head.pug
-  body
-    div(class="wrapper")
-      block appContent
+	include head-block/head.pug
+body
+	div(class="wrapper wrapper-index")
+		block appContent
+			div Hello Content
+	block auth		
