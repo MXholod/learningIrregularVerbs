@@ -21,6 +21,28 @@ html,body {
 		background-image:url('../images/Main-page.png');
 		background-position:center center;
 		background-repeat:no-repeat;
+		.wrapper__index__left{
+			width:$base-width / 2;
+			.wrapper__index__left_top{
+				height:$base-height /3;
+				/*background-color:yellow;*/
+			}
+			.wrapper__index__left_middle{
+				height:$base-height /3;
+				/*background-color:transparent;*/
+				img{
+					margin-left:100px;
+					/*border:1px solid #000;*/
+				}
+				.eye1:hover{
+					cy:30;
+				}
+			}
+			.wrapper__index__left_bottom{
+				height:$base-height /3;
+				/*background-color:lightgreen;*/
+			}
+		}
 	}
 }
 .auth{
