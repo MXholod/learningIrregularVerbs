@@ -3,9 +3,9 @@ $base-height:600px;
 $base-width:800px;
 $base-font-size:16px;
 @keyframes moveGrad {
-			 0%   {top: 0px;}
-			 50%  {top: -180px;}
-			 100% {top: 0px;}
+	0%{top: 0px;}
+	50%{top: -180px;}
+	100%{top: 0px;}
 }
 html,body {
   font-size:$base-font-size;
@@ -45,73 +45,99 @@ html,body {
 			}
 		}
 	}
-}
-.auth{
-	width:200px;
-	height:180px;
-	font-size:0.8rem;
-	margin:-185px auto 0px;
-	border:3px solid #fff;
-	border-radius:20px;	
-	color:#fff;
-	position:relative;
-	overflow:hidden;
-	&:before{
+	.auth{
+		width:200px;
+		height:180px;
+		font-size:0.8rem;
+		margin:-185px auto 0px;
+		border:3px solid #fff;
+		border-radius:20px;	
+		color:#fff;
+		position:relative;
+		overflow:hidden;
+		&:before{
+				position:absolute;
+				top:0px;
+				left:0px;
+				z-index:1;
+				width:200px;
+				height:360px;
+				content:"";
+				background:linear-gradient(to top,
+				rgb(244, 83, 19) 0%,
+				rgb(244, 226, 24) 50%,
+				rgb(244, 83, 19) 100%);
+				animation: moveGrad 9s infinite;
+			}
+		.auth__content{
 			position:absolute;
-			top:0px;
-			left:0px;
-			z-index:1;
-			width:200px;
-			height:360px;
-			content:"";
-			background:linear-gradient(to top,
-			rgb(244, 83, 19) 0%,
-			rgb(244, 226, 24) 50%,
-			rgb(244, 83, 19) 100%);
-			animation: moveGrad 9s infinite;
-		}
-	.auth__content{
-		position:absolute;
-			top:0px;
-			left:0px;
-			z-index:2;
-			width:200px;
-			height:360px;
-		& > p{
-			color:#000;
-			font-weight:bold;
-			text-align:center;
-			margin-top:3px;
-			font-size:$base-font-size - 2;
-		}
-		form{
-			width:170px;
-			height:100px;
-			margin:10px 10px 10px 10px;
-			.form-group{
-				margin-bottom:0.3rem;
-				label{
-					color:#000;
-				}
-				& input[type='submit']{
-					padding:0.1rem 0.2rem;
-					line-height:1;
-					margin:2px 0px 0px 42px;
-					border:1px solid #fff;
-				}
-				.form-control{
-					line-height:1;
-					padding:0.1rem 0.2rem;
-					margin-top:5px;
-				}
-				.forgottenPass{
-					border:1px solid #fff;
-					margin:10px 0px 0px 34px;
-					width:110px;
-					padding:2px;
-					border-radius:5px;
+				top:0px;
+				left:0px;
+				z-index:2;
+				width:200px;
+				height:360px;
+			& > p{
+				color:#000;
+				font-weight:bold;
+				text-align:center;
+				margin-top:3px;
+				font-size:$base-font-size - 2;
+			}
+			form{
+				width:170px;
+				height:100px;
+				margin:10px 10px 10px 10px;
+				.form-group{
+					margin-bottom:0.3rem;
+					label{
+						color:#000;
+					}
+					& input[type='submit']{
+						padding:0.1rem 0.2rem;
+						line-height:1;
+						margin:2px 0px 0px 42px;
+						border:1px solid #fff;
+					}
+					.form-control{
+						line-height:1;
+						padding:0.1rem 0.2rem;
+						margin-top:5px;
+					}
+					.forgottenPass{
+						border:1px solid #fff;
+						margin:10px 0px 0px 34px;
+						width:110px;
+						padding:2px;
+						border-radius:5px;
+					}
 				}
 			}
 		}
 	}
 }
+#settings{
+	&:before{
+		content:"";
+		position:absolute;
+		left:100px;
+		top:0px;
+		width:40px;
+		height:40px;
+		background-color:#f7a445;
+		border-bottom:2px solid #f8fc86;
+		border-right:2px solid #f8fc86;
+		border-left:2px solid #f8fc86;
+		border-bottom-right-radius:5px;
+		background-image:url('../images/wrench.svg');
+		background-repeat:no-repeat;
+		background-position:-2px -2px;
+	}
+	width:100px;
+	height:40px;
+	position:relative;
+	top:-100%;
+	left:0px;
+	background-color:#e8b57b;
+	border-bottom:2px solid #f8fc86;
+}
+

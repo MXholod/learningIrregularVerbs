@@ -1,5 +1,8 @@
 section(class="wrapper__index__left")
 	div(class="wrapper__index__left_top")
 	div(class="wrapper__index__left_middle")
-		include dream.pug
+		include dreamSVG.pug
 	div(class="wrapper__index__left_bottom")
+		div(id="bgMusic")
+			audio(autoplay)
+				source(src="../../public/sounds/mainPage/WeWillRockYou1.mp3" type="audio/mpeg")
