@@ -1,5 +1,8 @@
 module.exports = {
 	"ru":{
+		"settingsPanel":{
+			"baseText":["Мои","Настройки"]
+		},
 		"mainpage":{
 			"auth":{
 				"formTitle":"Выполните регистрацию",
@@ -17,6 +20,9 @@ module.exports = {
 		}
 	},
 	"ua":{
+		"settingsPanel":{
+			"baseText":["Мої","налаштування"]
+		},
 		"mainpage":{
 			"auth":{
 				"formTitle":"Виконайте реєстрацію",
