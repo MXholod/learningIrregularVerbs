@@ -12,10 +12,54 @@ $base-font-size:16px;
 		font-family:$font;
 		font-style:normal;
 		font-weight:normal;
+		/*src:url('../#{$path}/#{$font}.ttf') format('truetype');*/
 		src:url('../#{$path}/#{$font}.otf');
 	}
 }
-@include font('fonts','Maloishe');
+@include font('fonts','Lasco_Bold');
+/*Moving SVG letter's eyes*/
+@mixin moveEeyes($classNum,$subNum,$cx:0,$cy:0,$reverse:false){
+		@keyframes animEyes-#{$classNum}-#{$subNum} {
+			0%{cx: #{$cx}px;}
+			@if $reverse != true {
+				50%{cx: #{$cx + 2}px;}
+			}
+			@else{
+				50%{cx: #{$cx - 2}px;}
+			}
+			100%{cx: #{$cx}px;}
+		}
+}
+/*First letter D*/
+@include moveEeyes(l1,1,20,20);
+@include moveEeyes(l1,2,40,20);
+/*Second letter r*/
+@include moveEeyes(l2,1,70,22,true);
+@include moveEeyes(l2,2,87,22,true);
+/*Third letter e*/
+@include moveEeyes(l3,1,105,22);
+@include moveEeyes(l3,2,117,22);
+/*Fourth letter a*/
+@include moveEeyes(l4,1,140,22,true);
+@include moveEeyes(l4,2,155,22,true);
+/*Fifth letter m*/
+@include moveEeyes(l5,1,190,22);
+@include moveEeyes(l5,2,210,22);
+/*First letter T*/
+@include moveEeyes(r1,1,18,14);
+@include moveEeyes(r1,2,39,14);
+/*Second letter e*/
+@include moveEeyes(r2,1,60,22,true);
+@include moveEeyes(r2,2,77,22,true);
+/*Third letter a*/
+@include moveEeyes(r3,1,102,22);
+@include moveEeyes(r3,2,117,22);
+/*Fourth letter c*/
+@include moveEeyes(r4,1,142,22,true);
+@include moveEeyes(r4,2,157,22,true);
+/*Fifth letter h*/
+@include moveEeyes(r5,1,192,23);
+@include moveEeyes(r5,2,204,23);
 html,body {
   font-size:$base-font-size;
   font-family:"Times New Roman";
@@ -31,26 +75,106 @@ html,body {
 		background-image:url('../images/Main-page.png');
 		background-position:center center;
 		background-repeat:no-repeat;
+		overflow:hidden;
 		.wrapper__index__left{
 			width:$base-width / 2;
+			float:left;
 			.wrapper__index__left_top{
 				height:$base-height /3;
+				svg{
+					margin-left:120px;
+				}
 				/*background-color:yellow;*/
 			}
 			.wrapper__index__left_middle{
 				height:$base-height /3;
 				/*background-color:transparent;*/
-				img{
+				svg{
 					margin-left:100px;
-					/*border:1px solid #000;*/
 				}
-				.eye1:hover{
-					cy:30;
+				.eye1-1{
+					animation:animEyes-l1-1  5s infinite;
+				}
+				.eye1-2{
+					animation:animEyes-l1-2  5s infinite;
+				}
+				.eye2-1{
+					animation:animEyes-l2-1  4s infinite;
+				}
+				.eye2-2{
+					animation:animEyes-l2-2  4s infinite;
+				}
+				.eye3-1{
+					animation:animEyes-l3-1  6s infinite;
+				}
+				.eye3-2{
+					animation:animEyes-l3-2  6s infinite;
+				}
+				.eye4-1{
+					animation:animEyes-l4-1  3s infinite;
+				}
+				.eye4-2{
+					animation:animEyes-l4-2  3s infinite;
+				}
+				.eye5-1{
+					animation:animEyes-l5-1  4s infinite;
+				}
+				.eye5-2{
+					animation:animEyes-l5-2  4s infinite;
 				}
 			}
 			.wrapper__index__left_bottom{
 				height:$base-height /3;
 				/*background-color:lightgreen;*/
+			}
+		}
+		.wrapper__index__right{
+			width:$base-width / 2;
+			float:right;
+			.wrapper__index__right_top{
+				height:$base-height /3;
+				svg{
+					margin-left:75px;
+				}
+			}
+			.wrapper__index__right_middle{
+				height:$base-height /3;
+				svg{
+					margin-left:50px;
+				}
+				.eye1-1{
+					animation:animEyes-r1-1  5s infinite;
+				}
+				.eye1-2{
+					animation:animEyes-r1-2  5s infinite;
+				}
+				.eye2-1{
+					animation:animEyes-r2-1  4s infinite;
+				}
+				.eye2-2{
+					animation:animEyes-r2-2  4s infinite;
+				}
+				.eye3-1{
+					animation:animEyes-r3-1  6s infinite;
+				}
+				.eye3-2{
+					animation:animEyes-r3-2  6s infinite;
+				}
+				.eye4-1{
+					animation:animEyes-r4-1  3s infinite;
+				}
+				.eye4-2{
+					animation:animEyes-r4-2  3s infinite;
+				}
+				.eye5-1{
+					animation:animEyes-r5-1  4s infinite;
+				}
+				.eye5-2{
+					animation:animEyes-r5-2  4s infinite;
+				}
+			}
+			.wrapper__index__right_bottom{
+				height:$base-height /3;
 			}
 		}
 	}
@@ -128,7 +252,7 @@ html,body {
 	&:before{
 		content:"";
 		position:absolute;
-		left:100px;
+		left:110px;
 		top:0px;
 		width:40px;
 		height:40px;
@@ -140,18 +264,37 @@ html,body {
 		background-image:url('../svg/wrench.svg');
 		background-repeat:no-repeat;
 		background-position:-2px -2px;
+		z-index:1;
 	}
-	width:100px;
+	width:110px;
 	height:40px;
 	position:relative;
 	top:-100%;
 	left:0px;
 	background-color:#e8b57b;
 	border-bottom:2px solid #f8fc86;
+	z-index:2;
 	p{
-		font-family:Maloishe;
+		font-family:Lasco_Bold;
 		font-size:$base-font-size + 1px;
 		text-align:center;
+		font-variant:small-caps;
+		font-weight:bold;
+	}
+	p:first-of-type{
+		font-size:$base-font-size + 2px;
 	}
 }
+.settings__base{
+		position:absolute;
+		left:0px;
+		top:40px;
+		width:150px;
+		height:80px;
+		background-color:#f6f6f6;
+		z-index:0;
+		p{
+			font-size:$base-font-size - 1px;
+		}
+	}
 
