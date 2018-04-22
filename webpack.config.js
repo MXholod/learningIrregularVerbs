@@ -4,9 +4,12 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
 	context: path.resolve(__dirname,"./public"),
-	entry: {"style":["./scss/style.js"]},
+	entry: {
+		"css/style":["./css/scss/style.js"],
+		"js/settings/settings":["./js/dev_js/settings/settings.js"]
+	},
 	output:{
-		path:path.resolve(__dirname,"./public/css"),
+		path:path.resolve(__dirname,"./public"),
 		filename:"[name].js"
 	},
 	resolve:{
@@ -28,9 +31,10 @@ module.exports = {
 						{
 							loader: 'file-loader',
 							options: {
-								name: '../[path][name].[ext]',
-								outputPath: './'
-								//context:'../'
+								name: '[path][name].[ext]',
+								context:path.resolve(__dirname, "./public"),
+								publicPath: '../',
+								//outputPath: './'	
 							}  
 						}
 					 ]
