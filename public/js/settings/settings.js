@@ -81,7 +81,7 @@ module.exports = __webpack_require__(4);
 			var blocking = false;//For cancel event if this event in progress 
 			var direction = false;
 			window.onload = function(){
-				var panel = document.querySelector(".settings__base");//Handled element 
+				var panel = document.querySelector(".settings__base__slidePanel");//Handled element 
 				var cssTop = window.getComputedStyle(panel,null).getPropertyValue("top");
 				var cssHeight = window.getComputedStyle(panel,null).getPropertyValue("height");
 				var top = parseInt(cssTop);//Without px -40
@@ -89,7 +89,7 @@ module.exports = __webpack_require__(4);
 				var settings = {
 					top:top,
 					height:height,//panel height (look up in css file )
-					stopPoint:[40,-40],//down stop point, top stop point
+					stopPoint:[40,-110],//stop point from the top, stop point from the top
 					reverse:[false,true]//false - down, true - up
 				};
 				var bt = document.getElementById("settings");//Button test

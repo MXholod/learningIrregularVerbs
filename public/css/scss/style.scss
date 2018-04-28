@@ -225,7 +225,7 @@ html,body {
 					label{
 						color:#000;
 					}
-					& input[type='submit']{
+					input[type='submit']{
 						padding:0.1rem 0.2rem;
 						line-height:1;
 						margin:2px 0px 0px 42px;
@@ -250,6 +250,18 @@ html,body {
 }
 $settingsHeight:40px;
 #settings{
+	width:110px;
+	height:$settingsHeight;
+	position:relative;
+	top:-100%;
+	left:0px;
+	background-color:#e8b57b;
+	transition: background-color 2s;
+	border-bottom:2px solid #f8fc86;
+	z-index:2;
+	&:hover{
+		background-color:#f9f509;
+	}
 	&:before{
 		content:"";
 		position:absolute;
@@ -267,14 +279,6 @@ $settingsHeight:40px;
 		background-position:-2px -2px;
 		z-index:1;
 	}
-	width:110px;
-	height:$settingsHeight;
-	position:relative;
-	top:-100%;
-	left:0px;
-	background-color:#e8b57b;
-	border-bottom:2px solid #f8fc86;
-	z-index:2;
 	p{
 		font-family:Lasco_Bold;
 		font-size:$base-font-size + 1px;
@@ -286,17 +290,77 @@ $settingsHeight:40px;
 		font-size:$base-font-size + 2px;
 	}
 }
-.settings__base{
-		$height:80px;
+%settings__base__block{
+	border:1px solid #afaf77;
+	padding:1px;
+	margin-bottom:2px;
+	background-color:#e5d5b3;
+}
+.settings__base__slidePanel{
+		$height:150px;
 		position:absolute;
 		left:0px;
-		top:(($height * (-1)) + $settingsHeight);
+		top:(($height * (-1)) + $settingsHeight);/* 150 * (-1) + 40 = -40 */
 		width:150px;
 		height:$height;
+		padding:0px 5px;
 		background-color:#f6f6f6;
 		z-index:0;
-		p{
-			font-size:$base-font-size - 1px;
+		font-size:$base-font-size - 4px;
+		font-family:Lasco_Bold;
+		.settings__base_language{
+			@extend %settings__base__block;
+			.settings__base_language_header{
+				
+			}
+			.settings__base_language_control{
+				overflow:hidden;
+				label:after{
+					content:"";
+					display:block;
+					float:right;
+					height:13px;
+					width:20px;
+					background-image: url('../../svg/flags.svg');
+					background-repeat:no-repeat;
+					background-size:40px 34px;
+					border:1px solid #000;
+				}
+				label:first-child:after{
+					background-position:-1px -23px;
+				}
+				label:last-child:after{
+					background-position:-1px -12px;
+					margin-left:3px;
+				}
+			}
 		}
-	}
+		.settings__base_music{
+			@extend %settings__base__block;
+			background-color:#b3e5b3;
+			.settings__base_music_header{
+				
+			}
+			.settings__base_music_control{
+				label{
+				
+				}
+			}
+		}
+		.settings__base_userPage{
+			@extend %settings__base__block;
+			background-color:#f4b953;
+			height:50px;
+			#userSettingsPage{
+				font-size:$base-font-size - 6px;
+				width:100px;
+				margin:5px 0px 0px 20px;
+				border:1px solid #ea8e1e;
+				border-radius:10px;
+				&:hover{
+					background-color:#dbccab;
+				}
+			}
+		}
+}
 

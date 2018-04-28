@@ -33,7 +33,7 @@ module.exports = {
 							options: {
 								name: '[path][name].[ext]',
 								context:path.resolve(__dirname, "./public"),
-								publicPath: '../',
+								publicPath: '../',//This path will be added in the beginning to the URI in CSS file
 								//outputPath: './'	
 							}  
 						}

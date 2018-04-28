@@ -1,0 +1,26 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" width="42px" height="95px" class="flagsSVG">
+	<g>
+		<rect class="flagENG" x="1" y="0" width="40" height="30" stroke="#000" stroke-width="1px" fill="#fff" shape-rendering="crispEdges"  />
+		<rect  x="19" y="0" width="5" height="30" fill="#f00" />
+		<rect  x="1" y="13" width="40" height="5" fill="#f00" />
+		<polygon points="4,0 16,0 16,9" fill="#093987" />
+		<polygon points="1,4 10,11 1,11" fill="#093987" />
+		<polygon points="1,20 10,20 1,26" fill="#093987" />
+		<polygon points="4,30 16,30 16,21" fill="#093987" />
+		<polygon points="39,30 27,30 27,21" fill="#093987" />
+		<polygon points="41,20 31,20 41,26" fill="#093987" />
+		<polygon points="41,4 31,11 41,11" fill="#093987" />
+		<polygon points="37,0 27,0 27,9" fill="#093987" />
+	</g>
+	<g>
+		<rect class="flagUKR" x="1" y="32" width="40" height="30" stroke="#000" stroke-width="1px" fill="#fff" shape-rendering="crispEdges" />
+		<rect  x="1" y="32" width="40" height="15" fill="#195fd1" />
+		<rect  x="1" y="47" width="40" height="15" fill="#f7e922" />
+	</g>
+	<g>
+		<rect class="flagRU" x="1" y="64" width="40" height="30" stroke="#000" stroke-width="1px" fill="#fff" shape-rendering="crispEdges"  />
+		<rect  x="1" y="64" width="40" height="10" fill="#fff" />
+		<rect  x="1" y="74" width="40" height="10" fill="#220cc9" />
+		<rect  x="1" y="84" width="40" height="10" fill="#c93326" />
+	</g>
+</svg>

@@ -1,7 +1,22 @@
 module.exports = {
 	"ru":{
 		"settingsPanel":{
-			"baseText":["Мои","Настройки"]
+			"baseText":["Мои","Настройки"],
+			"basePanel": {
+				"language":{
+					"header":"Язык интерфейса",
+					"languageLabel":["Рус","Укр"],
+				},
+				"music":{
+					"header":"Музыка",
+					"musicState":["Вкл.","Выкл."]
+				},
+				"user":{
+					"header":"Привет",
+					"button":"Перейти к профилю"
+				}
+				
+			}
 		},
 		"mainpage":{
 			"auth":{
@@ -21,7 +36,22 @@ module.exports = {
 	},
 	"ua":{
 		"settingsPanel":{
-			"baseText":["Мої","налаштування"]
+			"baseText":["Мої","налаштування"],
+			"basePanel": {
+				"language":{
+					"header":"Мова інтерфейсу",
+					"languageLabel":["Рос","Укр"],
+				},
+				"music":{
+					"header":"Музика",
+					"musicState":["Увімк","Вимк"]
+				},
+				"user":{
+					"header":"Вітаю",
+					"button":"Перейти до профілю"
+				}
+				
+			}
 		},
 		"mainpage":{
 			"auth":{
