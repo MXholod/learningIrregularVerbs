@@ -2,6 +2,7 @@ const path = require("path");
 const express = require("express");
 const app = express();
 const baseRouts = require("./routes/base");
+const server = require("./libs/io")(app);
 
 //Set template engine
 app.set('view engine','pug');
@@ -14,6 +15,6 @@ app.use('/public',express.static(path.join(__dirname,'public')));
 app.use("/",baseRouts);
 
 //const port = Number(process.env.PORT || 3000);
-app.listen(3000,()=>{
+server.listen(3000,()=>{//"127.0.0.1",
 	console.log("Listening on port 3000.");
 });

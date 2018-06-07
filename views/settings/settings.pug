@@ -1,24 +1,24 @@
-div(id="settings")
-	p #{lang.settingsPanel.baseText[0]}
-	p #{lang.settingsPanel.baseText[1]}
-div(class="settings__base__slidePanel")
+div(id="basePanelText" data-language="basePanelText")
+	p(data-language="basePanelText") #{lang.settingsPanel.basePanelText[0]}
+	p(data-language="basePanelText") #{lang.settingsPanel.basePanelText[1]}
+div(id="basePanel" data-language="basePanel" class="settings__base__slidePanel")
 	div(class="settings__base_language")
-		div(class="settings__base_language_header") #{lang.settingsPanel.basePanel.language.header}
+		div(data-language="basePanel" class="settings__base_language_header") #{lang.settingsPanel.basePanel.language.header}
 		div(class="settings__base_language_control") 
-			label(for="rus") #{lang.settingsPanel.basePanel.language.languageLabel[0]}
+			label(data-language="basePanel" for="rus") #{lang.settingsPanel.basePanel.language.languageLabel[0]}
 				input(type="radio" id="rus" value="rus" name="language" checked="checked")
 			br
-			label(for="ukr") #{lang.settingsPanel.basePanel.language.languageLabel[1]}
+			label(data-language="basePanel" for="ukr") #{lang.settingsPanel.basePanel.language.languageLabel[1]}
 				input(type="radio" id="ukr" value="ukr" name="language")
 	div(class="settings__base_music")
-		div(class="settings__base_music_header") #{lang.settingsPanel.basePanel.music.header}
+		div(data-language="basePanel" class="settings__base_music_header") #{lang.settingsPanel.basePanel.music.header}
 		div(class="settings__base_music_control")
-			label(for="onMusic") #{lang.settingsPanel.basePanel.music.musicState[0]}
+			label(data-language="basePanel" for="onMusic") #{lang.settingsPanel.basePanel.music.musicState[0]}
 				input(type="radio" id="onMusic" value="turnOn" name="music" checked="checked")
 			br
-			label(for="offMusic") #{lang.settingsPanel.basePanel.music.musicState[1]}
+			label(data-language="basePanel" for="offMusic") #{lang.settingsPanel.basePanel.music.musicState[1]}
 				input(type="radio" id="offMusic" value="turnOff" name="music")
 	div(class="settings__base_userPage")
-		h3 #{lang.settingsPanel.basePanel.user.header}
+		h3(data-language="basePanel") #{lang.settingsPanel.basePanel.user.header}
 		p 
-			button(id="userSettingsPage") #{lang.settingsPanel.basePanel.user.button}
+			button(data-language="basePanel" id="userSettingsPage") #{lang.settingsPanel.basePanel.user.button}

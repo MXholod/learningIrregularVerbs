@@ -1,5 +1,5 @@
 const db = require("../config/db");
-const lang = require("../config/language");
+//const lang = require("../config/language");
 const express = require("express");
 let routes = express.Router(); 
 /*let language;
@@ -10,7 +10,8 @@ routes.get("/",(request,response)=>{
 	//response.send("<h1>Hello</h1>");
 	//var d1 = db();
 	//global.d1 = d1[0];
-	response.render("index",{title:"Irregular verbs",lang:lang.ua});//,result:d1[1]
+	//response.render("index",{title:"Irregular verbs",lang:lang.ua});//,result:d1[1]
+	response.render("index",{title:"Irregular verbs"});//,result:d1[1]
 });
 routes.get("/account",(request,response)=>{
 	//var d2 = db("second","info");

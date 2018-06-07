@@ -92,7 +92,7 @@ module.exports = __webpack_require__(4);
 					stopPoint:[40,-110],//stop point from the top, stop point from the top
 					reverse:[false,true]//false - down, true - up
 				};
-				var bt = document.getElementById("settings");//Button test
+				var bt = document.getElementById("basePanelText");//Button test
 				bt.addEventListener('click',function(){
 					if(!blocking){
 						blocking = true;
@@ -144,6 +144,27 @@ module.exports = __webpack_require__(4);
 					}
 			}
 })();
+
+/*(function(){
+	window.addEventListener('load',function(){
+		
+		getStateLanguage('rus',function(){
+			console.log(this.value,' ',this.checked);//true
+			
+				
+		});
+		getStateLanguage('ukr',function(){
+			console.log(this.value,' ',this.checked);//true
+		});
+		
+		function getStateLanguage(id,func){
+			var rad = document.getElementById(id);
+			rad.onchange = function(){
+				func.call(this);
+			};
+		}
+	});
+})();*/
 
 /***/ })
 /******/ ]);

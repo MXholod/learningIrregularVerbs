@@ -1,7 +1,7 @@
 module.exports = {
 	"ru":{
 		"settingsPanel":{
-			"baseText":["Мои","Настройки"],
+			"basePanelText":["Мои","Настройки"],
 			"basePanel": {
 				"language":{
 					"header":"Язык интерфейса",
@@ -36,7 +36,7 @@ module.exports = {
 	},
 	"ua":{
 		"settingsPanel":{
-			"baseText":["Мої","налаштування"],
+			"basePanelText":["Мої","налаштування"],
 			"basePanel": {
 				"language":{
 					"header":"Мова інтерфейсу",
