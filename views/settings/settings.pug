@@ -18,6 +18,9 @@ div(id="basePanel" data-language="basePanel" class="settings__base__slidePanel")
 			br
 			label(data-language="basePanel" for="offMusic") #{lang.settingsPanel.basePanel.music.musicState[1]}
 				input(type="radio" id="offMusic" value="turnOff" name="music")
+		div(id="bgMusic")
+			audio(autoplay)
+				source(src="../../public/sounds/mainPage/WeWillRockYou.mp3" type="audio/mpeg")
 	div(class="settings__base_userPage")
 		h3(data-language="basePanel") #{lang.settingsPanel.basePanel.user.header}
 		p 

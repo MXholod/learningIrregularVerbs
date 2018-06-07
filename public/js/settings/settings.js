@@ -77,6 +77,7 @@ module.exports = __webpack_require__(4);
 /* 4 */
 /***/ (function(module, exports) {
 
+//Panel slide up and down
 (function(){
 			var blocking = false;//For cancel event if this event in progress 
 			var direction = false;
@@ -144,27 +145,39 @@ module.exports = __webpack_require__(4);
 					}
 			}
 })();
-
-/*(function(){
+//Music control
+(function(){
 	window.addEventListener('load',function(){
-		
-		getStateLanguage('rus',function(){
-			console.log(this.value,' ',this.checked);//true
-			
-				
-		});
-		getStateLanguage('ukr',function(){
-			console.log(this.value,' ',this.checked);//true
-		});
-		
-		function getStateLanguage(id,func){
-			var rad = document.getElementById(id);
-			rad.onchange = function(){
-				func.call(this);
+		//Detect radio buttons changing
+		function changeMusicState(id,func){
+			var radio = document.getElementById(id);
+			//Gets audio element
+			var parentAU = document.getElementById("bgMusic");
+			var audio = parentAU.getElementsByTagName("audio")[0];
+			radio.onchange = function(e){
+				func.call(this,audio,event);
 			};
 		}
+		function turnOnTheMusic(id,func){
+			changeMusicState(id,func);
+		}
+		function turnOffTheMusic(id,func){
+			changeMusicState(id,func);
+		}
+		//Turn on the music
+		turnOnTheMusic("onMusic",function(au,event){
+			//console.log("Turned on ",event.target);
+			au.play();
+		});
+		//Turn off the music
+		turnOffTheMusic("offMusic",function(au){
+			//console.log("Turned off ",this,au);
+			au.pause();
+			au.currentTime = 0.0;
+		});
+		
 	});
-})();*/
+})();
 
 /***/ })
 /******/ ]);
