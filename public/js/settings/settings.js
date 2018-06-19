@@ -77,6 +77,19 @@ module.exports = __webpack_require__(4);
 /* 4 */
 /***/ (function(module, exports) {
 
+//Greeting panel (Starting program)
+(function(){
+	window.addEventListener('load',function(){
+		removeGreeting("closeGreeting","greeting");
+	},false);
+	function removeGreeting(idBtn,idCoverPanel){
+		var btn = document.getElementById(idBtn);
+		var coverPanel = document.getElementById(idCoverPanel);
+		btn.addEventListener('click',function(){
+			coverPanel.parentNode.removeChild(coverPanel);
+		},false);
+	}
+})();
 //Panel slide up and down
 (function(){
 			var blocking = false;//For cancel event if this event in progress 
@@ -95,11 +108,11 @@ module.exports = __webpack_require__(4);
 				};
 				var bt = document.getElementById("basePanelText");//Button test
 				bt.addEventListener('click',function(){
-					if(!blocking){
+					if(!blocking){//If "blocking" is true we can't move panel 
 						blocking = true;
 						start(panel,settings);
 					}
-					return false;//Cancel event
+					return false;//Cancel event, block to click by panel
 				},false);
 			};
 			function start(el,obj){//Choose movement direction

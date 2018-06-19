@@ -1,20 +1,20 @@
 div(class="auth")
-		div(class="auth__content")
-			p #{lang.mainpage.auth.formTitle}
+		div(id="auth" data-language="auth" class="auth__content")
+			p(data-language="auth") #{lang.mainpage.auth.formTitle}
 			form(action="/" method="POST")
 				div(class="form-group")
-					label(for="log")
+					label(data-language="auth" for="log")
 						| #{lang.mainpage.auth.firstControl.labelTitle}
 						br
-						input(type="text" name="login" value=lang.mainpage.auth.firstControl.inputValue id="log" class="form-control")
+						input(data-language="auth" type="text" name="login" value=lang.mainpage.auth.firstControl.inputValue id="log" class="form-control")
 				div(class="form-group")
-					label(for="pas")
+					label(data-language="auth" for="pas")
 						| #{lang.mainpage.auth.secondControl.labelTitle}
 						br
-						input(type="password" name="pass" placeholder=lang.mainpage.auth.secondControl.placeHolder id="pas" class="form-control")
+						input(data-language="auth" type="password" name="pass" placeholder=lang.mainpage.auth.secondControl.placeHolder id="pas" class="form-control")
 				div(class="form-group")
-					input(type="submit" name="sub" value=lang.mainpage.auth.submit class="btn btn-primary")
+					input(data-language="auth" type="submit" name="sub" value=lang.mainpage.auth.submit class="btn btn-primary")
 					div(class="forgottenPass")
-						label(for="forgotten")
+						label(data-language="auth" for="forgotten")
 							| #{lang.mainpage.auth.forgetPassLabel}&nbsp;
 							input(type="checkbox" name="forgottenPass" value="forgotten" id="forgotten")

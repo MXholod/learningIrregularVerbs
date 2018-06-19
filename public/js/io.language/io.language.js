@@ -87,7 +87,7 @@
 			return completedObject;
 		}
 		//3. This is an array of IDs we try to find on client side
-		var arrayIDs = new Array("basePanelText","basePanel");
+		var arrayIDs = new Array("basePanelText","basePanel","auth");
 		var parentIDs;
 		//5. Insert data from language file to HTML elements 
 		function insertDataToHTML(objectHtmlElements,objectStringsData){
@@ -121,7 +121,7 @@
 		//Launch Socket
 		var socket = io.connect('http://localhost:3000');	
 			socket.on('getLanguage', function(data){
-						console.log(data);//d
+						//console.log(data);//d
 				//1. Get DOM elements to insert data from parsed object
 				var domElements = parseHtmlByIdAndAttr(parentIDs,"data-language");
 				//2. Insert data from parsed file to HTML elements

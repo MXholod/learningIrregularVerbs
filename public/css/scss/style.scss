@@ -206,7 +206,7 @@ html,body {
 			position:absolute;
 				top:0px;
 				left:0px;
-				z-index:2;
+				z-index:1;
 				width:200px;
 				height:360px;
 			& > p{
@@ -248,6 +248,124 @@ html,body {
 		}
 	}
 }
+@keyframes greetingBlock{
+	0%{
+		top:$base-height / 2 - 260px;
+		transform:scale(0.2,0.2);
+	}
+	20%{
+		top:$base-height / 2 - 220px;
+		transform:scale(0.3,0.3);
+	}
+	100%{
+		top:($base-height - 200px) / 2;
+		transform:scale(1,1);
+	}
+}
+#greeting{
+	width:$base-width;
+	height:$base-height;
+	position:absolute;
+	top:0;
+	left:0px;
+	z-index:1000;
+	$w:$base-width / 2;
+	$h:$base-height - $w;
+		.greeting-content{	
+			width:$w;
+			height:$h;
+			animation-name: greetingBlock;
+			animation-duration: 5s;
+			animation-iteration-count: 1;
+			animation-direction: normal;
+			animation-timing-function: ease-out;
+			background-color:#FED7A0;
+			border:3px solid blue;
+			border-radius:10px;
+			position:absolute;
+			left:($base-width - 400px) / 2;
+			top:($base-height - 200px) / 2;
+			z-index:1001;
+			h1{
+				text-align:center;
+				padding:2px;
+				border-bottom:2px solid #fff;
+				border-top-left-radius:5px;
+				border-top-right-radius:5px;
+				background-color:#E29BD1;
+				font-family:Lasco_Bold;
+				font-size:$base-font-size - 5px;
+				span{
+					display:block;
+					color:#481A6E;
+					font-weight:bold;
+				}
+			}
+			.greeting-content__rus{
+				text-align:center;
+				text-indent:5px;
+				background-color:#DBF0FF;
+				border-top-left-radius:5px;
+				border-top-right-radius:5px;
+				padding:3px;
+				border-bottom:2px solid #fff;
+				span{
+					color:#5C40A9;
+					font-weight:bold;
+				}
+			}
+			.greeting-content__ukr{
+				text-align:center;
+				text-indent:5px;
+				background-color:#FFFD9D;
+				padding:3px;
+				border-bottom:2px solid #fff;
+				border-bottom-left-radius:5px;
+				border-bottom-right-radius:5px;
+				span{
+					color:#5C40A9;
+					font-weight:bold;
+				}
+			}
+			#closeGreeting{
+				display:block;
+				width:40px;
+				height:40px;
+				position:absolute;
+				top:$h - (40px + 6px);
+				left:$w - (40px + 6px);
+				border-top-left-radius:5px;
+				border-bottom-right-radius:5px;
+				border:1px solid transparent;
+				&:before{
+					content:"";
+					display:block;
+					width:7px;
+					height:35px;
+					border:1px solid #000;
+					background-color:#f00;
+					transform-origin:109% 77%;
+					transform:rotate(45deg);
+				}
+				&:after{
+					content:"";
+					display:block;
+					width:7px;
+					height:35px;
+					border:1px solid #000;
+					background-color:#f00;
+					transform-origin:43% 50%;
+					transform:rotate(132deg);
+					position:relative;
+					top:-35px;
+					left:10px;
+				}
+				&:hover{
+					background-color:#F1EC8A;
+				}
+			}
+		}
+}
 $settingsHeight:40px;
 #basePanelText{
 	width:110px;
@@ -258,7 +376,7 @@ $settingsHeight:40px;
 	background-color:#e8b57b;
 	transition: background-color 2s;
 	border-bottom:2px solid #f8fc86;
-	z-index:2;
+	z-index:999;
 	&:hover{
 		background-color:#f9f509;
 	}
@@ -277,7 +395,7 @@ $settingsHeight:40px;
 		background-image:url('../../svg/wrench.svg');
 		background-repeat:no-repeat;
 		background-position:-2px -2px;
-		z-index:1;
+		z-index:998;
 	}
 	p{
 		font-family:Lasco_Bold;
@@ -357,6 +475,7 @@ $settingsHeight:40px;
 				margin:5px 0px 0px 20px;
 				border:1px solid #ea8e1e;
 				border-radius:10px;
+				visibility:hidden;
 				&:hover{
 					background-color:#dbccab;
 				}
