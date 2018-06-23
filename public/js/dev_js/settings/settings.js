@@ -1,16 +1,3 @@
-//Greeting panel (Starting program)
-(function(){
-	window.addEventListener('load',function(){
-		removeGreeting("closeGreeting","greeting");
-	},false);
-	function removeGreeting(idBtn,idCoverPanel){
-		var btn = document.getElementById(idBtn);
-		var coverPanel = document.getElementById(idCoverPanel);
-		btn.addEventListener('click',function(){
-			coverPanel.parentNode.removeChild(coverPanel);
-		},false);
-	}
-})();
 //Panel slide up and down
 (function(){
 			var blocking = false;//For cancel event if this event in progress 

@@ -219,26 +219,45 @@ html,body {
 			form{
 				width:170px;
 				height:100px;
-				margin:10px 10px 10px 10px;
+				margin:3px 10px 10px 10px;
+				%warn{
+					font-size:10px;
+					color:#BF034E;
+					display:inline-block;
+					margin-left:5px;
+					text-align:center;
+					font-weight:bold;
+					width:78px;
+					visibility:hidden;
+					padding:1px;
+					background:#f6f6f6;
+					border-radius:5px;
+				}
+				.auth__content__logWarn{
+					@extend %warn;
+				}
+				.auth__content__passWarn{
+					@extend %warn;
+				}
 				.form-group{
-					margin-bottom:0.3rem;
+					margin-bottom:0.2rem;
 					label{
 						color:#000;
 					}
 					input[type='submit']{
 						padding:0.1rem 0.2rem;
 						line-height:1;
-						margin:2px 0px 0px 42px;
+						margin:2px 0px 0px 50px;
 						border:1px solid #fff;
 					}
 					.form-control{
 						line-height:1;
-						padding:0.1rem 0.2rem;
+						padding:0.1px 0.2rem;
 						margin-top:5px;
 					}
 					.forgottenPass{
 						border:1px solid #fff;
-						margin:10px 0px 0px 34px;
+						margin:8px 0px 0px 34px;
 						width:110px;
 						padding:2px;
 						border-radius:5px;
@@ -332,11 +351,12 @@ html,body {
 				width:40px;
 				height:40px;
 				position:absolute;
-				top:$h - (40px + 6px);
+				top:$h - (40px + 5px);
 				left:$w - (40px + 6px);
+				border-top:3px solid blue;
+				border-left:3px solid blue;
 				border-top-left-radius:5px;
 				border-bottom-right-radius:5px;
-				border:1px solid transparent;
 				&:before{
 					content:"";
 					display:block;
@@ -346,7 +366,9 @@ html,body {
 					background-color:#f00;
 					transform-origin:109% 77%;
 					transform:rotate(45deg);
+					transition:background-color 2s;
 				}
+				&:hover:before{background-color:#0f0;}
 				&:after{
 					content:"";
 					display:block;
@@ -359,7 +381,9 @@ html,body {
 					position:relative;
 					top:-35px;
 					left:10px;
+					transition:background-color 2s;
 				}
+				&:hover:after{background-color:#0f0;}
 				&:hover{
 					background-color:#F1EC8A;
 				}

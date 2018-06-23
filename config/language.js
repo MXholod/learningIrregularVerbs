@@ -23,10 +23,12 @@ module.exports = {
 				"formTitle":"Выполните регистрацию",
 				"firstControl":{
 					"labelTitle":"Введите имя",
+					"warningInput":"Неверный формат имени!",
 					"inputValue":"Ваше имя"
 				},
 				"secondControl":{
 					"labelTitle":"Введите пароль",
+					"warningInput":"Неверный формат пароля!",
 					"placeHolder":"Ваш пароль"
 				},
 				"submit":"Отправить",
@@ -58,10 +60,12 @@ module.exports = {
 				"formTitle":"Виконайте реєстрацію",
 				"firstControl":{
 					"labelTitle":"Введіть ім'я",
+					"warningInput":"Невірний формат імені!",
 					"inputValue":"Ваше ім'я"
 				},
 				"secondControl":{
 					"labelTitle":"Введіть пароль",
+					"warningInput":"Невірний формат пароля!",
 					"placeHolder":"Ваш пароль"
 				},
 				"submit":"Відправити",
