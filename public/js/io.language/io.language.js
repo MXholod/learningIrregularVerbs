@@ -11,10 +11,10 @@
 					if(dataValue === idsArray[i]){
 						existedIds.push(idsArray[i]);
 					}else{
-						console.log("There is not ID");
+						//console.log("There is not ID");
 					}
 				}else{
-					console.log("ID does not exist");
+					//console.log("ID does not exist");
 				}
 			}
 			return existedIds;
@@ -70,13 +70,13 @@
 									if(parent.children[a].children.length > 0){//Level 2
 										recursion(parent.children[a],dataSetVal);//Recursion
 									}else{
-										console.log("There are not children here");
+										//console.log("There are not children here");
 									}
 								}else{
 									if(parent.children[a].children.length > 0){//Level 2
 										recursion(parent.children[a],dataSetVal);//Recursion
 									}else{
-										console.log("There are not children here");
+										//console.log("There are not children here");
 									}
 								}
 							}
@@ -147,7 +147,7 @@
 				};
 			}
 			//Working with Socket.IO on Client Side
-			function socketData(d){console.log(parentIDs,"Client");
+			function socketData(d){//console.log(parentIDs,"Client");
 					if(d == "rus"){
 						//console.log(d);
 						socket.emit('setLanguage', { language: "ru", ind:0, ids:parentIDs});

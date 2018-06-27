@@ -1,7 +1,7 @@
 div(class="auth")
 		div(id="auth" data-language="auth" class="auth__content")
 			p(data-language="auth") #{lang.mainpage.auth.formTitle}
-			form(action="/" method="POST" name="authentication")
+			form(action="/authorize" method="POST" name="authentication")
 				div(class="form-group")
 					label(data-language="auth" for="log")
 						| #{lang.mainpage.auth.firstControl.labelTitle}

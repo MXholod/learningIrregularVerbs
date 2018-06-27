@@ -1,6 +1,9 @@
 extends ../layout.pug
+block variables
+	- var mainPage = true;
 block appContent
 	div(class="wrapper__index")
 		include left-team-svg.pug
 		include right-team-svg.pug
 	include auth.pug
+	include greeting/greeting.pug

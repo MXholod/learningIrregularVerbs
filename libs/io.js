@@ -10,7 +10,8 @@ module.exports = function(app){
 		if(object.hasOwnProperty(startProperty)){
 			mainProp = object[startProperty];//"ua","ru" - object property
 		}else{
-			console.log("Property doesn't exist in object");
+			//console.log("Property doesn't exist in object");
+			return false;
 		}
 		var complitedObject = {};//obj - is an object of arrays
 		//This function find properties in Objects and Arrays according to 
@@ -79,14 +80,16 @@ module.exports = function(app){
 	}
 	//Middleware for
 	app.use("/",function(request,response,next){
-		response.locals.lang = langs[set];
+		response.locals.lang = langs[set];//Local variable lang has access in all templates of application
 		next();
 	});
+	//Use Socket.I.O
 	io.on('connection', function (socket) {
 		//console.log("'User connected'");
 			socket.on('setLanguage', function (data) {
 				set = data.ind;//0 || 1
-				var languageObject = parseObjectToArray(lang,data.language,data.ids);//ru || ua
+				//lang - ru || ua,
+				var languageObject = parseObjectToArray(lang,data.language,data.ids);
 				socket.emit('getLanguage', 
 					{  
 						language : languageObject,

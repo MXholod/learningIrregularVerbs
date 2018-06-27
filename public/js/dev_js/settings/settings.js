@@ -79,6 +79,7 @@
 				func.call(this,audio,event);
 			};
 		}
+		
 		function turnOnTheMusic(id,func){
 			changeMusicState(id,func);
 		}
@@ -88,6 +89,7 @@
 		//Turn on the music
 		turnOnTheMusic("onMusic",function(au,event){
 			//console.log("Turned on ",event.target);
+			//au.volume = 0.7;
 			au.play();
 		});
 		//Turn off the music

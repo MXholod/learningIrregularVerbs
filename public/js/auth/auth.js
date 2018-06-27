@@ -1,6 +1,7 @@
 //Greeting panel (Starting program)
 (function(){
 	window.addEventListener('load',function(){
+		//Remove greeting panel
 		removeGreeting("closeGreeting","greeting");
 	},false);
 	function removeGreeting(idBtn,idCoverPanel){
@@ -8,7 +9,16 @@
 		var coverPanel = document.getElementById(idCoverPanel);
 		btn.addEventListener('click',function(){
 			coverPanel.parentNode.removeChild(coverPanel);
+			//First time to play background music
+			startPlay();
 		},false);
+	}
+	function startPlay(){
+		//Gets audio element
+		var parentAU = document.getElementById("bgMusic");
+		var audio = parentAU.getElementsByTagName("audio")[0];
+		audio.volume = 0.7;
+		audio.play();
 	}
 })();
 //Check form fields Authorization and Authentication and 'Sign Up' - registration, 'Sign In' - enter to the system
@@ -30,9 +40,9 @@
 		element.addEventListener("blur",func,false);
 	}
 	window.addEventListener("load",function(){
-		var correctLogin;//Keep correct value of Login input
+		var correctLoginAndPass = [];//Keep correct value of Login input
 		function login(){//Check Login
-			var template = "^[a-zA-Z0-9_-]*$";
+			var template = "^[а-яА-Яa-zA-Z0-9_-]*$";
 			var reg = new RegExp(template); //
 			var result = reg.test(this.value);
 			var warn = document.getElementsByClassName("auth__content__logWarn")[0];
@@ -41,7 +51,7 @@
 				return false;
 			}else{//Login is correct
 				warn.style.visibility = "hidden";
-				correctLogin = this.value;//Remember correct value of Login input
+				correctLoginAndPass[0] = this.value;//Remember correct value of Login input
 				return true;
 			}
 		}
@@ -56,6 +66,7 @@
 				return false;
 			}else{//Password is correct
 				warn.style.visibility = "hidden";
+				correctLoginAndPass[1] = this.value;//Remember correct value of Password input
 				return true;
 			}
 		}
@@ -72,7 +83,7 @@
 				document.forms.authentication.elements.sub.disabled = false;//Hide submit button
 			}else{
 				document.forms.authentication.elements.sub.disabled = true;//Show submit button
-				document.forms.authentication.onsubmit = toSubmit;
+				//document.forms.authentication.onsubmit = toSubmit;
 			}
 		});
 		checkWhenLeave("pas",function(){
@@ -82,12 +93,13 @@
 			}
 			else{
 				document.forms.authentication.elements.sub.disabled = true;//Show submit button
-				document.forms.authentication.onsubmit = toSubmit;
+				//document.forms.authentication.onsubmit = toSubmit;
 			}
 		});
+		//Submit data to server side
 		function toSubmit(){
-			console.log(correctLogin);
-			return false;
+			//console.log("Log ",correctLoginAndPass[0]," Pass ",correctLoginAndPass[1]);
+			//return false;
 		}
 	},false);
 	

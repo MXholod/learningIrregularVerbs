@@ -178,6 +178,10 @@ html,body {
 			}
 		}
 	}
+	.wrapper__profile{
+		height:$base-height;
+		background-color:pink;
+	}
 	.auth{
 		width:200px;
 		height:180px;
@@ -284,6 +288,7 @@ html,body {
 #greeting{
 	width:$base-width;
 	height:$base-height;
+	background-color:rgba(0,0,0,0.8);
 	position:absolute;
 	top:0;
 	left:0px;

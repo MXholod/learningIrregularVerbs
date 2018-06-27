@@ -1,6 +1,7 @@
 const path = require("path");
 const express = require("express");
 const app = express();
+const bodyParser = require("body-parser");
 const baseRouts = require("./routes/base");
 const server = require("./libs/io")(app);
 
@@ -11,6 +12,8 @@ app.set('views',[__dirname+'/views',__dirname+'/views/main-page']);
 //Static files storage: 1.URL segment, 2.Folder name.
 app.use('/public',express.static(path.join(__dirname,'public')));
 
+//Middleware for Body-Parser //POST and other requests
+app.use(bodyParser());
 //Middleware for Base routing registration
 app.use("/",baseRouts);
 
