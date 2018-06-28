@@ -13,7 +13,12 @@ app.set('views',[__dirname+'/views',__dirname+'/views/main-page']);
 app.use('/public',express.static(path.join(__dirname,'public')));
 
 //Middleware for Body-Parser //POST and other requests
-app.use(bodyParser());
+	//app.use(bodyParser());//First way
+//support application/json type post data
+app.use(bodyParser.json());
+//support application/x-www-form-urlencoded post data
+app.use(bodyParser.urlencoded({extended:false}));
+
 //Middleware for Base routing registration
 app.use("/",baseRouts);
 

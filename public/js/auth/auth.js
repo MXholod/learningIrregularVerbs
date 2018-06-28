@@ -17,7 +17,7 @@
 		//Gets audio element
 		var parentAU = document.getElementById("bgMusic");
 		var audio = parentAU.getElementsByTagName("audio")[0];
-		audio.volume = 0.7;
+		audio.volume = 0.1;
 		audio.play();
 	}
 })();
@@ -46,7 +46,7 @@
 			var reg = new RegExp(template); //
 			var result = reg.test(this.value);
 			var warn = document.getElementsByClassName("auth__content__logWarn")[0];
-			if((this.value.length < 3) || !result){//			
+			if((this.value.length < 3) || !result){//3			
 				warn.style.visibility = "visible";
 				return false;
 			}else{//Login is correct
@@ -57,11 +57,11 @@
 		}
 		function password(){//Check Password
 			//console.log("Pass ",this);
-			var template = "^[a-zA-Z0-9]*$";
+			var template = "^[а-яА-Яa-zA-Z0-9]*$";
 			var reg = new RegExp(template); //
 			var result = reg.test(this.value);
 			var warn = document.getElementsByClassName("auth__content__passWarn")[0];
-			if((this.value.length < 5) || !result){// 
+			if((this.value.length < 5) || !result){//5 
 				warn.style.visibility = "visible";
 				return false;
 			}else{//Password is correct
