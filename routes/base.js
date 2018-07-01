@@ -1,5 +1,7 @@
-const db = require("../config/db");
 const express = require("express");
+const dbs = require("../config/db");
+const User = require("../models/UserModel");
+
 let routes = express.Router();
 	function validateData(log,pass){
 		var leng=true,textCorrect=true;
@@ -29,15 +31,24 @@ routes.post("/authorize",(request,response)=>{
 	//if (!request.body) return res.sendStatus(400);
 	var l = request.body.login;
 	var p = request.body.pass;
-	//if((l.length < 3) || (p.length < 5)){
-	if(validateData(l,p)){
+	if(validateData(l,p)){//If bad request
 		response.redirect(302, '/');
-	}else{
-		var user = {"login":l,"password":p};
-		var jsonUser = JSON.stringify(user);
+	}else{//If good request
+		//var user = {"login":l,"password":p};
+		//var jsonUser = JSON.stringify(user);
 		//var d = JSON.parse(z);
 		//response.writeHead(200,{'Content-Type':'text/html'});
-		response.render("profile",{data:user.login+" "+user.password+" "+user.login.length});
+		User.login = l;
+		User.pass = p;
+		User.email = "my@mail.ua";
+		//Insert data to database
+		dbs.databases.users.insert({
+			login : User.login, 
+			password : User.pass,
+			email : User.email,
+			hash : User.getHash()
+		});
+		response.render("profile",{data:User.login+" "+User.pass+" email "+User.email+" hash - "+User.getHash()});
 	}
 });
 

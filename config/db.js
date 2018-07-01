@@ -1,30 +1,19 @@
 var Datastore = require('nedb');
 var path = require('path');
-var Singleton = (function(){
-	/*var instance;
-	
-	function Singleton(){
-		if(!instance){
-			instance = this;
-		}else{
-			return instance;
+
+// Of course you can create multiple datastores if you need several
+// collections. In this case it's usually a good idea to use autoload for all collections.
+
+const db = {};//Main object of Databases
+function createDataBases(...databases){//Array from parameters ES6 -Rest parameters
+	if(Array.isArray(databases)){
+		let len = databases.length;
+		for(let i = 0;i < len;i++){
+			db[databases[i]] = new Datastore({ filename:path.resolve(__dirname,'../db/'+[databases[i]]+'.db')});
+			db[databases[i]].loadDatabase();
 		}
 	}
-	return Singleton;*/
-	//Array of Datastores objects
-	var db;
-	function Singleton(folder,filename){
-		var folder = folder || 'storage',filename = filename || 'main_users_data';//Default DB
-		if(!db){//We have started program first time and had created main Datastore by default
-			db = new Datastore({ filename:path.resolve(__dirname,'../models/'+folder+'/'+filename)});
-			db.loadDatabase();
-			//return [db,"Mutual Database"];
-			return [db,"Database created"];
-		}else{
-			//Loop for checking out existing Datastore
-			return [db,"Database has already existed"];
-		}
-	}
-	return Singleton;
-})();
-module.exports = Singleton;
+}
+
+exports.createDataBases = createDataBases;
+exports.databases = db;
