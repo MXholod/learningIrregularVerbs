@@ -3,6 +3,7 @@ const dbs = require("./config/db");
 dbs.createDataBases("users");
 const express = require("express");
 const app = express();
+const session = require("express-session");
 const bodyParser = require("body-parser");
 const baseRouts = require("./routes/base");
 const server = require("./libs/io")(app);
@@ -20,6 +21,9 @@ app.use('/public',express.static(path.join(__dirname,'public')));
 app.use(bodyParser.json());
 //support application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({extended:false}));
+
+//Middleware for Session
+app.use(session({secret:"irregularVerbs"}));
 
 //Middleware for Base routing registration
 app.use("/",baseRouts);

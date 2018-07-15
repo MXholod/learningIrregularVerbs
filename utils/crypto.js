@@ -1,6 +1,8 @@
 var cr = require('crypto');
-function hashPassword(pass){
-	return cr.createHash('md5').update(pass).digest("hex");
+const secretHash = "irregularVerbs";
+function hashPassword(login,pass){// secretHash + login + password
+	var result = secretHash+login+pass;
+	return cr.createHash('md5').update(result).digest("hex");
 }
 /*var data = "asdf"; 
 var crypto = require('crypto'); 

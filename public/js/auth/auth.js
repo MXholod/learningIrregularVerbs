@@ -17,7 +17,7 @@
 		//Gets audio element
 		var parentAU = document.getElementById("bgMusic");
 		var audio = parentAU.getElementsByTagName("audio")[0];
-		audio.volume = 0.1;
+		audio.volume = 0.3;
 		audio.play();
 	}
 })();

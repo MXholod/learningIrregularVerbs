@@ -1,26 +1,11 @@
 const express = require("express");
 const dbs = require("../config/db");
 const User = require("../models/UserModel");
+const date = require("../utils/date");
+const validateForm = require("../utils/validateForm");
 
 let routes = express.Router();
-	function validateData(log,pass){
-		var leng=true,textCorrect=true;
-		if((log.length < 3) || (pass.length < 5)){
-			leng = false;
-		}
-			var template = "^[à-ÿÀ-ßa-zA-Z0-9_-]*$";
-			var reg = new RegExp(template); //
-			var resultLog = reg.test(log);
-			var resultPass = reg.test(pass);
-		if(!resultLog || !resultPass){
-			textCorrect = false;
-		}
-		if(leng && textCorrect){
-			return false;
-		}else{
-			return true;
-		}
-	} 
+	 
 routes.get("/",(request,response)=>{
 	//response.send("<h1>Hello</h1>");
 	//var d1 = db();
@@ -31,24 +16,51 @@ routes.post("/authorize",(request,response)=>{
 	//if (!request.body) return res.sendStatus(400);
 	var l = request.body.login;
 	var p = request.body.pass;
-	if(validateData(l,p)){//If bad request
+	if(validateForm(l,p)){//If bad request
 		response.redirect(302, '/');
 	}else{//If good request
-		//var user = {"login":l,"password":p};
-		//var jsonUser = JSON.stringify(user);
-		//var d = JSON.parse(z);
-		//response.writeHead(200,{'Content-Type':'text/html'});
+		request.session.login = l;
+		//Set data according to the Model UserModel
 		User.login = l;
 		User.pass = p;
 		User.email = "my@mail.ua";
-		//Insert data to database
-		dbs.databases.users.insert({
-			login : User.login, 
-			password : User.pass,
-			email : User.email,
-			hash : User.getHash()
+			
+		//var now_utc = date(response.locals.language);	
+		var now = date.preserveTimeToDb();
+		//Check User in DB	
+		dbs.databases.users.find({"login":User.login}, function (err, docs) {
+			// docs contains 
+			if(docs.length > 0){//User already exists
+				dbs.databases.users.find({"login":User.login,'hash':User.getHash()}, function (err, docs) {
+					//Exact user
+					//Insert data to database
+						dbs.databases.users.update({'hash':User.getHash()},{
+							login : User.login, 
+							password : User.pass,
+							email : User.email,
+							hash : User.getHash(),
+							dateBegin:docs[0].dateBegin,
+							dateLastVisit:now
+						});
+				});
+			}else{
+				//User came in the first time
+				//Insert data to database
+				dbs.databases.users.insert({
+					login : User.login, 
+					password : User.pass,
+					email : User.email,
+					hash : User.getHash(),
+					dateBegin:now,
+					dateLastVisit:now
+				});
+			}
 		});
-		response.render("profile",{data:User.login+" "+User.pass+" email "+User.email+" hash - "+User.getHash()});
+		
+		response.render("profile",{
+			userLoginSession : request.session.login,
+			data : User.login+" "+User.pass+" email "+User.email+" hash - "+User.getHash()+" lan "+response.locals.language
+		});
 	}
 });
 

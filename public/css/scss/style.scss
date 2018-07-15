@@ -498,13 +498,18 @@ $settingsHeight:40px;
 			@extend %settings__base__block;
 			background-color:#f4b953;
 			height:50px;
+			.settings__base_userPage_profileShow{
+				display:block;
+			}
+			.settings__base_userPage_profileHide{
+				display:none;
+			}
 			#userSettingsPage{
 				font-size:$base-font-size - 6px;
 				width:100px;
 				margin:5px 0px 0px 20px;
 				border:1px solid #ea8e1e;
 				border-radius:10px;
-				visibility:hidden;
 				&:hover{
 					background-color:#dbccab;
 				}

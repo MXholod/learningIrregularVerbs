@@ -3,7 +3,7 @@ var path = require('path');
 
 // Of course you can create multiple datastores if you need several
 // collections. In this case it's usually a good idea to use autoload for all collections.
-
+//Create databases from parameters
 const db = {};//Main object of Databases
 function createDataBases(...databases){//Array from parameters ES6 -Rest parameters
 	if(Array.isArray(databases)){

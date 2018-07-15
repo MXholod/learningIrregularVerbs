@@ -131,10 +131,14 @@
 			//4. Get IDs from DOM if they exist
 			parentIDs = compareIdsInHtml(arrayIDs,"data-language");
 				getTypeLanguage("rus",function(event){
+					//Save data to SessionStorage
+					saveDataToSessionStorage(this,"language");
 					//console.log("RUS",this);
 					socketData(this.value);//rus
 				});
 				getTypeLanguage("ukr",function(event){
+					//Save data to SessionStorage
+					saveDataToSessionStorage(this,"language");
 					//console.log("UKR",event.target);
 					socketData(event.target.value);//ukr
 				});

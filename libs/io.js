@@ -4,6 +4,7 @@ module.exports = function(app){
 	const lang = require("./../config/language");
 	var langs = [lang.ru,lang.ua];
 	var set = 0;
+	var language = "ru";
 	function parseObjectToArray(object,startProperty,compareIDs){
 		if(!(Array.isArray(compareIDs)) || (compareIDs.length == 0)){return false;}
 		var mainProp, array = [];
@@ -80,6 +81,7 @@ module.exports = function(app){
 	}
 	//Middleware for
 	app.use("/",function(request,response,next){
+		response.locals.language = language;//Local variable language 
 		response.locals.lang = langs[set];//Local variable lang has access in all templates of application
 		next();
 	});
@@ -88,7 +90,7 @@ module.exports = function(app){
 		//console.log("'User connected'");
 			socket.on('setLanguage', function (data) {
 				set = data.ind;//0 || 1
-				//lang - ru || ua,
+				language = data.language;//language - ru || ua,
 				var languageObject = parseObjectToArray(lang,data.language,data.ids);
 				socket.emit('getLanguage', 
 					{  
