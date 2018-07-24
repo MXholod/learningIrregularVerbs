@@ -277,7 +277,7 @@ module.exports = __webpack_require__(4);
 			//Save data to SessionStorage
 			saveDataToSessionStorage(this,"music");//this - "onMusic"
 			//console.log("Turned on ",event.target);
-			au.volume = 0.3;
+			au.volume = 0.1;
 			au.play();
 		});
 		//Turn off the music

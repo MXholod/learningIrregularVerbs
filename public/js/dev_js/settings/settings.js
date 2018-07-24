@@ -183,7 +183,7 @@
 			//Gets audio element
 			var parentAU = document.getElementById("bgMusic");
 			var audio = parentAU.getElementsByTagName("audio")[0];
-			radio.onchange = function(e){
+			radio.onchange = function(e){//Input radio is context
 				func.call(this,audio,event);
 			};
 		}
@@ -198,7 +198,7 @@
 			//Save data to SessionStorage
 			saveDataToSessionStorage(this,"music");//this - "onMusic"
 			//console.log("Turned on ",event.target);
-			au.volume = 0.3;
+			au.volume = 0.1;
 			au.play();
 		});
 		//Turn off the music

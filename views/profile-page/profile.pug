@@ -1,0 +1,18 @@
+extends ../layout.pug
+block variables
+	- var mainPage = false;
+block appContent
+	div(class="wrapper__profile")
+		section(class="wrapper__profile__menu")
+			nav(class="wrapper__profile__menu__nav")
+				ul(id="profileMenu" data-language="profileMenu")
+					li
+						a(href="#" data-language="profileMenu") #{lang.profile.profileMenu[0]}
+					li
+						a(href="#" data-language="profileMenu") #{lang.profile.profileMenu[1]}
+					li
+						a(href="#" data-language="profileMenu") #{lang.profile.profileMenu[2]}
+					li
+						a(href="#" data-language="profileMenu") #{lang.profile.profileMenu[3]}
+		section(class="wrapper__profile__content")
+			include profile-settings

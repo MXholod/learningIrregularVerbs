@@ -56,10 +56,10 @@ routes.post("/authorize",(request,response)=>{
 				});
 			}
 		});
-		
+		//"lan "+response.locals.language - uses in io.js file.
 		response.render("profile",{
 			userLoginSession : request.session.login,
-			data : User.login+" "+User.pass+" email "+User.email+" hash - "+User.getHash()+" lan "+response.locals.language
+			data : User.login+" "+User.pass+" email "+User.email+" hash - "+User.getHash()
 		});
 	}
 });

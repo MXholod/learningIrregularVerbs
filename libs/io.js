@@ -3,8 +3,8 @@ module.exports = function(app){
 	const io = require('socket.io')(server);
 	const lang = require("./../config/language");
 	var langs = [lang.ru,lang.ua];
-	var set = 0;
-	var language = "ru";
+	var setLangInd = 0;
+	//var language = "ru";
 	function parseObjectToArray(object,startProperty,compareIDs){
 		if(!(Array.isArray(compareIDs)) || (compareIDs.length == 0)){return false;}
 		var mainProp, array = [];
@@ -81,16 +81,19 @@ module.exports = function(app){
 	}
 	//Middleware for
 	app.use("/",function(request,response,next){
-		response.locals.language = language;//Local variable language 
-		response.locals.lang = langs[set];//Local variable lang has access in all templates of application
+		//Local variable - language has access in all templates of application, get current language after redirect
+		//in base.js file in render('profile') template.
+			//response.locals.language = language; 
+		//Local variable - lang has access in all templates of application, for language.js file
+		response.locals.lang = langs[setLangInd];
 		next();
 	});
 	//Use Socket.I.O
 	io.on('connection', function (socket) {
 		//console.log("'User connected'");
-			socket.on('setLanguage', function (data) {
-				set = data.ind;//0 || 1
-				language = data.language;//language - ru || ua,
+			socket.on('setLanguage', function (data){
+				setLangInd = data.ind;//0 || 1
+				//language = data.language;//language - ru || ua,
 				var languageObject = parseObjectToArray(lang,data.language,data.ids);
 				socket.emit('getLanguage', 
 					{  

@@ -180,7 +180,65 @@ html,body {
 	}
 	.wrapper__profile{
 		height:$base-height;
-		background-color:pink;
+		background-color:#fce5c0;
+			$menu-height:80px;
+			$marginLeft:(110px + 40px);
+			$rest-width:$base-width - $marginLeft;
+		.wrapper__profile__menu{
+			width:$rest-width;
+			margin-left:$marginLeft;
+			height:$menu-height;
+			background-color:#a67b35;
+			padding-top:20px;
+			.wrapper__profile__menu__nav{
+				width:inherit;
+				background-color:blue;
+				ul{
+					width:inherit;
+					background-color:#e8b57b;
+					li{
+						width:($rest-width - 50px) / 4;
+						height:40px;
+						float:left;
+						margin-left:10px;
+						background:#f288ed url('../../svg/ball.svg') 0px 5px/25px 25px no-repeat padding-box border-box scroll;
+						padding-left:25px;
+						border:1px solid #000;
+						a{
+							display:block;
+							height:38px;
+							text-decoration:none;
+							padding:5px;
+							border-left:1px solid #000;
+							background-color:#fce5c0;
+							text-align:center;
+							font-family:Lasco_Bold;
+							font-size:$base-font-size - 4px;
+						}
+					}
+					&:after{
+						content:"";
+						display:table;
+						clear:both;
+					}
+				}
+			}
+		}
+		.wrapper__profile__content{
+			@mixin profileSizeColor($bgColor,$cutWidth:0px,$cutHeight:0px){
+				height:($base-height - $menu-height) - $cutHeight;
+				width:$rest-width - $cutWidth;
+				background-color:$bgColor;
+			}
+			@include profileSizeColor(lime);
+			margin-left:$marginLeft;
+			.wrapper__profile__content_settings{
+				@include profileSizeColor(red,10px,10px);
+			}
+			.wrapper__profile__content_method-one{
+				@include profileSizeColor(pink,10px,10px);
+			}
+		}
 	}
 	.auth{
 		width:200px;
@@ -496,6 +554,9 @@ $settingsHeight:40px;
 		}
 		.settings__base_userPage{
 			@extend %settings__base__block;
+			.settings__base_userPage__userName{
+				padding:0px 0px 0px 10px;
+			}
 			background-color:#f4b953;
 			height:50px;
 			.settings__base_userPage_profileShow{

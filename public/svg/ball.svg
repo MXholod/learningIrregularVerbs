@@ -1,0 +1,11 @@
+<svg version="1.1" 
+xmlns="http://www.w3.org/2000/svg" 
+xmlns:xlink="http://www.w3.org/1999/xlink" 
+xml:space="preserve" width="60px" height="60px">
+	<g>
+		<circle  cx="30" cy="30" r="20" fill="#f06d0a" stroke="#000" />
+		<path d="M10,25 Q30,10 50,25" stroke-width="1" stroke="#000" fill="none"/>
+		<path d="M10,30 L50,30" stroke-width="1" stroke="#000" fill="none"/>
+		<path d="M10,35 Q30,50 50,35" stroke-width="1" stroke="#000" fill="none"/>
+	</g>
+</svg>
