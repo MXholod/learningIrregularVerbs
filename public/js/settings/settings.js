@@ -262,7 +262,7 @@ module.exports = __webpack_require__(4);
 			//Gets audio element
 			var parentAU = document.getElementById("bgMusic");
 			var audio = parentAU.getElementsByTagName("audio")[0];
-			radio.onchange = function(e){
+			radio.onchange = function(e){//Input radio is context
 				func.call(this,audio,event);
 			};
 		}

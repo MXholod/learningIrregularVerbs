@@ -3,6 +3,19 @@ block variables
 	- var mainPage = false;
 block appContent
 	div(class="wrapper__profile")
+		section(class="wrapper__profile__leftColumn")
+			table(id="profileLeftColumn" data-language="profileLeftColumn")
+				thead
+					tr
+						th(data-language="profileLeftColumn") #{lang.profile.profileLeftColumn[0]}
+				tbody
+					tr
+						td
+							include t-shirtSVG
+				tfoot
+					tr
+						td
+							button(data-language="profileLeftColumn" class="wrapper__profile__leftColumn__start") #{lang.profile.profileLeftColumn[1]}
 		section(class="wrapper__profile__menu")
 			nav(class="wrapper__profile__menu__nav")
 				ul(id="profileMenu" data-language="profileMenu")

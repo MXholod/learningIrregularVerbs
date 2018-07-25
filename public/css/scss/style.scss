@@ -183,7 +183,60 @@ html,body {
 		background-color:#fce5c0;
 			$menu-height:80px;
 			$marginLeft:(110px + 40px);
-			$rest-width:$base-width - $marginLeft;
+			$rest-width: ($base-width - $marginLeft);
+		.wrapper__profile__leftColumn{
+			$topOffset:(150px + 40px);
+			background-color:#e8b57b;
+			border-top:2px solid #f8fc86;
+			border-bottom:2px solid #f8fc86;
+			position:absolute;
+			bottom:40px;
+			left:0px;
+			z-index:0;
+			height:($topOffset + 50px);
+			width:$marginLeft;
+			#profileLeftColumn{
+				width:150px;
+				height:240px;
+				thead {
+					display:block;
+					border-bottom:2px double #f6f6f6;	
+					th{
+						font-family:Lasco_Bold;
+						font-size:$base-font-size - 4px;
+						padding:4px 0px 4px 10px;
+						&:first-letter{
+							font-size:$base-font-size - 1px;
+							text-transform:uppercase;
+							}
+						}
+				}
+				tbody{
+					td{
+						svg{
+							margin:0px 0px 0px 15px;
+						}
+					}
+				}
+				tfoot{
+					border-top:2px double #f6f6f6;
+					td{
+						padding:4px 0px 8px 0px;
+						.wrapper__profile__leftColumn__start{
+							text-align:center;
+							font-family:Lasco_Bold;
+							font-size:$base-font-size - 4px;
+							width:100px;
+							display:block;
+							margin:0px auto;
+							&:hover{
+								background-color:#f8fc86;
+							}
+						}
+					}
+				}
+			}
+		}	
 		.wrapper__profile__menu{
 			width:$rest-width;
 			margin-left:$marginLeft;

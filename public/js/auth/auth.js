@@ -49,6 +49,9 @@
 			if((this.value.length < 3) || !result){//3			
 				warn.style.visibility = "visible";
 				return false;
+			}else if((this.value.length > 7) || !result){//3			
+				warn.style.visibility = "visible";
+				return false;
 			}else{//Login is correct
 				warn.style.visibility = "hidden";
 				correctLoginAndPass[0] = this.value;//Remember correct value of Login input
@@ -62,6 +65,9 @@
 			var result = reg.test(this.value);
 			var warn = document.getElementsByClassName("auth__content__passWarn")[0];
 			if((this.value.length < 5) || !result){//5 
+				warn.style.visibility = "visible";
+				return false;
+			}else if((this.value.length > 7) || !result){//5 
 				warn.style.visibility = "visible";
 				return false;
 			}else{//Password is correct
