@@ -6,7 +6,7 @@
   "node-main": "./server.js",
   "scripts": {
     "dist": "build --tasks win-x64 --mirror https://dl.nwjs.io/ .",
-    "start": "run --x64 --mirror https://cnpmjs.org/mirrors/nwjs/ .",
+    "start": "run --x64 --mirror https://npm.taobao.org/mirrors/nwjs/ .",
     "build": "webpack"
   },
   "author": "MX",

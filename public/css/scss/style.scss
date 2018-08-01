@@ -193,11 +193,18 @@ html,body {
 			bottom:40px;
 			left:0px;
 			z-index:0;
-			height:($topOffset + 50px);
+			height:($topOffset + 370px);
 			width:$marginLeft;
+			.wrapper__profile__leftColumn__subSlidingMenu{
+				width:150px;
+				height:($topOffset + 130px);
+				border-right:2px solid #f8fc86;
+				background-color:#fce5c0;
+			}
 			#profileLeftColumn{
 				width:150px;
 				height:240px;
+				border-right:2px solid #f8fc86;
 				thead {
 					display:block;
 					border-bottom:2px double #f6f6f6;	
@@ -236,7 +243,7 @@ html,body {
 					}
 				}
 			}
-		}	
+		}
 		.wrapper__profile__menu{
 			width:$rest-width;
 			margin-left:$marginLeft;
@@ -268,6 +275,18 @@ html,body {
 							font-family:Lasco_Bold;
 							font-size:$base-font-size - 4px;
 						}
+						.a-profile__menu__settings_active{
+							background-color:#e8fcc1;
+						}
+						.a-profile__menu__methodOne_active{
+							background-color:#fba99c;
+						}
+						.a-profile__menu__methodTwo_active{
+							background-color:#c7ebfa;
+						}
+						.a-profile__menu__methodThree_active{
+							background-color:#fad6f4;
+						}
 					}
 					&:after{
 						content:"";
@@ -278,18 +297,72 @@ html,body {
 			}
 		}
 		.wrapper__profile__content{
-			@mixin profileSizeColor($bgColor,$cutWidth:0px,$cutHeight:0px){
-				height:($base-height - $menu-height) - $cutHeight;
-				width:$rest-width - $cutWidth;
-				background-color:$bgColor;
-			}
-			@include profileSizeColor(lime);
+			width:$rest-width;
+			height:($base-height - $menu-height) - 5px;
 			margin-left:$marginLeft;
+			overflow:hidden;
+			position:relative;
+			@mixin profileColor($bgImage:"",$bgColor:#fda26d){
+				background-color:$bgColor;
+				@if $bgImage != ""{
+					background-repeat:repeat;
+					background-position:top left;
+					background-image:url("../../images/#{$bgImage}");
+				}
+			}
+			@include profileColor("",#fce5c0);
+			%profile-content{
+				width:($rest-width + 4px);
+				height:($base-height - $menu-height) - 10px;
+				border:2px solid #f8fc86;
+				position:absolute;
+				top:5px;
+			}
+			@keyframes movePanelForward{
+				from{
+					left:648px;
+				}
+				to{
+					left:-2px;
+				}
+			}
+			@keyframes movePanelBack{
+				from{
+					left:-2px;
+				}
+				to{
+					left:648px;
+				}
+			}
+			.wrapper__profile__move-default-content{
+				left:-2px;
+				z-index:4;
+			}
+			.wrapper__profile__move-forward-content{
+				animation:movePanelForward 2s ease-out;
+				left:-2px;
+				z-index:4;
+			}
+			.wrapper__profile__move-back-content{
+				animation:movePanelBack 2s ease-out;
+				left:648px;
+				z-index:1;
+			}
 			.wrapper__profile__content_settings{
-				@include profileSizeColor(red,10px,10px);
+				@include profileColor("",#e8fcc1);
+				@extend %profile-content;
 			}
 			.wrapper__profile__content_method-one{
-				@include profileSizeColor(pink,10px,10px);
+				@include profileColor("",#fba99c);
+				@extend %profile-content;
+			}
+			.wrapper__profile__content_method-two{
+				@include profileColor("",#c7ebfa);
+				@extend %profile-content;
+			}
+			.wrapper__profile__content_method-three{
+				@include profileColor("",#fad6f4);
+				@extend %profile-content;
 			}
 		}
 	}
