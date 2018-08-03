@@ -79,7 +79,7 @@ module.exports = function(app){
 			}
 		return complitedObject;//Return object
 	}
-	//Middleware for
+	//Middleware
 	app.use("/",function(request,response,next){
 		//Local variable - language has access in all templates of application, get current language after redirect
 		//in base.js file in render('profile') template.

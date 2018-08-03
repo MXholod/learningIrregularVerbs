@@ -3,14 +3,20 @@ div(class="auth")
 			p(data-language="auth") #{lang.mainpage.auth.formTitle}
 			form(action="/authorize" method="POST" name="authentication")
 				div(class="form-group")
-					label(data-language="auth" for="log")
-						| #{lang.mainpage.auth.firstControl.labelTitle}
-						span(data-language="auth" class="auth__content__logWarn") #{lang.mainpage.auth.firstControl.warningInput}
+					label(for="log")
+						div
+							span
+								span(data-language="auth") #{lang.mainpage.auth.firstControl.labelTitle[0]}
+								span(data-language="auth") #{lang.mainpage.auth.firstControl.labelTitle[1]}
+							span(data-language="auth" class="auth__content__logWarn") #{lang.mainpage.auth.firstControl.warningInput}
 						input(data-language="auth" type="text" name="login" value=lang.mainpage.auth.firstControl.inputValue id="log" class="form-control")
 				div(class="form-group")
-					label(data-language="auth" for="pas")
-						| #{lang.mainpage.auth.secondControl.labelTitle}
-						span(data-language="auth" class="auth__content__passWarn") #{lang.mainpage.auth.secondControl.warningInput}
+					label(for="pas")
+						div
+							span
+								span(data-language="auth") #{lang.mainpage.auth.secondControl.labelTitle[0]}
+								span(data-language="auth") #{lang.mainpage.auth.secondControl.labelTitle[1]}
+							span(data-language="auth" class="auth__content__passWarn") #{lang.mainpage.auth.secondControl.warningInput}
 						input(data-language="auth" type="password" name="pass" placeholder=lang.mainpage.auth.secondControl.placeHolder id="pas" class="form-control")
 				div(class="form-group")
 					input(data-language="auth" type="submit" disabled="disabled" name="sub" value=lang.mainpage.auth.submit class="btn btn-primary")

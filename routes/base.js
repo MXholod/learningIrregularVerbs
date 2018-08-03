@@ -23,7 +23,7 @@ routes.post("/authorize",(request,response)=>{
 		//Set data according to the Model UserModel
 		User.login = l;
 		User.pass = p;
-		User.email = "my@mail.ua";
+		User.email = "";
 			
 		//var now_utc = date(response.locals.language);	
 		var now = date.preserveTimeToDb();
@@ -59,7 +59,9 @@ routes.post("/authorize",(request,response)=>{
 		//"lan "+response.locals.language - uses in io.js file.
 		response.render("profile",{
 			userLoginSession : request.session.login,
-			data : User.login+" "+User.pass+" email "+User.email+" hash - "+User.getHash()
+			uLogin : User.login,
+			//uPassword : User.pass,
+			uEmail : User.email //"masik@i.ua"
 		});
 	}
 });

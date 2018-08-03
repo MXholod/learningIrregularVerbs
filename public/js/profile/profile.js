@@ -1,3 +1,4 @@
+//Clicking on menu button panels are changing
 (function(){
 	window.addEventListener("load",function(){
 		clearAndSetClassMenu();
@@ -77,3 +78,4 @@
 		}
 	}
 })();
+//AJAX for adding user's data 

@@ -1,3 +1,27 @@
 section(class="wrapper__profile__content_settings wrapper__profile__move-default-content")
-	p Hello from settings
-	p= data
+	form(id="profileUserData" data-language="profileUserData" method="post" action="/")
+		fieldset
+			legend #{userLoginSession}
+			span(data-language="profileUserData") (Настройки профиля) 
+			p
+				span(data-language="profileUserData") Изменить логин
+				label(for="login")
+					input(type="text" value=uLogin name="login" id="login" placeholder=uLogin required="required")
+			p
+				span(data-language="profileUserData") Изменить пароль
+				label(for="password")
+					input(type="password" value="" name="password" id="password" required="required")
+			if uEmail != ""
+				p(class="wrapper__profile__content_settings-notify")
+					span(data-language="profileUserData") Ваш адрес почты на который будет отправлен пароль в случае если вы его забудите
+					label(for="emailNotify")
+							input(type="email" value=uEmail name="email" id="emailNotify" placeholder=uEmail required="required")
+			else
+				p(class="wrapper__profile__content_settings-warning")
+					span(data-language="profileUserData") Если вы введёте адрес почты то у вас будет возможность восстановить пароль в случае потери 
+					label(for="emailWarn")
+						input(type="email" value="" name="email" id="emailWarn")
+			p
+				span(data-language="profileUserData") Сохранить введённые данные
+				br
+				input(type="submit" data-language="profileUserData" value="Отправить" name="submit" id="submit")

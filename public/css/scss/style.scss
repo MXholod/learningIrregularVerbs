@@ -303,11 +303,11 @@ html,body {
 			overflow:hidden;
 			position:relative;
 			@mixin profileColor($bgImage:"",$bgColor:#fda26d){
-				background-color:$bgColor;
 				@if $bgImage != ""{
-					background-repeat:repeat;
-					background-position:top left;
-					background-image:url("../../images/#{$bgImage}");
+					background:$bgColor url("../../images/#{$bgImage}") 20px 20px/330px 275px no-repeat padding-box border-box scroll;
+				}
+				@else{
+					background-color:$bgColor;
 				}
 			}
 			@include profileColor("",#fce5c0);
@@ -349,8 +349,54 @@ html,body {
 				z-index:1;
 			}
 			.wrapper__profile__content_settings{
-				@include profileColor("",#e8fcc1);
+				@include profileColor("locker.png",#e8fcc1);
 				@extend %profile-content;
+				form{
+					width:370px;
+					margin-left:270px;
+					legend{
+						font-family:Lasco_Bold;
+						font-size:$base-font-size - 2px;
+						padding:5px;
+						text-align:center;
+						&:first-letter{
+							font-size:$base-font-size + 2px;
+						}
+					}
+					fieldset{
+						& > p{
+							margin:5px 0px 0px 0px;
+							padding:5px;
+							border:2px solid #11d1a1;
+							border-radius:5px;
+							background-color:#c0dffb;
+							label{
+								margin-left:5px;
+							}
+							input[type="submit"]{
+								padding:2px 10px;
+								&:hover{
+									background-color:#f4f5cf;
+								}
+							}
+						}
+						p:nth-of-type(3){
+							background-color:#f4f5cf;
+						}
+						.wrapper__profile__content_settings-notify{
+							color:#abe264;
+						}
+						.wrapper__profile__content_settings-notify-hide{
+							display:none;
+						}
+						.wrapper__profile__content_settings-warning{
+							color:#f47a34;
+						}
+						.wrapper__profile__content_settings-warning-hide{
+							display:none;
+						}
+					}
+				}
 			}
 			.wrapper__profile__content_method-one{
 				@include profileColor("",#fba99c);
@@ -411,8 +457,7 @@ html,body {
 				%warn{
 					font-size:10px;
 					color:#BF034E;
-					display:inline-block;
-					margin-left:5px;
+					margin-left:2px;
 					text-align:center;
 					font-weight:bold;
 					width:78px;
@@ -420,6 +465,7 @@ html,body {
 					padding:1px;
 					background:#f6f6f6;
 					border-radius:5px;
+					float:left;
 				}
 				.auth__content__logWarn{
 					@extend %warn;
@@ -431,6 +477,23 @@ html,body {
 					margin-bottom:0.2rem;
 					label{
 						color:#000;
+						width:170px;
+						div{
+							&:after{
+								content:"";
+								display:table;
+								clear:both;
+							}
+							span:first-child{
+								width:90px;
+								float:left;
+								font-size:12px;
+								word-wrap:break-word;
+								span{
+									display:block;
+								}
+							} 
+						}
 					}
 					input[type='submit']{
 						padding:0.1rem 0.2rem;
@@ -445,7 +508,7 @@ html,body {
 					}
 					.forgottenPass{
 						border:1px solid #fff;
-						margin:8px 0px 0px 34px;
+						margin:3px 0px 0px 34px;
 						width:110px;
 						padding:2px;
 						border-radius:5px;

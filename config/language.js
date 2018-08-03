@@ -22,12 +22,12 @@ module.exports = {
 			"auth":{
 				"formTitle":"Выполните регистрацию",
 				"firstControl":{
-					"labelTitle":"Введите имя",
+					"labelTitle":["Введите имя","из (3-7 символов)"],
 					"warningInput":"Неверный формат имени!",
 					"inputValue":"Ваше имя"
 				},
 				"secondControl":{
-					"labelTitle":"Введите пароль",
+					"labelTitle":["Введите пароль","из (5-7 символов)"],
 					"warningInput":"Неверный формат пароля!",
 					"placeHolder":"Ваш пароль"
 				},
@@ -36,7 +36,7 @@ module.exports = {
 			}
 		},
 		"profile":{
-			"profileMenu":["Настройки профиля","Методика 1","Методика 2","Методика 3"],
+			"profileMenu":["Настройки профиля","Упражнение 1","Упражнение 2","Упражнение 3"],
 			"profileLeftColumn":["Теперь ты в игре!","Перейти к обучению"]
 		}
 	},
@@ -63,12 +63,12 @@ module.exports = {
 			"auth":{
 				"formTitle":"Виконайте реєстрацію",
 				"firstControl":{
-					"labelTitle":"Введіть ім'я",
+					"labelTitle":["Введіть ім'я","з (3-7 символів)"],
 					"warningInput":"Невірний формат імені!",
 					"inputValue":"Ваше ім'я"
 				},
 				"secondControl":{
-					"labelTitle":"Введіть пароль",
+					"labelTitle":["Введіть пароль","з (5-7 символів)"],
 					"warningInput":"Невірний формат пароля!",
 					"placeHolder":"Ваш пароль"
 				},
@@ -77,7 +77,7 @@ module.exports = {
 			}
 		},
 		"profile":{
-			"profileMenu":["Налаштування профілю","Методика 1","Методика 2","Методика 3"],
+			"profileMenu":["Налаштування профілю","Вправа 1","Вправа 2","Вправа 3"],
 			"profileLeftColumn":["Тепер ти в грі!","Перейти до навчання"]
 		}
 	}
