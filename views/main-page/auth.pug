@@ -1,26 +1,38 @@
 div(class="auth")
 		div(id="auth" data-language="auth" class="auth__content")
-			p(data-language="auth") #{lang.mainpage.auth.formTitle}
-			form(action="/authorize" method="POST" name="authentication")
-				div(class="form-group")
-					label(for="log")
-						div
-							span
-								span(data-language="auth") #{lang.mainpage.auth.firstControl.labelTitle[0]}
-								span(data-language="auth") #{lang.mainpage.auth.firstControl.labelTitle[1]}
-							span(data-language="auth" class="auth__content__logWarn") #{lang.mainpage.auth.firstControl.warningInput}
-						input(data-language="auth" type="text" name="login" value=lang.mainpage.auth.firstControl.inputValue id="log" class="form-control")
-				div(class="form-group")
-					label(for="pas")
-						div
-							span
-								span(data-language="auth") #{lang.mainpage.auth.secondControl.labelTitle[0]}
-								span(data-language="auth") #{lang.mainpage.auth.secondControl.labelTitle[1]}
-							span(data-language="auth" class="auth__content__passWarn") #{lang.mainpage.auth.secondControl.warningInput}
-						input(data-language="auth" type="password" name="pass" placeholder=lang.mainpage.auth.secondControl.placeHolder id="pas" class="form-control")
-				div(class="form-group")
-					input(data-language="auth" type="submit" disabled="disabled" name="sub" value=lang.mainpage.auth.submit class="btn btn-primary")
-					div(class="forgottenPass")
-						label(data-language="auth" for="forgotten")
-							| #{lang.mainpage.auth.forgetPassLabel}&nbsp;
-							input(type="checkbox" name="forgottenPass" value="forgotten" id="forgotten")
+			div(class="auth__content_registration")
+				p(data-language="auth") #{lang.mainpage.auth.formTitle}
+				form(action="/authorize" method="POST" name="authentication")
+					div(class="form-group")
+						label(for="log")
+							div
+								span
+									span(data-language="auth") #{lang.mainpage.auth.firstControl.labelTitle[0]}
+									span(data-language="auth") #{lang.mainpage.auth.firstControl.labelTitle[1]}
+								span(data-language="auth" class="auth__content__logWarn") #{lang.mainpage.auth.firstControl.warningInput}
+							input(data-language="auth" type="text" name="login" value=lang.mainpage.auth.firstControl.inputValue id="log" class="form-control")
+					div(class="form-group")
+						label(for="pas")
+							div
+								span
+									span(data-language="auth") #{lang.mainpage.auth.secondControl.labelTitle[0]}
+									span(data-language="auth") #{lang.mainpage.auth.secondControl.labelTitle[1]}
+								span(data-language="auth" class="auth__content__passWarn") #{lang.mainpage.auth.secondControl.warningInput}
+							input(data-language="auth" type="password" name="pass" placeholder=lang.mainpage.auth.secondControl.placeHolder id="pas" class="form-control")
+					div(class="form-group")
+						input(data-language="auth" type="submit" disabled="disabled" name="sub" value=lang.mainpage.auth.submit class="btn btn-primary")
+						div(class="forgottenPass")
+							label(data-language="auth" for="forgotten")
+								| #{lang.mainpage.auth.forgetPassLabel}&nbsp;
+								input(type="checkbox" name="forgottenPass" value="forgotten" id="forgotten")
+			div(id="authRestore" data-language="authRestore" class="auth__content_restore")
+				p(data-language="authRestore") #{lang.mainpage.authRestore.shortDescription}
+				form(action="/restore" method="POST" name="authenticationRestore")
+					fieldset
+						legend(data-language="authRestore") #{lang.mainpage.authRestore.legendRestore}
+						label(data-language="authRestore") #{lang.mainpage.authRestore.emaillRestore}
+							input(type="email" name="emailRestore" required="required" placeholder="mymail@com.ua")
+						label(data-language="authRestore") #{lang.mainpage.authRestore.submitRestore}
+							input(type="submit" name="submitEmailRestore" data-language="authRestore" value=lang.mainpage.authRestore.submitValueRestore)
+				label
+					input(data-language="authRestore" value=lang.mainpage.authRestore.hideRestorePanel  id="hideRestore" type="button")

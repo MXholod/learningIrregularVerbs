@@ -33,6 +33,14 @@ module.exports = {
 				},
 				"submit":"Отправить",
 				"forgetPassLabel":"Забыли пароль?"
+			},
+			"authRestore":{
+				"shortDescription":"На введённый Вами адрес почты будет выслан новый пароль.",
+				"legendRestore":"Восстановление пароля",
+				"emaillRestore":"Введите адрес почты",
+				"submitRestore":"Отправить почту",
+				"submitValueRestore":"Отправить",
+				"hideRestorePanel":"Вернуться",
 			}
 		},
 		"profile":{
@@ -74,6 +82,14 @@ module.exports = {
 				},
 				"submit":"Відправити",
 				"forgetPassLabel":"Забули пароль?"
+			},
+			"authRestore":{
+				"shortDescription":"На введену Вами адресу пошти буде висланий новий пароль.",
+				"legendRestore":"Відновлення паролю",
+				"emaillRestore":"Введіть адресу пошти",
+				"submitRestore":"Відправити пошту",
+				"submitValueRestore":"Відправити",
+				"hideRestorePanel":"Повернутися",
 			}
 		},
 		"profile":{

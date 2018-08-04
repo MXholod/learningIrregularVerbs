@@ -423,95 +423,152 @@ html,body {
 		position:relative;
 		overflow:hidden;
 		&:before{
-				position:absolute;
-				top:0px;
-				left:0px;
-				z-index:1;
-				width:200px;
-				height:360px;
-				content:"";
-				background:linear-gradient(to top,
-				rgb(244, 83, 19) 0%,
-				rgb(244, 226, 24) 50%,
-				rgb(244, 83, 19) 100%);
-				animation: moveGrad 9s infinite;
-			}
+			position:absolute;
+			top:0px;
+			left:0px;
+			z-index:1;
+			width:200px;
+			height:360px;
+			content:"";
+			background:linear-gradient(to top,
+			rgb(244, 83, 19) 0%,
+			rgb(244, 226, 24) 50%,
+			rgb(244, 83, 19) 100%);
+			animation: moveGrad 9s infinite;
+		}
 		.auth__content{
 			position:absolute;
-				top:0px;
-				left:0px;
-				z-index:1;
-				width:200px;
-				height:360px;
-			& > p{
-				color:#000;
-				font-weight:bold;
-				text-align:center;
-				margin-top:3px;
-				font-size:$base-font-size - 2;
-			}
-			form{
-				width:170px;
-				height:100px;
-				margin:3px 10px 10px 10px;
-				%warn{
-					font-size:10px;
-					color:#BF034E;
-					margin-left:2px;
-					text-align:center;
+			top:0px;
+			left:0px;
+			z-index:1;
+			width:200px;
+			height:360px;
+			.auth__content_registration{
+				height:180px;
+				& > p{
+					color:#000;
 					font-weight:bold;
-					width:78px;
-					visibility:hidden;
-					padding:1px;
-					background:#f6f6f6;
-					border-radius:5px;
-					float:left;
+					text-align:center;
+					margin-top:3px;
+					font-size:$base-font-size - 2px;
 				}
-				.auth__content__logWarn{
-					@extend %warn;
-				}
-				.auth__content__passWarn{
-					@extend %warn;
-				}
-				.form-group{
-					margin-bottom:0.2rem;
-					label{
-						color:#000;
-						width:170px;
-						div{
-							&:after{
-								content:"";
-								display:table;
-								clear:both;
-							}
-							span:first-child{
-								width:90px;
-								float:left;
-								font-size:12px;
-								word-wrap:break-word;
-								span{
-									display:block;
+				form{
+					width:170px;
+					height:100px;
+					margin:3px 10px 10px 10px;
+					%warn{
+						font-size:10px;
+						color:#BF034E;
+						margin-left:2px;
+						text-align:center;
+						font-weight:bold;
+						width:78px;
+						visibility:hidden;
+						padding:1px;
+						background:#f6f6f6;
+						border-radius:5px;
+						float:left;
+					}
+					.auth__content__logWarn{
+						@extend %warn;
+					}
+					.auth__content__passWarn{
+						@extend %warn;
+					}
+					.form-group{
+						margin-bottom:0.2rem;
+						label{
+							color:#000;
+							width:170px;
+							div{
+								&:after{
+									content:"";
+									display:table;
+									clear:both;
 								}
-							} 
+								span:first-child{
+									width:90px;
+									float:left;
+									font-size:12px;
+									word-wrap:break-word;
+									span{
+											display:block;
+										}
+								} 
+							}
+						}
+						input[type='submit']{
+							padding:0.1rem 0.2rem;
+							line-height:1;
+							margin:2px 0px 0px 50px;
+							border:1px solid #fff;
+						}
+						.form-control{
+							line-height:1;
+							padding:0.1px 0.2rem;
+							margin-top:5px;
+						}
+						.forgottenPass{
+							border:1px solid #fff;
+							margin:3px 0px 0px 34px;
+							width:110px;
+							padding:2px;
+							border-radius:5px;
 						}
 					}
-					input[type='submit']{
-						padding:0.1rem 0.2rem;
-						line-height:1;
-						margin:2px 0px 0px 50px;
-						border:1px solid #fff;
+				}	
+			}
+			.auth__content_restore{
+				height:180px;
+				font-size:12px;
+				color:#000;
+				p{
+					margin:0px 0px 0px 7px;
+					width:181px;
+					font-weight:bold;
+					font-size:12px;
+					text-align:center;
+				}
+				form{
+					width:170px;
+					height:100px;
+					margin:3px 10px 0px 10px;
+					fieldset{
+						margin-top:10px;
+						width:170px;
+						legend{
+							font-family:Lasco_Bold;
+							font-size:$base-font-size - 6px;
+						}
+						label{
+							input{
+								margin:5px 0px 0px 0px;
+							}
+							padding:5px;
+							input[type='submit']{
+								padding:0.2rem 0.3rem;
+								line-height:1;
+								margin:5px 0px 0px 5px;
+								border:1px solid #fff;
+								background-color:#d2ffc6;
+								&:hover{
+									background-color:#47db23;
+								}
+							}
+						}
 					}
-					.form-control{
+				}
+				& label:last-child{
+					height:30px;
+					input[type='button']{
+						padding:0.2rem 0.3rem;
 						line-height:1;
-						padding:0.1px 0.2rem;
-						margin-top:5px;
-					}
-					.forgottenPass{
+						margin:5px 0px 0px 65px;
 						border:1px solid #fff;
-						margin:3px 0px 0px 34px;
-						width:110px;
-						padding:2px;
-						border-radius:5px;
+							background-color:#f4b342;
+						&:hover{
+							background-color:#fff314;
+						}
 					}
 				}
 			}

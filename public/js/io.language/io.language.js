@@ -87,7 +87,7 @@
 			return completedObject;
 		}
 		//3. This is an array of IDs we try to find on client side
-		var arrayIDs = new Array("basePanelText","basePanel","auth","profileMenu","profileLeftColumn");
+		var arrayIDs = new Array("basePanelText","basePanel","auth","authRestore","profileMenu","profileLeftColumn");
 		var parentIDs;
 		//5. Insert data from language file to HTML elements 
 		function insertDataToHTML(objectHtmlElements,objectStringsData){
