@@ -37,7 +37,7 @@ module.exports = {
 			"authRestore":{
 				"shortDescription":"На введённый Вами адрес почты будет выслан новый пароль.",
 				"legendRestore":"Восстановление пароля",
-				"emaillRestore":"Введите адрес почты",
+				"emaillRestore":"Введите адрес почты, которую вы сохранили в профиле",
 				"submitRestore":"Отправить почту",
 				"submitValueRestore":"Отправить",
 				"hideRestorePanel":"Вернуться",
@@ -86,7 +86,7 @@ module.exports = {
 			"authRestore":{
 				"shortDescription":"На введену Вами адресу пошти буде висланий новий пароль.",
 				"legendRestore":"Відновлення паролю",
-				"emaillRestore":"Введіть адресу пошти",
+				"emaillRestore":"Введіть адресу пошти, яку ви зберегли в профілі",
 				"submitRestore":"Відправити пошту",
 				"submitValueRestore":"Відправити",
 				"hideRestorePanel":"Повернутися",

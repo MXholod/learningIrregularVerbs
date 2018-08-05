@@ -436,9 +436,35 @@ html,body {
 			rgb(244, 83, 19) 100%);
 			animation: moveGrad 9s infinite;
 		}
+		@keyframes authMoveUp{
+			from{
+				top:0px;	
+			}
+			to{
+				top:-175px;
+			}
+		}
+		@keyframes authMoveDown{
+			from{
+				top:-175px;	
+			}
+			to{
+				top:0px;
+			}
+		}
+		.auth__content_default-position{
+			top:0px;
+		}
+		.auth__content_move-positionDown{
+			top:0px;
+			animation:authMoveDown 2s ease-out;
+		}
+		.auth__content_move-positionUp{
+			top:-175px;
+			animation:authMoveUp 2s ease-out;
+		}
 		.auth__content{
 			position:absolute;
-			top:0px;
 			left:0px;
 			z-index:1;
 			width:200px;
@@ -514,6 +540,14 @@ html,body {
 							width:110px;
 							padding:2px;
 							border-radius:5px;
+							label{
+								position:relative;
+								input{
+									position:absolute;
+									top:0px;
+									left:90px;
+								}
+							}
 						}
 					}
 				}	
@@ -528,6 +562,9 @@ html,body {
 					font-weight:bold;
 					font-size:12px;
 					text-align:center;
+					input{
+						margin:5px 0px 0px 0px;
+					}
 				}
 				form{
 					width:170px;
@@ -540,32 +577,42 @@ html,body {
 							font-family:Lasco_Bold;
 							font-size:$base-font-size - 6px;
 						}
+						label:nth-child(2){
+							background-color:#f2e6a9;
+							border-radius:5px;
+							border:1px solid #f27126;
+							margin-top:2px;
+						}
 						label{
+							padding:4px 2px;
 							input{
 								margin:5px 0px 0px 0px;
 							}
-							padding:5px;
+						}
+						p:last-child{
+							margin:0px 0px 0px 0px;
 							input[type='submit']{
 								padding:0.2rem 0.3rem;
 								line-height:1;
 								margin:5px 0px 0px 5px;
 								border:1px solid #fff;
-								background-color:#d2ffc6;
-								&:hover{
-									background-color:#47db23;
-								}
+								background-color:#f72d2d;
+								color:#000;
 							}
-						}
+						}	
 					}
 				}
-				& label:last-child{
+				.auth__content_restore-up{
+					width:40px;
 					height:30px;
+					padding:4px 2px;
+					margin-left:0px;
 					input[type='button']{
 						padding:0.2rem 0.3rem;
 						line-height:1;
-						margin:5px 0px 0px 65px;
+						margin:0px 0px 0px 65px;
 						border:1px solid #fff;
-							background-color:#f4b342;
+						background-color:#f4b342;
 						&:hover{
 							background-color:#fff314;
 						}

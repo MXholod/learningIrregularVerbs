@@ -13,6 +13,7 @@
 			startPlay();
 		},false);
 	}
+	//Music starts playing
 	function startPlay(){
 		//Gets audio element
 		var parentAU = document.getElementById("bgMusic");
@@ -76,9 +77,23 @@
 				return true;
 			}
 		}
+		function email(){
+			var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+			//var pattern  = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+			var reg = new RegExp(pattern); //
+			var result = reg.test(this.value);
+			if(!result){//5 
+				this.style.border = "3px solid #f72d2d";
+				return false;
+			}else{//Email is correct
+				this.style.border = "3px solid #1ee33b";
+				return true;
+			}
+		}
 		//onkeyup
 		check("log",login);//Check onkeyup event Login input
 		check("pas",password);//Check onkeyup event Password input
+		check("restoreEmail",email);//Check onkeyup event Email input
 		
 		var resultLog,resultPas;//They will keep a state of two inputs - both of them must be correct to show button Submit
 		
@@ -95,11 +110,23 @@
 		checkWhenLeave("pas",function(){
 			resultPas = password.call(this);//Get correct context
 			if(resultLog && resultPas){
-				document.forms.authentication.elements.sub.disabled = false;//Hide submit button
+				document.forms.authentication.elements.sub.disabled = false;//Show submit button
 			}
 			else{
-				document.forms.authentication.elements.sub.disabled = true;//Show submit button
+				document.forms.authentication.elements.sub.disabled = true;//Hide submit button
 				//document.forms.authentication.onsubmit = toSubmit;
+			}
+		});
+		checkWhenLeave("restoreEmail",function(){
+			var emailRes = email.call(this);//Get correct context
+			var restoreSubmitEmail = document.getElementById("restoreSubmitEmail");
+			if(!emailRes){
+				restoreSubmitEmail.disabled = false;//Hide submit button
+				restoreSubmitEmail.style.backgroundColor = "#f72d2d";
+			}
+			else{
+				restoreSubmitEmail.disabled = true;//Show submit button
+				restoreSubmitEmail.style.backgroundColor = "#1ee33b";
 			}
 		});
 		//Submit data to server side
@@ -109,4 +136,52 @@
 		}
 	},false);
 	
+})();
+//Move Authorization and Authentication panel on main page to forth and back
+(()=>{
+	window.addEventListener("load",function(){
+		movePanelUpDown();
+	},false);
+	function bindEvent(element,makeMove){
+		element.addEventListener("click",makeMove,false);
+	}
+	//Move panel auth down
+	function movePanelUpDown(){
+		var authMainPanel = document.getElementById("auth");
+		var authPanel = document.getElementById("forgotten");
+		bindEvent(authPanel,function(){
+			if(this.checked){
+				document.forms.authentication.elements.login.value = "";//Clear input value of Form above
+				document.forms.authentication.elements.pass.value = "";//Clear input value of Form above
+				document.forms.authentication.elements.sub.disabled = true;//Hide submit button of Form above
+				window.setTimeout(()=>{
+					movePanelUp(authMainPanel);
+				},1000);
+			}
+		});
+		var restorePanel = document.getElementById("hideRestore");
+		bindEvent(restorePanel,function(e){
+			if(e.type == "click"){
+				movePanelDown(authMainPanel);
+				authPanel.checked = false;
+			}
+		});
+	}
+	//Move panel auth up
+	function movePanelUp(parentPanel){
+		//Remove default class that appears only once
+		if(parentPanel.classList.contains("auth__content_default-position")){
+			parentPanel.classList.remove("auth__content_default-position");
+		}
+		if(parentPanel.classList.contains("auth__content_move-positionDown")){
+			parentPanel.classList.remove("auth__content_move-positionDown");
+		}
+		parentPanel.classList.add("auth__content_move-positionUp");
+	}
+	function movePanelDown(parentPanel){
+		if(parentPanel.classList.contains("auth__content_move-positionUp")){
+			parentPanel.classList.remove("auth__content_move-positionUp");
+		}
+		parentPanel.classList.add("auth__content_move-positionDown");
+	}
 })();

@@ -1,5 +1,5 @@
 div(class="auth")
-		div(id="auth" data-language="auth" class="auth__content")
+		div(id="auth" data-language="auth" class="auth__content auth__content_default-position")
 			div(class="auth__content_registration")
 				p(data-language="auth") #{lang.mainpage.auth.formTitle}
 				form(action="/authorize" method="POST" name="authentication")
@@ -31,8 +31,8 @@ div(class="auth")
 					fieldset
 						legend(data-language="authRestore") #{lang.mainpage.authRestore.legendRestore}
 						label(data-language="authRestore") #{lang.mainpage.authRestore.emaillRestore}
-							input(type="email" name="emailRestore" required="required" placeholder="mymail@com.ua")
-						label(data-language="authRestore") #{lang.mainpage.authRestore.submitRestore}
-							input(type="submit" name="submitEmailRestore" data-language="authRestore" value=lang.mainpage.authRestore.submitValueRestore)
-				label
+							input(type="email" name="emailRestore" id="restoreEmail" required="required" placeholder="mymail@com.ua")
+						p(data-language="authRestore") #{lang.mainpage.authRestore.submitRestore}
+							input(type="submit" name="submitEmailRestore" data-language="authRestore" id="restoreSubmitEmail" disabled="disabled" value=lang.mainpage.authRestore.submitValueRestore)
+				p(class="auth__content_restore-up")
 					input(data-language="authRestore" value=lang.mainpage.authRestore.hideRestorePanel  id="hideRestore" type="button")
