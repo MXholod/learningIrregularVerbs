@@ -99,15 +99,17 @@
 		
 		//onblur
 		checkWhenLeave("log",function(){//console.log(this);
+			//Call function login() again when leave input 
 			resultLog = login.call(this);//Get correct context
 			if(resultLog && resultPas){
-				document.forms.authentication.elements.sub.disabled = false;//Hide submit button
+				document.forms.authentication.elements.sub.disabled = false;//Show submit button
 			}else{
-				document.forms.authentication.elements.sub.disabled = true;//Show submit button
+				document.forms.authentication.elements.sub.disabled = true;//Hide submit button
 				//document.forms.authentication.onsubmit = toSubmit;
 			}
 		});
 		checkWhenLeave("pas",function(){
+			//Call function password() again when leave input
 			resultPas = password.call(this);//Get correct context
 			if(resultLog && resultPas){
 				document.forms.authentication.elements.sub.disabled = false;//Show submit button
@@ -118,14 +120,15 @@
 			}
 		});
 		checkWhenLeave("restoreEmail",function(){
+			//Call function email() again when leave input
 			var emailRes = email.call(this);//Get correct context
 			var restoreSubmitEmail = document.getElementById("restoreSubmitEmail");
 			if(!emailRes){
-				restoreSubmitEmail.disabled = false;//Hide submit button
+				restoreSubmitEmail.disabled = true;//Hide submit button
 				restoreSubmitEmail.style.backgroundColor = "#f72d2d";
 			}
 			else{
-				restoreSubmitEmail.disabled = true;//Show submit button
+				restoreSubmitEmail.disabled = false;//Show submit button
 				restoreSubmitEmail.style.backgroundColor = "#1ee33b";
 			}
 		});
@@ -185,3 +188,160 @@
 		parentPanel.classList.add("auth__content_move-positionDown");
 	}
 })();
+//Prepare for sending email to restore password by AJAX
+(()=>{
+	//Function creates cross-browser object XMLHttpRequest 
+	function getXmlHttp(){
+		var xmlhttp;
+		try{
+			xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");//newer versions of IE5+
+		}catch(e){
+			try{
+				//Old versions of Internet Explorer (IE5 and IE6) use an ActiveX object 
+				//instead of the XMLHttpRequest object
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");//older versions of IE5+, 
+			}catch(E){
+				try{
+					//проверяем, поддерживает ли событие onload, то это старый XMLHttpRequest,
+					//значит это IE8,9, и используем XDomainRequest
+					if("onload" in new XMLHttpRequest()){
+						xmlhttp = new XDomainRequest;
+					}else{
+						throw new Error("Not IE");
+					}
+				}catch(Ex){
+					xmlhttp = false;
+				}
+			}
+		}
+		if(!xmlhttp && typeof(XMLHttpRequest) != 'undefined'){
+			xmlhttp = new XMLHttpRequest();//IE7, Firefox, Safari etc
+		}
+		return xmlhttp;
+	}	
+	//Checking out network connection, return Promise	
+	function onlineCheck(xhr){  
+        var randomNum = Math.round(Math.random() * 10000);
+		var baseUrl = "/";
+		var isOnline = false;
+		return new Promise((resolve, reject)=>{ 
+            xhr.onload = () => { 
+                // Set online status 
+                isOnline = true; 
+                resolve(true); 
+            }; 
+            xhr.onerror = () => { 
+                // Set online status 
+                isOnline = false; 
+                reject(false); 
+            }; 
+            xhr.open('GET', baseUrl+"?rand="+randomNum, true);
+            xhr.send();  
+		}); 
+    }
+	//Check connection
+	function clickHandler(){
+		//Get an XMLHttpRequest for checking network connection and AJAX.
+        let XHR = getXmlHttp();
+		onlineCheck(XHR).then(() => { 
+            //Has an internet connection, carry on working with AJAX.  
+			sendAjax(XHR);
+        }).catch(()=> { 
+            //Hasn't internet connection, let the user know about it. 
+            //var element = document.querySelector(".auth__content_restore-shadow_networkConnectionError");
+			//element.style.display = "block";
+			clearAuthByTime(".auth__content_restore-shadow_networkConnectionError",3000); 
+        }); 
+	}
+	//Move back state of elements by time.
+	function clearAuthByTime(element,time){
+		//Base elements 
+		var shadow,loadingElem;
+		//Timeout settings 
+		var t1,t2,time1=300,time2=2000,counter=0,limit=3;
+		t1 = window.setTimeout(function start(){
+			showHide();
+			t2 = window.setTimeout(start,time2);
+			if(counter >= limit){
+				window.clearTimeout(t2);
+				t2 = null;
+			}
+		},time1);
+		function showHide(){
+			if(t1){
+				window.clearTimeout(t1);
+				t1 = null;
+			}
+			counter++;
+			//DIV Black, half transparent 
+			shadow = document.querySelector(".auth__content_restore-shadow");
+			if(counter == 1){//Show loading
+				//Loading... block, Show element
+				loadingElem = document.querySelector(".auth__content_restore-shadow_loadingProcess");
+				loadingElem.style.display = "block";
+				//Main shadow block, Show element
+				shadow.style.display = "block";
+			}
+			if(counter == 2){
+				if(loadingElem){loadingElem.style.display = "none";}
+				element = document.querySelector(element);
+				element.style.display = "block";
+			}
+			if(counter == 3){
+				if(element){element.style.display = "none";}
+				shadow.style.display = "none";
+			}
+		}
+	}
+	//Try to send email address by AJAX
+	function callAjax(){
+		//Submit button
+		let submit = document.querySelector("#restoreSubmitEmail");
+		//Main transparent black box 
+		let shadow = document.querySelector(".auth__content_restore-shadow");
+		submit.onclick = function(){
+			//console.log(this);
+			shadow.style.display = "block";
+			clickHandler();
+			return false;
+		};
+	}
+	//AJAX function
+	function sendAjax(XHR){
+		var email = document.getElementById("restoreEmail");
+			XHR.onreadystatechange = function(){
+					if((XHR.readyState == 4) && (XHR.status == 200)){
+							var result = JSON.parse(XHR.responseText);
+							//console.log("Email doesn't exist ",result.code);
+							//document.getElementById("ajaxTest").innerHTML = result.email+"\r\n "+result.text;
+							var code = Number(result.code);
+						switch(code){
+							case 0 : clearAuthByTime(".auth__content_restore-shadow_absentUserByEmail",4000);
+									//console.log("Hey ",code," ",result.email);
+								break;
+							case 1 : clearAuthByTime(".auth__content_restore-shadow_emailSuccessfullySent",4000);
+								break;
+						}
+					}else{
+						//Если код ответа сервера не 200, то это ошибка, обработать ошибку.
+						console.log("My error ", XHR.status + ': ' + XHR.statusText ); // пример вывода: 404: Not Found 
+					}
+			}
+			//XHR.timeout = 4000;
+			//XHR.ontimeout = function() {
+				//Hide shadow block after long request	
+				//console.log( 'Извините, запрос превысил максимальное время' );
+			//}
+			//XHR.onerror = function() {
+			//	console.log( 'Извините,error' );
+			//}
+				XHR.open("POST", "/restore", true);
+				XHR.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+				var data = JSON.stringify({"email":email.value});	
+				XHR.send(data);
+	}
+	window.addEventListener("load",()=>{
+		callAjax();
+	},false);
+	
+})(); 

@@ -1,0 +1,13 @@
+extends ../layout.pug
+block variables
+	- mainPage = false;
+	- profilePage = false;
+block appContent
+	div(class="wrapper__profile")
+		section(class="wrapper__profile__content")
+			if emailNotFound
+				p Your email not found
+			else
+				p Your email found
+					a(href=URIpart) Hey #{log}! Go to your profile.
+				p #{dataTest}
