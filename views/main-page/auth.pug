@@ -27,10 +27,10 @@ div(class="auth")
 								input(type="checkbox" name="forgottenPass" value="forgotten" id="forgotten")
 			div(id="authRestore" data-language="authRestore" class="auth__content_restore")
 				div(class="auth__content_restore-shadow")
-					div(class="auth__content_restore-shadow_networkConnectionError") Нет подключения к сети
-					div(class="auth__content_restore-shadow_absentUserByEmail") Почтовый адрес отсутствует 
-					div(class="auth__content_restore-shadow_emailSuccessfullySent") Логин и пароль отправлены на почту
-					div(class="auth__content_restore-shadow_loadingProcess") Обработка данных...
+					div(class="auth__content_restore-shadow_networkConnectionError" data-language="authRestore") #{lang.mainpage.authRestore.networkConnectionError}
+					div(class="auth__content_restore-shadow_absentUserByEmail" data-language="authRestore") #{lang.mainpage.authRestore.absentUserByEmail}
+					div(class="auth__content_restore-shadow_emailSuccessfullySent" data-language="authRestore") #{lang.mainpage.authRestore.emailSuccessfullySent}
+					div(class="auth__content_restore-shadow_loadingProcess" data-language="authRestore") #{lang.mainpage.authRestore.loadingProcess} 
 				p(data-language="authRestore") #{lang.mainpage.authRestore.shortDescription}
 				form(action="/restore" method="POST" name="authenticationRestore")
 					fieldset

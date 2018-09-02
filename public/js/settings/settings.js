@@ -178,17 +178,20 @@ module.exports = __webpack_require__(4);
 	}
 	//Set function to window object to have an access in other parts of scripts,
 	//write inputs values music and language saveDataToSessionStorage("id",["music | language"])
+	//We use this function 'saveDataToSessionStorage' in io.laguage.js file.
 	window.saveDataToSessionStorage = function(id,objectProp){
 		//Check, is it String?
 		function isString(s) {
 			return typeof s == "string" || (typeof s == "object" && s.constructor === String);
 		}
 		var dataInput;
+		//id is given as a string
 		if(isString(id) && isString(objectProp)){
 			if(document.getElementById(id)){
 				dataInput = document.getElementById(id);
 			}
 		}
+		//id is given as object html
 		else if((typeof id == "object") && isString(objectProp)){
 			dataInput = id;//id - incoming this(element)
 		}else{
@@ -229,7 +232,7 @@ module.exports = __webpack_require__(4);
 					inp.checked = true;
 				}
 			};
-			//
+			//Check properties of SessionStorage object if it equals to given string we set attribute checked as true.
 			if(settingsObj.music == "turnOn"){
 				input("onMusic");
 			}else if(settingsObj.music == "turnOff"){

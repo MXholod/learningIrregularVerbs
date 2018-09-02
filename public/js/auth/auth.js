@@ -61,7 +61,7 @@
 		}
 		function password(){//Check Password
 			//console.log("Pass ",this);
-			var template = "^[а-яА-Яa-zA-Z0-9]*$";
+			var template = "^[а-яА-Яa-zA-Z0-9_-]*$";
 			var reg = new RegExp(template); //
 			var result = reg.test(this.value);
 			var warn = document.getElementsByClassName("auth__content__passWarn")[0];
@@ -258,7 +258,7 @@
 		//Base elements 
 		var shadow,loadingElem;
 		//Timeout settings 
-		var t1,t2,time1=300,time2=2000,counter=0,limit=3;
+		var t1,t2,time1=300,time2= time || 2000,counter=0,limit=3;
 		t1 = window.setTimeout(function start(){
 			showHide();
 			t2 = window.setTimeout(start,time2);
@@ -272,22 +272,22 @@
 				window.clearTimeout(t1);
 				t1 = null;
 			}
-			counter++;
+			counter++;//It becomes 1
 			//DIV Black, half transparent 
 			shadow = document.querySelector(".auth__content_restore-shadow");
-			if(counter == 1){//Show loading
+			if(counter == 1){//Show loading (Step 1)
 				//Loading... block, Show element
 				loadingElem = document.querySelector(".auth__content_restore-shadow_loadingProcess");
 				loadingElem.style.display = "block";
 				//Main shadow block, Show element
 				shadow.style.display = "block";
 			}
-			if(counter == 2){
+			if(counter == 2){//Hide loading and Show given element (Step 2)
 				if(loadingElem){loadingElem.style.display = "none";}
 				element = document.querySelector(element);
 				element.style.display = "block";
 			}
-			if(counter == 3){
+			if(counter == 3){//Hide main shadow element and given element (Step 3)
 				if(element){element.style.display = "none";}
 				shadow.style.display = "none";
 			}
@@ -324,7 +324,7 @@
 						}
 					}else{
 						//Если код ответа сервера не 200, то это ошибка, обработать ошибку.
-						console.log("My error ", XHR.status + ': ' + XHR.statusText ); // пример вывода: 404: Not Found 
+						//console.log("My error ", XHR.status + ': ' + XHR.statusText ); // пример вывода: 404: Not Found 
 					}
 			}
 			//XHR.timeout = 4000;

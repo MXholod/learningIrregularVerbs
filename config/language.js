@@ -35,6 +35,10 @@ module.exports = {
 				"forgetPassLabel":"Забыли пароль?"
 			},
 			"authRestore":{
+				"networkConnectionError":"Нет подключения к сети.",
+				"absentUserByEmail":"Пользователь с таким почтовым адресом не зарегистрирован..",
+				"emailSuccessfullySent":"Логин и пароль отправлены на почту.",
+				"loadingProcess":"Обработка данных...",
 				"shortDescription":"На введённый Вами адрес почты будет выслан новый пароль.",
 				"legendRestore":"Восстановление пароля",
 				"emaillRestore":"Введите адрес почты, которую вы сохранили в профиле",
@@ -46,6 +50,14 @@ module.exports = {
 		"profile":{
 			"profileMenu":["Настройки профиля","Упражнение 1","Упражнение 2","Упражнение 3"],
 			"profileLeftColumn":["Теперь ты в игре!","Перейти к обучению"]
+		},
+		"serverSisdeOnly":{
+			"emailRestoring":{
+				"topic":"Восстановление пароля",
+				"greeting":"Привет",
+				"textBeforePassword":"твой новый пароль:",
+				"textAfterPassword":"ты всегда можешь его изменить в разделе 'Настройка профиля'."
+			}
 		}
 	},
 	"ua":{
@@ -84,6 +96,10 @@ module.exports = {
 				"forgetPassLabel":"Забули пароль?"
 			},
 			"authRestore":{
+				"networkConnectionError":"Немає підключення до мережі.",
+				"absentUserByEmail":"Користувач з такою поштовою адресою не зареєстрований.",
+				"emailSuccessfullySent":"Логін і пароль відправлені на пошту.",
+				"loadingProcess":"Обробка даних...",
 				"shortDescription":"На введену Вами адресу пошти буде висланий новий пароль.",
 				"legendRestore":"Відновлення паролю",
 				"emaillRestore":"Введіть адресу пошти, яку ви зберегли в профілі",
@@ -95,6 +111,14 @@ module.exports = {
 		"profile":{
 			"profileMenu":["Налаштування профілю","Вправа 1","Вправа 2","Вправа 3"],
 			"profileLeftColumn":["Тепер ти в грі!","Перейти до навчання"]
+		},
+		"serverSisdeOnly":{
+			"emailRestoring":{
+				"topic":"Відновлення паролю",
+				"greeting":"Привіт",
+				"textBeforePassword":"твій новий пароль",
+				"textAfterPassword":"ти завжди можеш його змінити в розділі 'Налаштування профілю'."
+			}
 		}
 	}
 	

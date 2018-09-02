@@ -100,8 +100,17 @@ routes.post("/restore",(request,response)=>{
 							dateLastVisit:now
 						},{},function(err,numReplaced){
 							if(numReplaced == 1){
+								//Get data from language.js file, to create text for an email.
+								var topic = response.locals.lang.serverSisdeOnly.emailRestoring.topic;
+								var greeting = response.locals.lang.serverSisdeOnly.emailRestoring.greeting;
+								var firstText = response.locals.lang.serverSisdeOnly.emailRestoring.textBeforePassword;
+								var secondtText = response.locals.lang.serverSisdeOnly.emailRestoring.textAfterPassword;
+//Make body email text
+var text = `${greeting} ${User.login}! 
+	${User.login}, ${firstText} ${User.pass}
+	${User.login}, ${secondtText}`;
 								//Send an email
-								emailRestoreSend(User.email,User.pass);
+								emailRestoreSend(User.email,topic,text);
 								response.setHeader('Content-type', 'application/json; charset=utf-8');
 								//Send code success 1 to user
 								var data = JSON.stringify({"code":1});

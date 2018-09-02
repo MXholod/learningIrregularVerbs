@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 //userEmail - User's email, password - new User's password	
-function sendPassword(userEmail,password){
+function sendPassword(userEmail,topicEmail,textEmail){
 	var transporter = nodemailer.createTransport({
 		host: 'smtp.gmail.com',
 		port: 465,
@@ -15,8 +15,8 @@ function sendPassword(userEmail,password){
 	var mailOptions = {
 		from: 'irregular81verbs@gmail.com',
 		to: userEmail,
-		subject: 'Password restore',
-		text: 'Your new password is '+password
+		subject: topicEmail,
+		text: textEmail
 	};
 	var res = transporter.sendMail(mailOptions, function(error, info){
 		var resultArray = [];

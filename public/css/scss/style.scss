@@ -566,20 +566,28 @@ html,body {
 					& > div{
 						position:absolute;
 						top:30px;
-						left:10px;
+						/*left:10px;*/
 						height:10px;
 						color:#fff;
-						font-size:14px;
+						font-size:15px;
+					}
+					%notification{
+						text-align:center;
+						padding:10px;
+						width:100%;
 					}
 					.auth__content_restore-shadow_networkConnectionError{
+						@extend %notification;
 						z-index:2;
 						display:none;
 					}
 					.auth__content_restore-shadow_absentUserByEmail{
+						@extend %notification;
 						z-index:3;
 						display:none;
 					}
 					.auth__content_restore-shadow_emailSuccessfullySent{
+						@extend %notification;
 						z-index:4;
 						display:none;
 					}
@@ -587,8 +595,10 @@ html,body {
 						z-index:5;
 						display:none;
 						height:40px;
+						width:70%;
+						text-align:center;
 						top:90px;
-						left:40px;
+						left:30px;
 						@keyframes moveProcess{
 							0%{
 								background-position:0px 0px;
