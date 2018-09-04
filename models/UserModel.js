@@ -6,8 +6,8 @@ const User = {
 	"_email":'User\'s email',get email(){return this._email;},set email(email){this._email = email;},
 	"setHash":function(){return crypto.hashPassword(this._login,this._pass);},
 	"_dateBegin":'When user start the test',
-	"_dateLastVisit":'When user start the test',
-	"generatePass":function(){return crypto.createRandomString();},
+	"_dateLastVisit":'When user was last time',
+	"generatePass":function(){return crypto.createRandomString();},//Uses in base.js
 	"hashURI":function(){return this.setHash().slice(5,10);}
 };
 Object.defineProperty(User,'dateBegin',{

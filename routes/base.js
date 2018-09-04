@@ -25,27 +25,24 @@ routes.post("/authorize",(request,response)=>{
 		//Set data according to the Model UserModel to create structure for DB
 		User.login = l;
 		User.pass = p;
-		//User.email = "alenka78901234@gmail.com";
-		User.email = "liksema@i.ua";
-			
+		User.email = "liksema@i.ua";//"";//"liksema@i.ua"
+		//setHash
 		//var now_utc = date(response.locals.language);	
 		var now = date.preserveTimeToDb();
 		//Check User in DB	
-		dbs.databases.users.find({"login":User.login,'hash':User.setHash()}, function (err, docs) {
+		dbs.databases.users.find({'hash':User.setHash()}, function (err, docs) {
 			// docs contains 
 			if(docs.length > 0){//User already exists
-				//dbs.databases.users.find({"login":User.login,'hash':User.setHash()}, function (err, docs) {
 					//Exact user
 					//Update data to database
 						dbs.databases.users.update({'hash':User.setHash()},{
-							login : User.login, 
-							password : User.pass,
-							email : User.email,
-							hash : User.setHash(),
+							login : docs[0].login, 
+							password : docs[0].password,
+							email : docs[0].email,
+							hash : docs[0].hash,
 							dateBegin:docs[0].dateBegin,
 							dateLastVisit:now
 						});
-				//});
 			}else{
 				//User came in the first time
 				//Insert data to database
@@ -63,7 +60,7 @@ routes.post("/authorize",(request,response)=>{
 		response.render("profile",{//Send to user profile
 			userLoginSession : request.session.login,
 			uLogin : User.login,
-			//uPassword : User.pass,
+			uPassword : User.pass,
 			uEmail : User.email, //"masik@i.ua", //User.email //for test
 		});
 	}
