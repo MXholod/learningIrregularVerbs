@@ -253,7 +253,7 @@
 			clearAuthByTime(".auth__content_restore-shadow_networkConnectionError",3000); 
         }); 
 	}
-	//Move back state of elements by time.
+	//Move back state of elements by time (Different notifications - text which received as result from server).
 	function clearAuthByTime(element,time){
 		//Base elements 
 		var shadow,loadingElem;

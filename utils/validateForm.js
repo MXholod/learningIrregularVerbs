@@ -13,9 +13,9 @@ function validateData(log,pass){
 		if(!resultLog || !resultPass){
 			textCorrect = false;
 		}
-		if(leng && textCorrect){
+		if(leng && textCorrect){//Login and Password are correct
 			return false;
-		}else{
+		}else{//Login and Password are incorrect
 			return true;
 		}
 }

@@ -4,6 +4,16 @@ block variables
 	- profilePage = true;
 block appContent
 	div(class="wrapper__profile")
+		div(class="wrapper__profile__smokeBlock_hide")
+			div(class="wrapper__profile__smokeBlock__child")
+				p Текущие данные профиля будут перезаписаны!
+				div
+					button(id="refuseDataToSave") Отклонить
+					button(id="acceptDataToSave") Подтвердить
+			div(class="wrapper__profile__smokeBlock__child-info")
+				p Something is going wrong
+				p Data was successfully saved
+			div(class="wrapper__profile__smokeBlock__loader")
 		section(class="wrapper__profile__leftColumn")
 			div(class="wrapper__profile__leftColumn__subSlidingMenu")
 			table(id="profileLeftColumn" data-language="profileLeftColumn")

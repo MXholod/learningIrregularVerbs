@@ -6,6 +6,7 @@ const app = express();
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const baseRouts = require("./routes/base");
+const profileRouts = require("./routes/profile");
 const server = require("./libs/io")(app);
 
 //Set template engine
@@ -31,6 +32,8 @@ app.use(session({secret:"irregularVerbs"}));
 
 //Middleware for Base routing registration
 app.use("/",baseRouts);
+//Middleware for Profile routing registration
+app.use("/",profileRouts);
 
 //const port = Number(process.env.PORT || 3000);
 server.listen(3000,()=>{//"127.0.0.1",

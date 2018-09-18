@@ -20,13 +20,14 @@ routes.post("/authorize",(request,response)=>{
 	if(validateForm.validateData(l,p)){//If bad request
 		response.redirect(302, '/');
 	}else{//If good request
-		//Write login to Session
-		request.session.login = l;
 		//Set data according to the Model UserModel to create structure for DB
 		User.login = l;
 		User.pass = p;
-		User.email = "liksema@i.ua";//"";//"liksema@i.ua"
-		//setHash
+		User.email = "";
+		//Write login to the Session
+		request.session.login = User.login;
+		//Write hash to the Session
+		request.session.hash = User.setHash();
 		//var now_utc = date(response.locals.language);	
 		var now = date.preserveTimeToDb();
 		//Check User in DB	
@@ -36,13 +37,23 @@ routes.post("/authorize",(request,response)=>{
 					//Exact user
 					//Update data to database
 						dbs.databases.users.update({'hash':User.setHash()},{
-							login : docs[0].login, 
-							password : docs[0].password,
-							email : docs[0].email,
-							hash : docs[0].hash,
-							dateBegin:docs[0].dateBegin,
-							dateLastVisit:now
-						});
+								login : docs[0].login, 
+								password : docs[0].password,
+								email : docs[0].email,
+								hash : docs[0].hash,
+								dateBegin:docs[0].dateBegin,
+								dateLastVisit:now
+							},{},function(err,numReplaced,affectedDocuments,upsert){
+								if(numReplaced == 1){
+									response.render("profile",{//Send to user profile
+										userLoginSession : request.session.login,
+										uLogin : User.login,
+										uPassword : User.pass,
+										uEmail : docs[0].email, //"masik@i.ua", //User.email //for test
+									});
+								}
+							}
+						);
 			}else{
 				//User came in the first time
 				//Insert data to database
@@ -53,16 +64,18 @@ routes.post("/authorize",(request,response)=>{
 					hash : User.setHash(),
 					dateBegin:now,
 					dateLastVisit:now
+				},function(err,newDocs){
+					response.render("profile",{//Send to user profile
+						userLoginSession : request.session.login,
+						uLogin : User.login,
+						uPassword : User.pass,
+						uEmail : User.email //"masik@i.ua", //User.email //for test
+					});
 				});
 			}
 		});
 			//"lan "+response.locals.language - uses in io.js file.
-		response.render("profile",{//Send to user profile
-			userLoginSession : request.session.login,
-			uLogin : User.login,
-			uPassword : User.pass,
-			uEmail : User.email, //"masik@i.ua", //User.email //for test
-		});
+		
 	}
 });
 //Send data by POST method to restore password and send it to an email

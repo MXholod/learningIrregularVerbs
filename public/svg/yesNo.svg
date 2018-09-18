@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" 
+xmlns="http://www.w3.org/2000/svg" 
+xmlns:xlink="http://www.w3.org/1999/xlink" 
+xml:space="preserve" width="60px" height="84px" class="svg">
+	<defs>
+		<linearGradient id="yesGradientSVG" x1="100%" y1="0%" x2="100%" y2="100%">
+			<stop offset="0%" stop-color="#008000" />
+			<stop offset="100%" stop-color="#00e600" />
+		</linearGradient>
+		<linearGradient id="noGradientSVG" x1="100%" y1="0%" x2="100%" y2="100%">
+			<stop offset="0%" stop-color="#b32d00" />
+			<stop offset="100%" stop-color="#ff4000" />
+		</linearGradient>
+	</defs>
+	<g>
+		<circle  cx="30" cy="21" r="20" fill="url(#yesGradientSVG)" stroke="#000" />
+		<circle  cx="30" cy="21" r="19" fill="transparent" stroke-width="1" stroke="#fff" />
+		<polyline points="20,13 30,33 40,13" fill="none" stroke-width="5" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" />
+		<polyline points="20,13 30,33 40,13" fill="none" stroke-width="3" stroke="#d6cdc2" stroke-linejoin="round" stroke-linecap="round" />
+	</g>
+		<g>
+		<circle  cx="30" cy="64" r="20" fill="url(#noGradientSVG)" stroke="#000" />
+		<circle  cx="30" cy="64" r="19" fill="transparent" stroke-width="1" stroke="#fff" />
+		<polyline points="20,54 40,73" fill="none" stroke-width="5" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" />
+		<polyline points="20,54 40,73" fill="none" stroke-width="3" stroke="#d6cdc2" stroke-linejoin="round" stroke-linecap="round" />
+		<polyline points="40,54 20,73" fill="none" stroke-width="5" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" />
+		<polyline points="40,54 20,73" fill="none" stroke-width="3" stroke="#d6cdc2" stroke-linejoin="round" stroke-linecap="round" />
+	</g>
+</svg>
