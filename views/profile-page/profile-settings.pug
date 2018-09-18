@@ -2,24 +2,24 @@ section(class="wrapper__profile__content_settings wrapper__profile__move-default
 	form(id="profileUserData" data-language="profileUserData" method="post" action="/" name="resaveUserData")
 		fieldset
 			legend #{userLoginSession}
-			span(data-language="profileUserData") (Настройки профиля) 
+			span(data-language="profileUserData") #{lang.profile.profileUserData.settingsHeader} 
 			p
-				span(data-language="profileUserData") Изменить логин
+				span(data-language="profileUserData") #{lang.profile.profileUserData.changeLog}
 				label(for="login" class="wrapper__profile__content_settings-log")
 					input(type="text" value=uLogin name="login" id="login" placeholder=uLogin required="required")
 			p
-				span(data-language="profileUserData") Изменить пароль
+				span(data-language="profileUserData") #{lang.profile.profileUserData.changePass}
 				label(for="password" class="wrapper__profile__content_settings-pass")
 					input(type="text" value=uPassword name="password" id="password" placeholder=uPassword required="required")
 			p(class=!uEmail ? "wrapper__profile__content_settings-notify-hide" : "wrapper__profile__content_settings-notify")
-				span(data-language="profileUserData") Ваш адрес почты на который будет отправлен пароль в случае если вы его забудите
+				span(data-language="profileUserData") #{lang.profile.profileUserData.sendEmail}
 				label(for="emailNotify" class="wrapper__profile__content_settings-email")
 					input(type="email" value=uEmail name="emailN" id="emailNotify" placeholder=uEmail required="required")
 			p(class=!uEmail ? "wrapper__profile__content_settings-warning" : "wrapper__profile__content_settings-warning-hide")
-				span(data-language="profileUserData") Если вы введёте адрес почты то у вас будет возможность восстановить пароль в случае потери 
+				span(data-language="profileUserData") #{lang.profile.profileUserData.saveEmail}
 				label(for="emailWarn" class="wrapper__profile__content_settings-email")
 					input(type="email" value="" name="emailW" id="emailWarn")
 			p
-				span(data-language="profileUserData") Сохранить введённые данные
+				span(data-language="profileUserData") #{lang.profile.profileUserData.submitHeader}
 				br
-				input(type="submit" data-language="profileUserData" value="Отправить" name="subResaveData" id="userSubmit")
+				input(type="submit" data-language="profileUserData" value=lang.profile.profileUserData.submitButton name="subResaveData" id="userSubmit")

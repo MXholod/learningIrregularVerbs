@@ -87,7 +87,7 @@
 			return completedObject;
 		}
 		//3. This is an array of IDs we try to find on client side
-		var arrayIDs = new Array("basePanelText","basePanel","auth","authRestore","profileMenu","profileLeftColumn","profileSmokeBlock");
+		var arrayIDs = new Array("basePanelText","basePanel","auth","authRestore","profileMenu","profileLeftColumn","profileUserData","profileSmokeBlock");
 		var parentIDs;
 		//5. Insert data from language file to HTML elements 
 		function insertDataToHTML(objectHtmlElements,objectStringsData){
@@ -132,15 +132,15 @@
 			parentIDs = compareIdsInHtml(arrayIDs,"data-language");
 				getTypeLanguage("rus",function(event){
 					//Save data to SessionStorage
-					saveDataToSessionStorage(this,"language");
+					saveDataToSessionStorage(this,"language");//this - input radio
 					//console.log("RUS",this);
-					socketData(this.value);//rus
+					socketData(this.value);//rus - input.value radio
 				});
 				getTypeLanguage("ukr",function(event){
 					//Save data to SessionStorage
-					saveDataToSessionStorage(this,"language");
+					saveDataToSessionStorage(this,"language");//this - input radio
 					//console.log("UKR",event.target);
-					socketData(event.target.value);//ukr
+					socketData(event.target.value);//ukr - event.target this is a input radio
 				});
 		},false);
 			//Set onchange Event for Radio buttons
