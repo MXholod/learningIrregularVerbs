@@ -4,15 +4,15 @@ block variables
 	- profilePage = true;
 block appContent
 	div(class="wrapper__profile")
-		div(class="wrapper__profile__smokeBlock_hide")
+		div(id="profileSmokeBlock" data-language="profileSmokeBlock" class="wrapper__profile__smokeBlock_hide")
 			div(class="wrapper__profile__smokeBlock__child")
-				p Текущие данные профиля будут перезаписаны!
+				p(data-language="profileSmokeBlock") #{lang.profile.profileSmokeBlock.headerWarning}
 				div
-					button(id="refuseDataToSave") Отклонить
-					button(id="acceptDataToSave") Подтвердить
+					button(id="refuseDataToSave" data-language="profileSmokeBlock") #{lang.profile.profileSmokeBlock.buttonRefuse}
+					button(id="acceptDataToSave" data-language="profileSmokeBlock") #{lang.profile.profileSmokeBlock.buttonAccept}
 			div(class="wrapper__profile__smokeBlock__child-info")
-				p Something is going wrong
-				p Data was successfully saved
+				p(data-language="profileSmokeBlock") #{lang.profile.profileSmokeBlock.messageWrong}
+				p(data-language="profileSmokeBlock") #{lang.profile.profileSmokeBlock.messageCorrect}
 			div(class="wrapper__profile__smokeBlock__loader")
 		section(class="wrapper__profile__leftColumn")
 			div(class="wrapper__profile__leftColumn__subSlidingMenu")

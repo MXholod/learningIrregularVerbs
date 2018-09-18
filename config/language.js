@@ -49,7 +49,14 @@ module.exports = {
 		},
 		"profile":{
 			"profileMenu":["Настройки профиля","Упражнение 1","Упражнение 2","Упражнение 3"],
-			"profileLeftColumn":["Теперь ты в игре!","Перейти к обучению"]
+			"profileLeftColumn":["Теперь ты в игре!","Перейти к обучению"],
+			"profileSmokeBlock":{
+				"headerWarning":"Текущие данные профиля будут перезаписаны!",
+				"buttonRefuse":"Отклонить",
+				"buttonAccept":"Подтвердить",
+				"messageWrong":"Что-то пошло не так!",
+				"messageCorrect":"Данные успешно отправлены!"
+			}
 		},
 		"serverSisdeOnly":{
 			"emailRestoring":{
@@ -110,7 +117,14 @@ module.exports = {
 		},
 		"profile":{
 			"profileMenu":["Налаштування профілю","Вправа 1","Вправа 2","Вправа 3"],
-			"profileLeftColumn":["Тепер ти в грі!","Перейти до навчання"]
+			"profileLeftColumn":["Тепер ти в грі!","Перейти до навчання"],
+			"profileSmokeBlock":{
+				"headerWarning":"Поточні дані профілю будуть перезаписані!",
+				"buttonRefuse":"Відхилити",
+				"buttonAccept":"Підтвердити",
+				"messageWrong":"Щось пішло не так!",
+				"messageCorrect":"Дані успішно відправлені!"
+			}
 		},
 		"serverSisdeOnly":{
 			"emailRestoring":{
