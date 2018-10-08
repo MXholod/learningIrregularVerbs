@@ -85,7 +85,7 @@ module.exports = function(app){
 		//in base.js file in render('profile') template.
 			//response.locals.language = language; 
 		//Local variable - lang has access in all templates of application, for language.js file
-		response.locals.lang = langs[setLangInd];
+		response.locals.lang = langs[setLangInd];//lang.ru or lang.ua
 		next();
 	});
 	//Use Socket.I.O

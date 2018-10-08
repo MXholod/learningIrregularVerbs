@@ -65,6 +65,11 @@ module.exports = {
 				"saveEmail":"Если вы введёте адрес почты то у вас будет возможность восстановить пароль в случае потери",
 				"submitHeader":"Сохранить введённые данные",
 				"submitButton":"Отправить"
+			},
+			"profileUserVerbList":{
+				"lastVisitText":"Дата Вашего последнего посещения:",
+				"verbListText":"Список неправильных глаголов для изучения.",
+				"goToListText":"Перейти к списку"
 			}
 		},
 		"serverSisdeOnly":{
@@ -142,6 +147,11 @@ module.exports = {
 				"saveEmail":"Якщо ви введете адресу пошти то у вас буде можливість відновити пароль в разі його втрати",
 				"submitHeader":"Зберегти введені дані",
 				"submitButton":"Відправити"
+			},
+			"profileUserVerbList":{
+				"lastVisitText":"Дата Вашого останього відвідування.",
+				"verbListText":"Перелік неправильних дієслів для вивчення.",
+				"goToListText":"Перейти до переліку"
 			}
 		},
 		"serverSisdeOnly":{

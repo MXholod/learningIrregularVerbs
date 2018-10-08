@@ -509,6 +509,43 @@ html,body {
 						}
 					}
 				}
+				.wrapper__profile__content_settings__listVerbs{
+					border: 2px solid #A38D4C;
+					top:30px;
+					left:5%;
+					width:90%;
+					padding:0.25rem 0.25rem;
+					background-color:#e8b57b;
+					font-family:Lasco_Bold;
+					font-size:$base-font-size - 2px;
+					.wrapper__profile__content_settings__listVerbs__lastVisit{
+						h1{
+							margin-bottom:5px;
+						}
+						margin-bottom:0.3rem;
+						padding: 0.25rem 0.25rem;
+						background-color:#fce5c0;
+					}
+					.wrapper__profile__content_settings__listVerbs__verbButtons{
+						margin-bottom:0rem;
+						padding: 0.25rem 0.25rem;
+						background-color:#fce5c0;
+						h1{
+							margin-bottom:5px;
+						}
+						& > a{
+							background-color:#D0BC7F;
+							border:2px solid #af9a24;
+							padding:0.2rem;
+							color:#fff;
+							font-size:0.8rem;
+							&:hover{
+								border:2px solid #af9a24;
+								background-color:#C3B146;
+							}
+						}
+					}
+				}
 			}
 			.wrapper__profile__content_method-one{
 				@include profileColor("",#fba99c);

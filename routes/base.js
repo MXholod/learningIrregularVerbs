@@ -45,11 +45,13 @@ routes.post("/authorize",(request,response)=>{
 								dateLastVisit:now
 							},{},function(err,numReplaced,affectedDocuments,upsert){
 								if(numReplaced == 1){
+									var lastVisit = date.retrieveTimeFromDb(docs[0].dateLastVisit,'default');
 									response.render("profile",{//Send to user profile
 										userLoginSession : request.session.login,
 										uLogin : User.login,
 										uPassword : User.pass,
 										uEmail : docs[0].email, //"masik@i.ua", //User.email //for test
+										absentTime : lastVisit
 									});
 								}
 							}
@@ -65,11 +67,13 @@ routes.post("/authorize",(request,response)=>{
 					dateBegin:now,
 					dateLastVisit:now
 				},function(err,newDocs){
+					var lastVisit = date.retrieveTimeFromDb(now,'empty');
 					response.render("profile",{//Send to user profile
 						userLoginSession : request.session.login,
 						uLogin : User.login,
 						uPassword : User.pass,
-						uEmail : User.email //"masik@i.ua", //User.email //for test
+						uEmail : User.email, //"masik@i.ua", //User.email //for test
+						absentTime : lastVisit
 					});
 				});
 			}

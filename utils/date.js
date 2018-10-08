@@ -36,13 +36,26 @@ function retrieveTimeFromDb(milisec,format){
 	let date = new Date(milisec);
 	let result;
 	switch(format){
-		case "h" : result = date.getHours();
+		case "empty" : result = "00/00/0000 00:00:00";
 			break;
-		case "m" : result = date.getMinutes();
+		case "y" : result = date.getFullYear();
 			break;
-		case "s" : result = date.getSeconds();
+		case "m" : result = date.getMonth() < 9 ? `0${date.getMonth()+1}` : date.getMonth()+1;;
 			break;
-		default  : result = `${date.getHours()} : ${date.getMinutes()} : ${date.getSeconds()}`;
+		case "d" : result = date.getDate() <= 9 ? `0${date.getDate()}` : date.getDate();
+			break;
+		case "h" : result = date.getHours() > 9 ? date.getHours() : `0${date.getHours()}`;
+			break;
+		case "min" : result = date.getMinutes() > 9 ? date.getMinutes() : `0${date.getMinutes()}`;
+			break;
+		case "s" : result = date.getSeconds() > 9 ? date.getSeconds() : `0${date.getSeconds()}`;
+			break;
+		default  :  let d = date.getDate() <= 9 ? `0${date.getDate()}` : date.getDate();
+					let m = date.getMonth() < 9 ? `0${date.getMonth()+1}` : date.getMonth()+1;
+					let h = date.getHours() > 9 ? date.getHours() : `0${date.getHours()}`;
+					let min = date.getMinutes() > 9 ? date.getMinutes() : `0${date.getMinutes()}`;
+					let s = date.getSeconds() > 9 ? date.getSeconds() : `0${date.getSeconds()}`;
+					result =  `${d}/${m}/${date.getFullYear()} ${h}:${min}:${s}`;
 	}
 	return result;
 }

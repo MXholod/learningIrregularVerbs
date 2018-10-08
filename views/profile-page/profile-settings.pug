@@ -23,3 +23,10 @@ section(class="wrapper__profile__content_settings wrapper__profile__move-default
 				span(data-language="profileUserData") #{lang.profile.profileUserData.submitHeader}
 				br
 				input(type="submit" data-language="profileUserData" value=lang.profile.profileUserData.submitButton name="subResaveData" id="userSubmit")
+	div(id="profileUserVerbList" data-language="profileUserVerbList" class="wrapper__profile__content_settings__listVerbs alert alert-light" role="alert")
+		div(class="wrapper__profile__content_settings__listVerbs__lastVisit alert alert-secondary")
+			p(data-language="profileUserVerbList") #{lang.profile.profileUserVerbList.lastVisitText}
+			div #{absentTime}
+		div(class="wrapper__profile__content_settings__listVerbs__verbButtons alert alert-secondary")
+			h1(data-language="profileUserVerbList") #{lang.profile.profileUserVerbList.verbListText}
+			a(href="#" class="btn btn-primary" data-language="profileUserVerbList") #{lang.profile.profileUserVerbList.goToListText}
