@@ -102,6 +102,7 @@ module.exports = __webpack_require__(4);
 					return false;//Cancel event, block to click by panel
 				},false);
 			};
+			//Sets the direction
 			function start(el,obj){//Choose movement direction
 				if(!direction){ //\!false - true, !true - false
 					goDown(el,obj);

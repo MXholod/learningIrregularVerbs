@@ -70,8 +70,11 @@ routes.post("/resave",(request,response)=>{
 						response.send(data);
 					}
 				});
-	}		
-	
+	}
+});
+//Go to the list of Irregular Verbs
+routes.get("/listVerbs",(request,response)=>{
+	response.render("listVerbs",{userLoginSession : request.session.login});
 });
 
 module.exports = routes;

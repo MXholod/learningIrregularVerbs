@@ -23,6 +23,7 @@
 					return false;//Cancel event, block to click by panel
 				},false);
 			};
+			//Sets the direction
 			function start(el,obj){//Choose movement direction
 				if(!direction){ //\!false - true, !true - false
 					goDown(el,obj);

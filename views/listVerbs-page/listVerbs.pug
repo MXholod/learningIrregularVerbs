@@ -1,0 +1,68 @@
+extends ../layout.pug
+block variables
+	- mainPage = false;
+	- profilePage = false;
+	- listVerbs = true;
+block appContent
+	div(class="wrapper__list-verbs")
+		div(class="wrapper__list-verbs__choose-list")
+				p 200 Irregular verbs in one list
+					button(id="toFullListVerbs") Go to all verbs 
+				p View portions Irregular verbs
+					button(id="toPortionListVerbs") Go to portions verbs
+		div(class="wrapper__list-verbs__all-verbs")
+			section(class="wrapper__list-verbs__all-verbs__full-list wrapper__list-verbs__all-verbs__full-list-positive")
+				div(class="wrapper__list-verbs__all-verbs__full-list__header")
+					span(class="wrapper__list-verbs__all-verbs__full-list__header__num") №
+					span(class="wrapper__list-verbs__all-verbs__full-list__header__v") 1-я форма
+					span(class="wrapper__list-verbs__all-verbs__full-list__header__v") 2-я форма
+					span(class="wrapper__list-verbs__all-verbs__full-list__header__v") 3-я форма
+					span(class="wrapper__list-verbs__all-verbs__full-list__header__trl") Перевод
+				div(class="wrapper__list-verbs__all-verbs__full-list__row")
+					span 1
+					span Do
+					span Did
+					span Done
+					span Translation Rus/Ukr
+				div(class="wrapper__list-verbs__all-verbs__full-list__row")
+					span 2
+					span Do
+					span Did
+					span Done
+					span Translation Rus/Ukr
+				div(class="wrapper__list-verbs__all-verbs__full-list__row")
+					span 3
+					span Do
+					span Did
+					span Done
+					span Translation Rus/Ukr
+			section(class="wrapper__list-verbs__all-verbs__portion-list")
+				div(class="wrapper__list-verbs__all-verbs__portion-list__header")
+					span(class="wrapper__list-verbs__all-verbs__portion-list__header__num") №
+					span(class="wrapper__list-verbs__all-verbs__portion-list__header__v") 1-я форма
+					span(class="wrapper__list-verbs__all-verbs__portion-list__header__v") 2-я форма
+					span(class="wrapper__list-verbs__all-verbs__portion-list__header__v") 3-я форма
+					span(class="wrapper__list-verbs__all-verbs__portion-list__header__trl") Перевод
+				div(id="pages" class="wrapper__list-verbs__all-verbs__portion-list__pages")
+					//
+						div(class="wrapper__list-verbs__all-verbs__portion-list__row")
+							span 1
+							span Do
+							span Did
+							span Done
+							span Translation Rus/Ukr
+						div(class="wrapper__list-verbs__all-verbs__portion-list__row")
+							span 2
+							span Do
+							span Did
+							span Done
+							span Translation Rus/Ukr
+				div(id="control")
+					div(id="hundreds")
+						button(id="minesHun") -100
+						div(class="space")
+						button(id="plusHun") +100
+					div(id="trifle")
+						button(id="minesTrifle")
+						div(class="space")
+						button(id="plusTrifle")

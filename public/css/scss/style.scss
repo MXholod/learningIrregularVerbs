@@ -561,6 +561,240 @@ html,body {
 			}
 		}
 	}
+	.wrapper__list-verbs{
+		height:$base-height;
+		width:$base-width;
+		background-color:#f6e4b7;
+		padding-top:40px;
+		overflow:hidden;
+		.wrapper__list-verbs__choose-list{
+				width:100%;
+				border:2px solid #000;
+				p{
+					float:left;
+					width:50%;
+					height:35px;
+					padding:2px;
+					box-sizing:border-box;
+					&:first-child{
+						border-right:2px solid #000;
+						background-color:#86d795;
+						button{
+							background-color:#e8b843;
+							padding: 3px;
+							border-radius: 5px;
+							margin-left: 45px;
+						}
+					}
+					&:last-child{
+						background-color:#97d8a2;
+						button{
+							background-color:#e59a63;
+							padding: 3px;
+							border-radius: 5px;
+							margin-left: 45px;
+						}
+					}
+				}
+				&:after{
+					content:"";
+					display:table;
+					clear:both;
+				}
+			}
+		.wrapper__list-verbs__all-verbs{
+			padding:5px;
+			width:200%;
+			%verb-row-style{
+				width:4%;
+				height:30px;
+				box-sizing:border-box;
+				font-size:14px;
+				font-weight:bold;
+				padding:2px 4px 2px 4px;
+				border-right:2px solid #000;
+				text-align:center;
+				display:inline-block;
+			}
+			.wrapper__list-verbs__all-verbs__full-list-positive{
+				margin-left:1%;
+			}
+			.wrapper__list-verbs__all-verbs__full-list-negative{
+				margin-left:-51%;
+			}
+			.wrapper__list-verbs__all-verbs__full-list{
+				border:2px solid #000;
+				width:48%;
+				/*margin-left:1%;*/
+				float:left;
+				overflow-y:scroll;
+				height:500px;
+				max-height:500px;
+				.wrapper__list-verbs__all-verbs__full-list__header{
+					background-color:#e8b843;
+					border-bottom:2px solid #000;
+					border-right:2px solid #000;
+					height:30px;
+					.wrapper__list-verbs__all-verbs__full-list__header__num{
+						@extend %verb-row-style;
+					}
+					.wrapper__list-verbs__all-verbs__full-list__header__v{
+						@extend %verb-row-style;
+						width:22%;
+					}
+					.wrapper__list-verbs__all-verbs__full-list__header__trl{
+						@extend %verb-row-style;
+						width:24%;
+						border-right:none;
+					}
+				}
+				.wrapper__list-verbs__all-verbs__full-list__row{
+					border-bottom:2px solid #000;
+					border-right:2px solid #000;
+					background-color:#f1f1d9;
+					height:30px;
+					&:nth-child(2n+1){
+						background-color:#f6f6f6;
+					}
+					span{
+						width:22%;
+						border-right:2px solid #000;
+						display:inline-block;
+						height:30px;
+						text-align:center;
+					}
+					span:first-child{
+						width:4%;
+					}
+					span:last-child{
+						width:24%;
+						border-right:none;
+					}
+				}
+			}
+			.wrapper__list-verbs__all-verbs__portion-list{
+				border:2px solid #000;
+				width:48%;
+				height:500px;
+				margin-left:1%;
+				float:left;
+				.wrapper__list-verbs__all-verbs__portion-list__header{
+					background-color:#e59a63;
+					border-bottom:2px solid #000;
+					height:30px;
+					.wrapper__list-verbs__all-verbs__portion-list__header__num{
+						@extend %verb-row-style;
+					}
+					.wrapper__list-verbs__all-verbs__portion-list__header__v{
+						@extend %verb-row-style;
+						width:22%;
+					}
+					.wrapper__list-verbs__all-verbs__portion-list__header__trl{
+						@extend %verb-row-style;
+						width:24%;
+						border-right:none;
+					}
+				}
+				.wrapper__list-verbs__all-verbs__portion-list__pages{
+					width:760px;
+					height:352px;
+					border:2px solid #000;
+					margin:-2px auto 0px;
+					position:relative;
+					.wrapper__list-verbs__all-verbs__portion-list__page{
+						position:absolute;
+						top:0px;
+						left:-2px;
+						width:759px;
+						height:350px;
+						border-bottom:2px solid #000;
+						background-color:#f1f1d9;
+						.wrapper__list-verbs__all-verbs__portion-list__page__row{
+							height:35px;
+							&:nth-child(2n+1){
+								background-color:#f6f6f6;
+							}
+							&:last-child{
+								border-bottom:2px solid #000;
+							}
+							div{
+								width:22%;
+								border-right:2px solid #000;
+								display:inline-block;
+								height:35px;
+								text-align:center;
+							}
+							div:first-child{
+								width:4%;
+							}
+							div:last-child{
+								width:30%;
+								border-right:none;
+							}
+						}
+					}
+				}
+				.wrapper__list-verbs__all-verbs__portion-list__pages:after{
+					content:"";
+					display:table;
+					clear:both;
+				}
+				#control{
+					width:200px;
+					margin:15px auto 0px;
+					%space{
+						display:inline-block;
+						width:65px;
+						height:30px;
+						background-color:transparent;
+						padding:5px 5px;
+					}
+					%buttons{
+						border:1px solid #76584C;
+						border-radius:5px;
+						background-color:#665026;
+						display:inline-block;
+						margin:0px 0px 0px 0px;
+						width:65px;
+						height:30px;
+						font-family:Verdana,Helvetica,sans-serif;
+						color:#CFA047;
+					}
+					#hundreds{
+						#minesHun{
+							@extend %buttons;
+						}
+						.space{
+							@extend %space;
+						}
+						#plusHun{
+							@extend %buttons;
+						}
+					}
+					#trifle{
+						#minesTrifle{
+							@extend %buttons;
+							background-color:#CFA047;
+							color:#665026;
+						}
+						.space{
+							@extend %space;
+						}
+						#plusTrifle{
+							@extend %buttons;
+							background-color:#CFA047;
+							color:#665026;
+						}
+					}
+				}
+			}
+			&:after{
+				content:"";
+				display:table;
+				clear:both;
+			}
+		}
+	}
 	.auth{
 		width:200px;
 		height:180px;
@@ -1021,7 +1255,7 @@ $settingsHeight:40px;
 		height:$height;
 		padding:0px 5px;
 		background-color:#f6f6f6;
-		z-index:0;
+		z-index:997;
 		font-size:$base-font-size - 4px;
 		font-family:Lasco_Bold;
 		.settings__base_language{
