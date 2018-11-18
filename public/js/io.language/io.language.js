@@ -87,7 +87,7 @@
 			return completedObject;
 		}
 		//3. This is an array of IDs we try to find on client side
-		var arrayIDs = new Array("basePanelText","basePanel","auth","authRestore","profileMenu","profileLeftColumn","profileUserData","profileUserVerbList","profileSmokeBlock");
+		var arrayIDs = new Array("basePanelText","basePanel","auth","authRestore","profileMenu","profileLeftColumn","profileUserData","profileUserVerbList","profileSmokeBlock","verbsList","verbsListPortion");
 		var parentIDs;
 		//5. Insert data from language file to HTML elements 
 		function insertDataToHTML(objectHtmlElements,objectStringsData){
@@ -126,6 +126,9 @@
 				var domElements = parseHtmlByIdAndAttr(parentIDs,"data-language");
 				//2. Insert data from parsed file to HTML elements
 				insertDataToHTML(domElements,data.language);
+				//console.log("----------------");
+				//console.log(domElements);
+				//console.log(data.language);
 			});
 		window.addEventListener('load',function(){
 			//4. Get IDs from DOM if they exist

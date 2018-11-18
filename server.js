@@ -1,6 +1,7 @@
 const path = require("path");
 const dbs = require("./config/db");
-dbs.createDataBases("users");
+dbs.createDataBases("users","verbs");
+dbs.insertVerbsToDB('verbs');
 const express = require("express");
 const app = express();
 const session = require("express-session");

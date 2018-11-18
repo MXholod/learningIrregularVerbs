@@ -1,6 +1,7 @@
 module.exports = function(app){
 	const server = require('http').Server(app);
 	const io = require('socket.io')(server);
+	const dbs = require("../config/db");
 	const lang = require("./../config/language");
 	var langs = [lang.ru,lang.ua];
 	var setLangInd = 0;
@@ -86,6 +87,8 @@ module.exports = function(app){
 			//response.locals.language = language; 
 		//Local variable - lang has access in all templates of application, for language.js file
 		response.locals.lang = langs[setLangInd];//lang.ru or lang.ua
+		//Save two languages into local variable 'languages'
+		response.locals.languages = langs;//Two languages at once - lang.ru and lang.ua
 		next();
 	});
 	//Use Socket.I.O
@@ -100,6 +103,18 @@ module.exports = function(app){
 						language : languageObject,
 						ids : data.ids
 					});
+			});
+			socket.on('launchVerbs', function (data){
+				//true
+				//
+				dbs.databases.verbs.find({},function(err,docs){
+					if(data.launch){//true
+						socket.emit('getVerbsList',{  
+							verbs : docs
+						});
+					}
+				});
+				
 			});
 	});
 	return server;

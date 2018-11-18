@@ -5,12 +5,35 @@ const date = require("../utils/date");
 const validateForm = require("../utils/validateForm");
 const emailRestoreSend = require("../utils/emailRestore");
 let routes = express.Router();
-//Main page 
+//Main page
 routes.get("/",(request,response)=>{
 	//response.send("<h1>Hello</h1>");
-	//var d1 = db();
 	//global.d1 = d1[0];
-	response.render("index",{title:"Irregular verbs"});//,result:d1[1]
+	//Find Russian and Ukrainian verbs and add them to language.js file
+	dbs.databases.verbs.find({},function(err, docs){
+		if(Array.isArray(docs)){
+			let russian = [], ukraine = [];
+			docs.forEach((currentValue, index, array)=>{
+				//russian[index] = ukraine[index] = currentValue.id_verb;
+				russian[index] = currentValue.rus;
+				ukraine[index] = currentValue.ukr;
+			});
+			//Add new properties (Array as a value) for Object from language.js file in memory
+			response.locals.languages[0]["translation"] = {
+				"verbsList":russian,
+				"verbsListPortion":russian
+				};//Russian 'verbsList' property; 
+			response.locals.languages[1]["translation"] = {
+				"verbsList":ukraine,
+				"verbsListPortion":ukraine
+				};//Ukrainian 'verbsList' property;
+			//Load View
+			response.render("index",{title:"Irregular verbs"});//
+		}else{
+			response.render("index",{title:"Irregular verbs"});//
+		}
+	});
+	//response.render("index",{title:"Irregular verbs"});//,result:d1[1]
 });
 //Send data by POST method to authenticate
 routes.post("/authorize",(request,response)=>{

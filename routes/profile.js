@@ -74,7 +74,20 @@ routes.post("/resave",(request,response)=>{
 });
 //Go to the list of Irregular Verbs
 routes.get("/listVerbs",(request,response)=>{
-	response.render("listVerbs",{userLoginSession : request.session.login});
+	//Array of list Verbs
+	//var verbsList = response.locals.lang.verbsList;
+	var verbsList = response.locals.lang.translation.verbsList;
+	response.render("listVerbs",{userLoginSession : request.session.login,verbs : verbsList});
 });
+//Get the list of Irregular Verbs by AJAX
+/*routes.post("/getListVerbs",(request,response)=>{
+	//Array of list Verbs
+	var verbsList = response.locals.lang.verbsList;
+	//Set header
+	response.setHeader('Content-type', 'application/json; charset=utf-8');
+	//Send this object information back to User, 1 (is good)
+	var data = JSON.stringify({"verbs":verbsList});
+	response.send(data);
+});*/
 
 module.exports = routes;
