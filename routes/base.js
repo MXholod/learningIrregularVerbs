@@ -81,7 +81,7 @@ routes.post("/authorize",(request,response)=>{
 						);
 			}else{
 				//User came in the first time
-				//Insert data to database
+				//Insert data to database and go to Profile page
 				dbs.databases.users.insert({
 					login : User.login, 
 					password : User.pass,

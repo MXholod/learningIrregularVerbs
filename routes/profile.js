@@ -79,6 +79,25 @@ routes.get("/listVerbs",(request,response)=>{
 	var verbsList = response.locals.lang.translation.verbsList;
 	response.render("listVerbs",{userLoginSession : request.session.login,verbs : verbsList});
 });
+//Route to profile when button was clicked in 'slidePanel'
+routes.get("/profile",(request,response)=>{
+	var sessionHash = request.session.hash;
+	dbs.databases.users.find({'hash':sessionHash}, function (err, docs) {
+		//User found according to the Session
+		if(docs.length > 0){
+			var lastVisit = date.retrieveTimeFromDb(docs[0].dateLastVisit,'default');
+			response.render("profile",{//Send to user profile
+				userLoginSession : request.session.login,
+				uLogin : docs[0].login,
+				uPassword : docs[0].password,
+				uEmail : docs[0].email,
+				absentTime : lastVisit
+			});
+		}else{//If Session is absent go to the main page
+			response.render("index",{title:"Irregular verbs"});//
+		}
+	});
+});
 //Get the list of Irregular Verbs by AJAX
 /*routes.post("/getListVerbs",(request,response)=>{
 	//Array of list Verbs

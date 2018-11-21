@@ -1371,10 +1371,17 @@ $settingsHeight:40px;
 				font-size:$base-font-size - 6px;
 				width:100px;
 				margin:5px 0px 0px 20px;
-				border:1px solid #ea8e1e;
+				border:1px solid yellow;
 				border-radius:10px;
+				display:block;
+				text-align:center;
+				text-decoration:none;
+				padding:1px;
+				background-color:#dbccab;
+				color:#000;
 				&:hover{
 					background-color:#dbccab;
+					border:2px solid yellow;
 				}
 			}
 		}

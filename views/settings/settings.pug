@@ -26,7 +26,7 @@ div(id="basePanel" data-language="basePanel" class="settings__base__slidePanel")
 			span(class="settings__base_userPage__userName") #{userLoginSession}
 		if userLoginSession 
 			p(class="settings__base_userPage_profile settings__base_userPage_profileShow") 
-				button(data-language="basePanel" id="userSettingsPage") #{lang.settingsPanel.basePanel.user.button}
+				a(data-language="basePanel" id="userSettingsPage" href="http://localhost:3000/profile") #{lang.settingsPanel.basePanel.user.button}
 		else
 			p(class="settings__base_userPage_profile settings__base_userPage_profileHide") 
-				button(data-language="basePanel" id="userSettingsPage") #{lang.settingsPanel.basePanel.user.button}
+				a(data-language="basePanel" id="userSettingsPage" href="http://localhost:3000/profile") #{lang.settingsPanel.basePanel.user.button}
