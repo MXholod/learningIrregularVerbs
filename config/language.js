@@ -72,6 +72,16 @@ module.exports = {
 				"goToListText":"Перейти к списку"
 			}
 		},
+		"verbsListTop":{
+			"bothListHeaders":{
+				"fullListHeader":"неправильных глаголов одним списком.",
+				"fullListButton":"Список целиком",
+				"portionListHeader":"Неправильные глаголы порциями.",
+				"portionListButton":"Список порциями."
+			},
+			"fullListTableHeader":["1-я форма","2-я форма","3-я форма"],
+			"portionListTableHeader":["1-я форма","2-я форма","3-я форма"]
+		},
 		"serverSisdeOnly":{
 			"emailRestoring":{
 				"topic":"Восстановление пароля",
@@ -153,6 +163,16 @@ module.exports = {
 				"verbListText":"Перелік неправильних дієслів для вивчення.",
 				"goToListText":"Перейти до переліку"
 			}
+		},
+		"verbsListTop":{
+			"bothListHeaders":{
+				"fullListHeader":"неправильних дієслів одним списком.",
+				"fullListButton":"Список цілком",
+				"portionListHeader":"Неправильні дієслова порціями.",
+				"portionListButton":"Список порціями"
+			},
+			"fullListTableHeader":["1-ша форма","2-га форма","3-тя форма"],
+			"portionListTableHeader":["1-ша форма","2-га форма","3-тя форма"]
 		},
 		"serverSisdeOnly":{
 			"emailRestoring":{

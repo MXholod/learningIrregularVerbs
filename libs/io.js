@@ -88,7 +88,7 @@ module.exports = function(app){
 		//Local variable - lang has access in all templates of application, for language.js file
 		response.locals.lang = langs[setLangInd];//lang.ru or lang.ua
 		//Save two languages into local variable 'languages'
-		response.locals.languages = langs;//Two languages at once - lang.ru and lang.ua
+		response.locals.languages = langs;//Two languages at once - lang.ru and lang.ua (as an Array)
 		next();
 	});
 	//Use Socket.I.O

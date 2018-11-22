@@ -85,7 +85,8 @@ routes.get("/profile",(request,response)=>{
 	dbs.databases.users.find({'hash':sessionHash}, function (err, docs) {
 		//User found according to the Session
 		if(docs.length > 0){
-			var lastVisit = date.retrieveTimeFromDb(docs[0].dateLastVisit,'default');
+			//Get saved previous date from Session to show User last visit
+			var lastVisit = date.retrieveTimeFromDb(request.session.dateBeforeNow,'default');
 			response.render("profile",{//Send to user profile
 				userLoginSession : request.session.login,
 				uLogin : docs[0].login,

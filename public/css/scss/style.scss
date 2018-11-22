@@ -573,26 +573,37 @@ html,body {
 				p{
 					float:left;
 					width:50%;
-					height:35px;
+					height:45px;
 					padding:2px;
 					box-sizing:border-box;
 					&:first-child{
 						border-right:2px solid #000;
 						background-color:#86d795;
+						span{
+							&:first-child{
+								padding-right:5px;
+								margin-left:5px;
+							}
+						}
 						button{
 							background-color:#e8b843;
 							padding: 3px;
 							border-radius: 5px;
-							margin-left: 45px;
+							margin-left: 140px;
 						}
 					}
 					&:last-child{
 						background-color:#97d8a2;
+						span{
+							&:first-child{
+								margin-left:5px;
+							}
+						}
 						button{
 							background-color:#e59a63;
 							padding: 3px;
 							border-radius: 5px;
-							margin-left: 45px;
+							margin-left: 130px;
 						}
 					}
 				}

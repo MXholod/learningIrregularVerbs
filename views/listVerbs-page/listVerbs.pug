@@ -5,22 +5,25 @@ block variables
 	- listVerbs = true;
 block appContent
 	div(class="wrapper__list-verbs")
-		div(class="wrapper__list-verbs__choose-list")
-				p 200 Irregular verbs in one list
-					button(id="toFullListVerbs") Go to all verbs 
-				p View portions Irregular verbs
-					button(id="toPortionListVerbs") Go to portions verbs
+		div(data-language="bothListHeaders" id="bothListHeaders" class="wrapper__list-verbs__choose-list")
+				p
+					span #{verbs.length}
+					span(data-language="bothListHeaders") #{lang.verbsListTop.bothListHeaders.fullListHeader}
+					button(data-language="bothListHeaders" id="toFullListVerbs") #{lang.verbsListTop.bothListHeaders.fullListButton} 
+				p
+					span(data-language="bothListHeaders") #{lang.verbsListTop.bothListHeaders.portionListHeader}
+					button(data-language="bothListHeaders" id="toPortionListVerbs") #{lang.verbsListTop.bothListHeaders.portionListButton}
 		div(class="wrapper__list-verbs__all-verbs")
 			section(class="wrapper__list-verbs__all-verbs__full-list wrapper__list-verbs__all-verbs__full-list-positive")
-				div(class="wrapper__list-verbs__all-verbs__full-list__header")
+				div(data-language="fullListTableHeader" id="fullListTableHeader" class="wrapper__list-verbs__all-verbs__full-list__header")
 					span(class="wrapper__list-verbs__all-verbs__full-list__header__num") №
-					span(class="wrapper__list-verbs__all-verbs__full-list__header__v-1") 1-я форма
-					span(class="wrapper__list-verbs__all-verbs__full-list__header__v-2") 2-я форма
-					span(class="wrapper__list-verbs__all-verbs__full-list__header__v-3") 3-я форма
-				div(id="verbsList" data-language="verbsList" class="wrapper__list-verbs__all-verbs__full-list__rows")
+					span(data-language="fullListTableHeader" class="wrapper__list-verbs__all-verbs__full-list__header__v-1") #{lang.verbsListTop.fullListTableHeader[0]}
+					span(data-language="fullListTableHeader" class="wrapper__list-verbs__all-verbs__full-list__header__v-2") #{lang.verbsListTop.fullListTableHeader[1]}
+					span(data-language="fullListTableHeader" class="wrapper__list-verbs__all-verbs__full-list__header__v-3") #{lang.verbsListTop.fullListTableHeader[2]}
+				div(data-language="verbsList" id="verbsList" class="wrapper__list-verbs__all-verbs__full-list__rows")
 					each val,ind in verbs
 						div(class="wrapper__list-verbs__all-verbs__full-list__rows__row")
-							div(class="full-list__rows__row__ind") #{ind}
+							div(class="full-list__rows__row__ind") #{ind+1}
 							div(class="full-list__rows__row__ing")
 								span Do
 								span Did
@@ -30,11 +33,11 @@ block appContent
 								span(data-language="verbsList") #{val[1]}
 								span(data-language="verbsList") #{val[2]}
 			section(class="wrapper__list-verbs__all-verbs__portion-list")
-				div(class="wrapper__list-verbs__all-verbs__portion-list__header")
+				div(data-language="portionListTableHeader" id="portionListTableHeader" class="wrapper__list-verbs__all-verbs__portion-list__header")
 					span(class="wrapper__list-verbs__all-verbs__portion-list__header__num") №
-					span(class="wrapper__list-verbs__all-verbs__portion-list__header__v-1") 1-я форма
-					span(class="wrapper__list-verbs__all-verbs__portion-list__header__v-2") 2-я форма
-					span(class="wrapper__list-verbs__all-verbs__portion-list__header__v-3") 3-я форма
+					span(data-language="portionListTableHeader" class="wrapper__list-verbs__all-verbs__portion-list__header__v-1") #{lang.verbsListTop.portionListTableHeader[0]}
+					span(data-language="portionListTableHeader" class="wrapper__list-verbs__all-verbs__portion-list__header__v-2") #{lang.verbsListTop.portionListTableHeader[1]}
+					span(data-language="portionListTableHeader" class="wrapper__list-verbs__all-verbs__portion-list__header__v-3") #{lang.verbsListTop.portionListTableHeader[2]}
 				div(id="verbsListPortion" data-language="verbsListPortion" class="wrapper__list-verbs__all-verbs__portion-list__pages")
 					//
 						div(class="wrapper__list-verbs__all-verbs__portion-list__row")

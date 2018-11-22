@@ -68,6 +68,9 @@ routes.post("/authorize",(request,response)=>{
 								dateLastVisit:now
 							},{},function(err,numReplaced,affectedDocuments,upsert){
 								if(numReplaced == 1){
+									//Save previous date to Session before 'now' above will update
+									request.session.dateBeforeNow = docs[0].dateLastVisit;
+									//Get previous date to show User last visit in profile
 									var lastVisit = date.retrieveTimeFromDb(docs[0].dateLastVisit,'default');
 									response.render("profile",{//Send to user profile
 										userLoginSession : request.session.login,
