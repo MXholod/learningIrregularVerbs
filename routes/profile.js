@@ -99,6 +99,11 @@ routes.get("/profile",(request,response)=>{
 		}
 	});
 });
+routes.get("/exercises",(request,response)=>{
+	response.render("exercises",{//Go to exercises
+		userLoginSession : request.session.login
+	});
+});
 //Get the list of Irregular Verbs by AJAX
 /*routes.post("/getListVerbs",(request,response)=>{
 	//Array of list Verbs

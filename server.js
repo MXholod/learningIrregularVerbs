@@ -17,7 +17,8 @@ app.set('views',[
 	__dirname+'/views',
 	__dirname+'/views/main-page',
 	__dirname+'/views/profile-page',
-	__dirname+'/views/listVerbs-page'
+	__dirname+'/views/listVerbs-page',
+	__dirname+'/views/exercises-page'
 ]);
 //Static files storage: 1.URL segment, 2.Folder name.
 app.use('/public',express.static(path.join(__dirname,'public')));
