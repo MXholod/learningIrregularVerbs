@@ -946,6 +946,32 @@ html,body {
 			}
 		}
 	}
+	%methodsBaseStyle{
+		height:600px;
+		padding-top:40px;
+		background-color:#fce5c0;
+	}
+	.wrapper__method1{
+		@extend %methodsBaseStyle;
+		.wrapper__method1__main{
+			height:100%;
+			background-color:pink;
+		}
+	}
+	.wrapper__method2{
+		@extend %methodsBaseStyle;
+		.wrapper__method2__main{
+			height:100%;
+			background-color:violet;
+		}
+	}
+	.wrapper__method3{
+		@extend %methodsBaseStyle;
+		.wrapper__method3__main{
+			height:100%;
+			background-color:lime;
+		}
+	}
 	.auth{
 		width:200px;
 		height:180px;
