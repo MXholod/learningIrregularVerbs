@@ -5,22 +5,22 @@ block variables
 	- listVerbs = false;
 block appContent
 	div(class="wrapper__exercises")
-		div(class="wrapper__exercises__main")
+		div(data-language="exerciseItems" id="exerciseItems" class="wrapper__exercises__main")
 			div(class="card wrapper__exercises__main__exercise-1")
-				h5(class="card-header") Упражнение 1
+				h5(data-language="exerciseItems" class="card-header") #{lang.exercises.exerciseItems.exercise1[0]}
 				div(class="card-body")
-					h5(class="card-title") Соответствие переводу.
-					p(class="card-text") Дана одна попытка, чтобы отметить строку, в которой отсутствует ошибка  (английские глаголы не спутаны в соответствии с переводом c глаголами из других строк).
-					a(href="/method1" class="btn btn-primary") Начать
+					h5(data-language="exerciseItems" class="card-title") #{lang.exercises.exerciseItems.exercise1[1]}
+					p(data-language="exerciseItems" class="card-text") #{lang.exercises.exerciseItems.exercise1[2]}
+					a(data-language="exerciseItems" href="/method1" class="btn btn-primary") #{lang.exercises.exerciseItems.exercise1[3]}
 			div(class="card wrapper__exercises__main__exercise-2")
-				h5(class="card-header") Упражнение 2
+				h5(data-language="exerciseItems" class="card-header") #{lang.exercises.exerciseItems.exercise2[0]}
 				div(class="card-body")
-					h5(class="card-title") Соответствие структуре. 
-					p(class="card-text") Определить, находятся ли глаголы в строке на своих местах. Дана одна попытка, чтобы отметить строку или пропустить её.
-					a(href="/method2" class="btn btn-primary") Начать
+					h5(data-language="exerciseItems" class="card-title") #{lang.exercises.exerciseItems.exercise2[1]} 
+					p(data-language="exerciseItems" class="card-text") #{lang.exercises.exerciseItems.exercise2[2]}
+					a(data-language="exerciseItems" href="/method2" class="btn btn-primary") #{lang.exercises.exerciseItems.exercise2[3]}
 			div(class="card wrapper__exercises__main__exercise-3")
-				h5(class="card-header") Упражнение 3
+				h5(data-language="exerciseItems" class="card-header") #{lang.exercises.exerciseItems.exercise3[0]}
 				div(class="card-body")
-					h5(class="card-title") Произвести перестановку.
-					p(class="card-text") Необходимо переставить неправильные глаголы на свои места согласно переводу.
-					a(href="/method3" class="btn btn-primary") Начать
+					h5(data-language="exerciseItems" class="card-title") #{lang.exercises.exerciseItems.exercise3[1]}
+					p(data-language="exerciseItems" class="card-text") #{lang.exercises.exerciseItems.exercise3[2]}
+					a(data-language="exerciseItems" href="/method3" class="btn btn-primary") #{lang.exercises.exerciseItems.exercise3[3]}

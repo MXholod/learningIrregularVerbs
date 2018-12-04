@@ -955,21 +955,21 @@ html,body {
 		@extend %methodsBaseStyle;
 		.wrapper__method1__main{
 			height:100%;
-			background-color:pink;
+			background-color:#fba99c;
 		}
 	}
 	.wrapper__method2{
 		@extend %methodsBaseStyle;
 		.wrapper__method2__main{
 			height:100%;
-			background-color:violet;
+			background-color:#c7ebfa;
 		}
 	}
 	.wrapper__method3{
 		@extend %methodsBaseStyle;
 		.wrapper__method3__main{
 			height:100%;
-			background-color:lime;
+			background-color:#fad6f4;
 		}
 	}
 	.auth{
