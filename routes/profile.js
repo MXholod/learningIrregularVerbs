@@ -75,9 +75,18 @@ routes.post("/resave",(request,response)=>{
 //Go to the list of Irregular Verbs
 routes.get("/listVerbs",(request,response)=>{
 	//Array of list Verbs
-	//var verbsList = response.locals.lang.verbsList;
-	var verbsList = response.locals.lang.translation.verbsList;
-	response.render("listVerbs",{userLoginSession : request.session.login,verbs : verbsList});
+	dbs.databases.verbs.find({}, function (err, docs) {
+		//User found according to the Session
+		if(docs.length > 0){
+			//var verbsList = response.locals.lang.verbsList;
+			var verbsList = response.locals.lang.translation.verbsList;
+			response.render("listVerbs",{userLoginSession : request.session.login,verbs : docs});
+		}else{
+			//
+			var verbsList = response.locals.lang.translation.verbsList;
+			response.render("listVerbs",{userLoginSession : request.session.login,verbs : verbsList});
+		}
+	});
 });
 //Route to profile when button was clicked in 'slidePanel'
 routes.get("/profile",(request,response)=>{
