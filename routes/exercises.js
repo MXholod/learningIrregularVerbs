@@ -3,20 +3,23 @@ const dbs = require("../config/db");
 const helpers = require("../utils/exerciseHelpers");
 let routes = express.Router();
 routes.get("/method1",(request,response)=>{
-	let arrIDs = [1,2,3,4,5,6,7,8,9,10];
-	dbs.databases.verbs.find({ _id: { $in: arrIDs }}, function (err, docs) {
-	//
+	//let arrIDs = [1,2,3,4,5,6,7,8,9,10];
+	let arrUniqNums = helpers.exercises.uniqueNumbers(10,15);
+	dbs.databases.verbs.find({ _id:{ $in: arrUniqNums }},function(err, docs){
 		if(docs.length > 0){
 			//Array of data
 			let templateData = [];
 			//
-			//helpers.parseTranslatedString();
 			if("rus" == "rus"){
 				let i = 0;
-				while(arrIDs.length > i){
+				while(docs.length > i){
+					//Temporary object
 					var objectData = {};
+					//If string isn't a single word slice it by comma
 					objectData.rusWord = helpers.exercises.parseTranslatedString(docs[i].rus[0]);
+					//Assign array of English words to the property
 					objectData.engArray = docs[i].eng;
+					//Push object to an Array
 					templateData.push(objectData);
 					i++;
 				}
