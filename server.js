@@ -38,7 +38,7 @@ app.use(session({secret:"irregularVerbs"}));
 app.use("/",baseRouts);
 //Middleware for Profile routing registration
 app.use("/",profileRouts);
-//Middleware for Profile routing registration
+//Middleware for Exercises routing registration
 app.use("/",exercises);
 
 //const port = Number(process.env.PORT || 3000);
