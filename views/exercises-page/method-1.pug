@@ -6,6 +6,8 @@ block variables
 	- methods = true;
 block appContent
 	div(class="wrapper__method1")
+		div(class="wrapper__method1__info-panel")
+			div Info panel
 		div(class="main-window")
 			div(class="numbers")
 				div(class="numbers__n-1 numbers__nums-pos")
@@ -21,9 +23,13 @@ block appContent
 						<text x="20" y="250" stroke="#fff" stroke-width="5" font-size="300" fill="#fba99c" font-family="Helvetica">3</text>
 					</svg>
 		div(class="wrapper__method1__main")
-			p Method 1
 			each val, index in randomRows
-				p=val.rusWord
-					span=val.engArray[0]
-					span=val.engArray[1]
-					span=val.engArray[2]
+				div(class="wrapper__method1__main__task")
+					div(class="task__row1")
+						button(class="task__correct") Верно
+						button(class="task__incorrect") Не верно
+					div(class="task__row2")
+						div(class="task__translate") #{val.rusWord}
+						div(class="task__e1") #{val.engArray[0]}
+						div(class="task__e2") #{span=val.engArray[1]}
+						div(class="task__e3") #{span=val.engArray[2]}

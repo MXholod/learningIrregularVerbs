@@ -7,27 +7,34 @@ routes.get("/method1",(request,response)=>{
 	let arrUniqNums = helpers.exercises.uniqueNumbers(10,15);
 	dbs.databases.verbs.find({ _id:{ $in: arrUniqNums }},function(err, docs){
 		if(docs.length > 0){
-			//Array of data
+			//Array of data objects [{rusWord:'ru|ua word',engArray:['e1','e2','e3']},{},..]
 			let templateData = [];
-			//
-			if("rus" == "rus"){
+			//Get current language rus|ukr
+			var language = response.locals.lang.identifier;
 				let i = 0;
 				while(docs.length > i){
 					//Temporary object
 					var objectData = {};
-					//If string isn't a single word slice it by comma
-					objectData.rusWord = helpers.exercises.parseTranslatedString(docs[i].rus[0]);
+					//Pack with russian
+					if(language == "rus"){
+						//If string isn't a single word slice it by comma
+						objectData.rusWord = helpers.exercises.parseTranslatedString(docs[i].rus[0]);
+					}
+					//Pack with Ukrainian
+					if(language == "ukr"){
+						//If string isn't a single word slice it by comma
+						objectData.rusWord = helpers.exercises.parseTranslatedString(docs[i].ukr[0]);
+					}
 					//Assign array of English words to the property
 					objectData.engArray = docs[i].eng;
 					//Push object to an Array
 					templateData.push(objectData);
 					i++;
 				}
-			}
 			response.render("method-1",{
 				userLoginSession : request.session.login,
 				title:"Method 1",
-				randomRows:templateData	//Array of objects {rusWord:"Быть",engArray:["be","was, were","been"]}
+				randomRows:templateData,	//Array of objects {rusWord:"Быть",engArray:["be","was, were","been"]}
 			});
 		}else{
 			response.render("method-1",{

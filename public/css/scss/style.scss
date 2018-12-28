@@ -999,14 +999,76 @@ html,body {
 			}
 		}
 		height:600px;
-		padding-top:40px;
+		padding-top:0px;
 		background-color:#fce5c0;
 	}
 	.wrapper__method1{
 		@extend %methodsBaseStyle;
+		.wrapper__method1__info-panel{
+			width:650px;
+			height:40px;
+			margin-left:150px;
+			/*background-color:lime;*/
+		}
 		.wrapper__method1__main{
-			height:100%;
+			height:560px;
+			padding-top:7px;
+			width:800px;
 			background-color:#fba99c;
+			margin:0px auto;
+			.wrapper__method1__main__task{
+				&:nth-child(2n+1){
+					background-color:#C5C4C5;
+				}
+				&:nth-child(2n+2){
+					background-color:#D8D4DD;
+				}
+				width:680px;
+				height:50px;
+				margin:0px auto 5px;
+				border:1px solid #000;
+				.task__row1{
+					height:50%;
+					background-color:#AAAAAA;
+					text-align:right;
+					font: normal normal 11.5px/14px Verdana,Helvetica,sans-serif;
+					.task__correct{
+						/*background-color:pink;*/
+					}
+					.task__incorrect{
+						/*background-color:violet;*/
+					}
+				}
+				.task__row2{
+					height:50%;
+					%word{
+						float:left;
+						width:140px;
+						padding:2px 4px;
+					}
+					.task__translate{
+						@extend %word;
+						border-right:1px solid #000;
+						height:25px;
+						color:#5D0F6D;
+						font-variant:small-caps;
+					}
+					.task__e1{
+						@extend %word;
+					}
+					.task__e2{
+						@extend %word;
+					}
+					.task__e3{
+						@extend %word;
+					}
+					&:after{
+						content:"";
+						display:table;
+						clear:both;
+					}
+				}
+			}
 		}
 	}
 	.wrapper__method2{

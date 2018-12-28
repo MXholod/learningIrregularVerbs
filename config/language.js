@@ -111,7 +111,8 @@ module.exports = {
 				"textBeforePassword":"твой новый пароль:",
 				"textAfterPassword":"ты всегда можешь его изменить в разделе 'Настройка профиля'."
 			}
-		}
+		},
+		"identifier":"rus"
 	},
 	"ua":{
 		"settingsPanel":{
@@ -225,7 +226,7 @@ module.exports = {
 				"textBeforePassword":"твій новий пароль",
 				"textAfterPassword":"ти завжди можеш його змінити в розділі 'Налаштування профілю'."
 			}
-		}
+		},
+		"identifier":"ukr"
 	}
-	
 };
