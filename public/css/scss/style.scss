@@ -1046,6 +1046,11 @@ html,body {
 						width:140px;
 						padding:2px 4px;
 					}
+					.task__unique{
+						visibility:hidden;
+						width:0px;
+						height:0px;
+					}
 					.task__translate{
 						@extend %word;
 						border-right:1px solid #000;

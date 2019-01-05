@@ -29,7 +29,8 @@ block appContent
 						button(class="task__correct") Верно
 						button(class="task__incorrect") Не верно
 					div(class="task__row2")
-						div(class="task__translate") #{val.rusWord}
+						div(class="task__unique") #{val.id}
+						div(class="task__translate") #{val.translatedWord}
 						div(class="task__e1") #{val.engArray[0]}
 						div(class="task__e2") #{span=val.engArray[1]}
 						div(class="task__e3") #{span=val.engArray[2]}

@@ -4,37 +4,19 @@ const helpers = require("../utils/exerciseHelpers");
 let routes = express.Router();
 routes.get("/method1",(request,response)=>{
 	//let arrIDs = [1,2,3,4,5,6,7,8,9,10];
-	let arrUniqNums = helpers.exercises.uniqueNumbers(10,15);
-	dbs.databases.verbs.find({ _id:{ $in: arrUniqNums }},function(err, docs){
+	let arrUniqueNums = helpers.exercises.uniqueNumbers(10,25);
+	dbs.databases.verbs.find({ _id:{ $in: arrUniqueNums }},function(err, docs){
 		if(docs.length > 0){
-			//Array of data objects [{rusWord:'ru|ua word',engArray:['e1','e2','e3']},{},..]
-			let templateData = [];
 			//Get current language rus|ukr
-			var language = response.locals.lang.identifier;
-				let i = 0;
-				while(docs.length > i){
-					//Temporary object
-					var objectData = {};
-					//Pack with russian
-					if(language == "rus"){
-						//If string isn't a single word slice it by comma
-						objectData.rusWord = helpers.exercises.parseTranslatedString(docs[i].rus[0]);
-					}
-					//Pack with Ukrainian
-					if(language == "ukr"){
-						//If string isn't a single word slice it by comma
-						objectData.rusWord = helpers.exercises.parseTranslatedString(docs[i].ukr[0]);
-					}
-					//Assign array of English words to the property
-					objectData.engArray = docs[i].eng;
-					//Push object to an Array
-					templateData.push(objectData);
-					i++;
-				}
+			let language = response.locals.lang.identifier;
+			//Array of data objects [{translatedWord:'ru|ua word',engArray:['e1','e2','e3'],id:1},{},..]
+			let templateData = helpers.exercises.arrayOfTasks(docs,language);
+			//Elements of Data Array are equal to random numbers Array. Objects in random order. 
+			let mixedWords = helpers.exercises.changePositions(arrUniqueNums,templateData);
 			response.render("method-1",{
 				userLoginSession : request.session.login,
 				title:"Method 1",
-				randomRows:templateData,	//Array of objects {rusWord:"Быть",engArray:["be","was, were","been"]}
+				randomRows:mixedWords //Array of objects {rusWord:"Ѓыть",engArray:["be","was, were","been"]}
 			});
 		}else{
 			response.render("method-1",{
