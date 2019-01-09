@@ -7,7 +7,9 @@ block variables
 block appContent
 	div(class="wrapper__method1")
 		div(class="wrapper__method1__info-panel")
-			div Info panel
+			div
+				div Information 1-10
+				div Counter 5:00
 		div(class="main-window")
 			div(class="numbers")
 				div(class="numbers__n-1 numbers__nums-pos")
@@ -32,5 +34,7 @@ block appContent
 						div(class="task__unique") #{val.id}
 						div(class="task__translate") #{val.translatedWord}
 						div(class="task__e1") #{val.engArray[0]}
-						div(class="task__e2") #{span=val.engArray[1]}
-						div(class="task__e3") #{span=val.engArray[2]}
+						div(class="task__e2") #{val.engArray[1]}
+						div(class="task__e3") #{val.engArray[2]}
+			p
+				a(href="/method1?currentPageAmount=2" class="btn btn-primary") Go to 2

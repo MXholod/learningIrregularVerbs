@@ -109,6 +109,9 @@ routes.get("/profile",(request,response)=>{
 	});
 });
 routes.get("/exercises",(request,response)=>{
+	if(request.session.numbers){
+		request.session.numbers = "";
+	}
 	response.render("exercises",{//Go to exercises
 		userLoginSession : request.session.login
 	});

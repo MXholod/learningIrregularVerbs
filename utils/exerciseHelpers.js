@@ -103,7 +103,7 @@ function arrayOfTasks(dataDB,language){
 			}
 	return task;
 }
-//Set elements of Data Array to random order, as in random Array numbers 
+//Set elements of Data Array to random order, according to random Array numbers 
 function changePositions(arrayUniqueNums,arrayDataDB){
 	let resultData = [];
 	//Random numbers Array in loop
@@ -119,8 +119,13 @@ function changePositions(arrayUniqueNums,arrayDataDB){
 	}
 	return resultData;
 }
+//Get first 10 from array each time 
+function calculateRange(randomIDs){
+	return randomIDs.splice(0,10);
+}
 exports.exercises = {
 	uniqueNumbers : createNumbersArray,
 	arrayOfTasks : arrayOfTasks,
-	changePositions : changePositions
+	changePositions : changePositions,
+	getPortionIDs : calculateRange
 };
