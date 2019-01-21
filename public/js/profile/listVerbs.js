@@ -221,6 +221,8 @@
 	//Switch to full list of verbs
 	let fullVButton = ()=>{
 		let toFullListVerbs = document.getElementById("toFullListVerbs");
+		//Hide 'Portion panel' when we don't see it
+		let portionPanel = document.querySelector(".wrapper__list-verbs__all-verbs__portion-list");
 		toFullListVerbs.addEventListener("click",()=>{
 			let fullList = document.querySelector(".wrapper__list-verbs__all-verbs__full-list");
 			if(fullList.classList.contains("wrapper__list-verbs__all-verbs__full-list-negative")){
@@ -231,12 +233,19 @@
 					fullList.classList.add("wrapper__list-verbs__all-verbs__full-list-positive");
 				}
 			}
+			//Hide 'Portion panel'
+			if(portionPanel.classList.contains("wrapper__list-verbs__all-verbs__portion-list-negative")){
+				portionPanel.classList.remove("wrapper__list-verbs__all-verbs__portion-list-negative");
+				portionPanel.classList.add("wrapper__list-verbs__all-verbs__portion-list-positive");
+			}
 			//console.log("to Full List Verbs");
 		},false);
 	};
 	//Switch to portion list of verbs
 	let portionVbutton = ()=>{
 		let toPortionListVerbs = document.getElementById("toPortionListVerbs");
+		//Display 'Portion panel' when we see it
+		let portionPanel = document.querySelector(".wrapper__list-verbs__all-verbs__portion-list");
 		toPortionListVerbs.addEventListener("click",()=>{
 			let fullList = document.querySelector(".wrapper__list-verbs__all-verbs__full-list");
 			if(!fullList.classList.contains("wrapper__list-verbs__all-verbs__full-list-negative")){
@@ -246,6 +255,11 @@
 					//Remove positive
 					fullList.classList.remove("wrapper__list-verbs__all-verbs__full-list-positive");
 				}
+			}
+			//Show 'Portion panel'
+			if(portionPanel.classList.contains("wrapper__list-verbs__all-verbs__portion-list-positive")){
+				portionPanel.classList.remove("wrapper__list-verbs__all-verbs__portion-list-positive");
+				portionPanel.classList.add("wrapper__list-verbs__all-verbs__portion-list-negative");
 			}
 			//console.log("to Portion List Verbs");
 		},false);
@@ -423,19 +437,27 @@
 				}
 				var pRow = document.createElement("DIV");
 				pRow.setAttribute("class","wrapper__list-verbs__all-verbs__portion-list__page__row");
-					for(var columns = 0,innArr = 0;columns < 8;columns++){
-						//Create 5 columns with text
-						if(columns == 0){
+					for(var cells = 0,innArr = 0;cells < 8;cells++){
+						//Create 5 cells with text
+						if(cells == 0){
 							addNewChildToParent(pRow,"SPAN",settings.dataArray[j]._id,"class","portion-list__page__row__ind");
 						}
-						if(columns > 0 && columns < 4){
+						if(cells > 0 && cells < 4){
 							if(innArr > 2){innArr = 0;}
+							if(innArr == 1){
+								addNewChildToParent(pRow,"SPAN",settings.dataArray[j].eng[innArr],"class","portion-list__page__row__ing portion-list__page__row_middle");
+							}else{
 							addNewChildToParent(pRow,"SPAN",settings.dataArray[j].eng[innArr],"class","portion-list__page__row__ing");
+							}
 							innArr++;
 						}
-						if(columns > 4 && columns < 8){
+						if(cells > 4 && cells < 8){
 							if(innArr > 2){innArr = 0;}
+							if(innArr == 1){
+								addNewChildToParent(pRow,"SPAN",settings.dataArray[j].rus[innArr],"class","portion-list__page__row__translate portion-list__page__row_middle");
+							}else{
 							addNewChildToParent(pRow,"SPAN",settings.dataArray[j].rus[innArr],"class","portion-list__page__row__translate",true);
+							}
 							innArr++;
 						}
 						//addNewChildToParent(pRow,"DIV",j);
