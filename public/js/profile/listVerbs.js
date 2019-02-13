@@ -6,6 +6,8 @@
 		portionVbutton();
 		//Socket data, get Array of objects 
 		socketData();
+		//Interact with control panel.
+		touchControl();
 			//Values trifle buttons
 			//showAmountInTrifleButtons();
 			//Display information about hundreds 
@@ -140,11 +142,11 @@
 		function displayInfoHundreds(){
 			var hundredsBlock = document.getElementById("hundreds");
 			if(settings.mutualAmountRows < 100){
-				hundredsBlock.style.display = "none";
+				hundredsBlock.style.visibility = "hidden";
 			}else{
 				//Display hundreds range 
 				//showHundreds(settings.hundred.defaultMines,settings.hundred.defaultPlus);
-				hundredsBlock.style.display = "block";
+				hundredsBlock.style.visible = "visible";
 			}
 		}
 		//Find panel with dataset attribute 'current' and two other panels (previous and next) and set their values to the object
@@ -265,55 +267,6 @@
 		},false);
 	};
 	
-	//AJAX Request
-	//Function creates cross-browser object XMLHttpRequest 
-	/*function getXmlHttp(){
-		var xmlhttp;
-		try{
-			xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");//newer versions of IE5+
-		}catch(e){
-			try{
-				//Old versions of Internet Explorer (IE5 and IE6) use an ActiveX object 
-				//instead of the XMLHttpRequest object
-				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");//older versions of IE5+, 
-			}catch(E){
-				try{
-					//проверяем, поддерживает ли событие onload, это старый XMLHttpRequest,
-					//значит это IE8,9, и используем XDomainRequest
-					if("onload" in new XMLHttpRequest()){
-						xmlhttp = new XDomainRequest;
-					}else{
-						throw new Error("Not IE");
-					}
-				}catch(Ex){
-					xmlhttp = false;
-				}
-			}
-		}
-		if(!xmlhttp && typeof(XMLHttpRequest) != 'undefined'){
-			xmlhttp = new XMLHttpRequest();//IE7, Firefox, Safari etc
-		}
-		return xmlhttp;
-	}
-	function getVerbsList(){
-		var XHR = getXmlHttp();
-		XHR.onreadystatechange = function(){
-			if((this.readyState == 4) && (this.status == 200)){
-				var data = JSON.parse(this.responseText);
-			
-				var arrayData = data.verbs;
-				arrayData.forEach((val,ind,arr)=>{
-					console.log(val.join());
-				});
-			}
-		};
-		XHR.open('POST','/getListVerbs',true);
-		XHR.setRequestHeader('Content-Type','application/json; charset=utf-8');
-		//Send object of data
-		var userData = JSON.stringify({});//Empty object
-		XHR.send(userData);
-		console.log("AJAX");
-	}*/
 	
 	//User's settings are: 
 	//1.settings.listLimitOnPage and 2.Array of data.
@@ -486,5 +439,55 @@
 		showHun.children[1].innerHTML = hun2;
 		//console.log(settings.hundred.currentMines,settings.hundred.currentPlus);
 	}*/
-	
+
+/*Control panel slide forward and back by event*/
+	var timeout, control;
+	//Touching navigation control panel
+	function touchControl(){
+		//Parent block
+		var main = document.querySelector(".wrapper__list-verbs__all-verbs__portion-list");
+		//Subscribe on mouse move event for main parent block
+		main.addEventListener("mousemove",showPartControl);
+		//Control menu Page navigation
+		control = document.getElementById("control");
+		//Click by control panel
+		control.addEventListener("click",function(e){
+			//Get pseudo class and it's property's value
+			var pseudo = window.getComputedStyle(control,"::before").getPropertyValue('animation-play-state');
+			if(pseudo == "running"){
+				//Stop animation
+				document.styleSheets[0].addRule('#control:before','animation-play-state: paused;');
+			}
+			//Show navigation control panel
+			control.style.right = "0px";
+			//Remove onmousemove event on parent element
+			main.removeEventListener("mousemove",showPartControl);
+				//Clear timeout to avoid hiding navigation control panel when mouse stopped
+				if(timeout) clearTimeout(timeout);
+			//Subscribe to mouse leave event on navigation control panel
+			control.addEventListener("mouseleave",function(){
+				var pseudo = window.getComputedStyle(control,"::before").getPropertyValue('animation-play-state');
+				if(pseudo == "paused"){
+					//Launch animation if it was paused
+					document.styleSheets[0].addRule('#control:before','animation-play-state: running;');
+				}
+				//Subscribe to mouse move event on main block
+				main.addEventListener("mousemove",showPartControl);
+			});
+		},false);
+	}
+	//It shows part of navigation control panel while mouse moving
+	function showPartControl(e){//It looks like a Loop, event "mousemove" calling again and again. 
+		//Show part of navigation control panel
+		control.style.right = "-175px";
+		//animationPlay("#control",true);
+		//Prevent timeout if timeout exists
+		if(timeout) clearTimeout(timeout);
+		//Launch timeout
+		timeout = setTimeout(mouseStop, 2000);
+	}
+	//It calls when mouse has stopped
+	function mouseStop(){
+	  control.style.right = "-225px";
+	}
 })();

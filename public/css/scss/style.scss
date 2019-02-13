@@ -743,6 +743,7 @@ html,body {
 				width:50%;
 				height:503px;
 				float:left;
+				position:relative;
 				.wrapper__list-verbs__all-verbs__portion-list__header{
 					background-color:#e59a63;
 					border-bottom:2px solid #000;
@@ -840,12 +841,50 @@ html,body {
 					clear:both;
 				}
 				#control{
+					@keyframes triangle{
+						from{
+							left:-20px;
+						}
+						to{
+							left:-30px;
+						}
+					}
+					&:before{
+						content:"";
+						width:0px;
+						height:0px;
+						border-top:20px solid transparent;
+						border-left:20px solid transparent;
+						border-right:20px solid transparent;
+						border-bottom:20px solid #665026;
+						position:relative;
+						top:10px;
+						left:-20px;
+						display:block;
+						transform:rotate(90deg);
+						animation-name: triangle;
+						animation-duration:1.5s;
+						animation-iteration-count:infinite;
+						animation-direction:alternate;
+						animation-timing-function:linear; 
+					}
+					overflow:hidden;
 					width:200px;
-					margin:5px auto 0px;
+					height:70px;
+					position:absolute;
+					z-index:1;
+					bottom:1.2em;
+					right:-205px;
+					padding:5px 0px 5px 20px;
+					background-color:burlywood;
+					border:2px solid #665026;
+					border-right:none;
+					border-top-left-radius:10px;
+					border-bottom-left-radius:10px;
 					%space{
 						display:inline-block;
-						width:65px;
-						height:30px;
+						width:50px;
+						height:10px;
 						background-color:transparent;
 						padding:5px 5px;
 					}
@@ -854,18 +893,21 @@ html,body {
 						border-radius:5px;
 						background-color:#665026;
 						display:inline-block;
-						margin:0px 0px 0px 0px;
-						width:65px;
-						height:30px;
+						margin:2px 2px 2px 2px;
+						width:50px;
+						height:20px;
 						font-family:Verdana,Helvetica,sans-serif;
 						color:#CFA047;
 						outline:none;
+						padding:1px;
 						&:hover{
 							border-width:2px;
 							background-color:#f7d28f;
 						}
 					}
 					#hundreds{
+						margin-left:10px;
+						margin-top:-35px;
 						#minesHun{
 							@extend %buttons;
 						}
@@ -877,6 +919,8 @@ html,body {
 						}
 					}
 					#trifle{
+						margin-left:10px;
+						margin-top:7px;
 						#minesTrifle{
 							@extend %buttons;
 							background-color:#CFA047;
