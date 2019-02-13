@@ -11,6 +11,24 @@ function parseString(parsedStr = "",delimiter = ","){
 	}
 	return resultStr;
 }
+//Clean English string from transcription "eng":["abide[ə'baɪd]","abode[ə'bəud]","abode[ə'bəud]"] 
+function parseEngString(parsedEngArr,delimiter = "["){
+	var tempArr = [], squareBracket;
+	if(Array.isArray(parsedEngArr)){
+		for(var i = 0;i < parsedEngArr.length;i++){
+			//Try to find square bracket
+			squareBracket = parsedEngArr[i].indexOf(delimiter);
+			if(squareBracket !== -1){//Find bracket
+				//Cut "abide[ə'baɪd]" -> take this: "abide" and this cut off: "[ə'baɪd]"
+				tempArr[i] = parsedEngArr[i].slice(0,squareBracket);
+			}else{
+				tempArr[i] = parsedEngArr[i];
+			}
+		}
+		return tempArr;//Return array like this - "eng":["abide","abode","abode"] 
+	}
+	return parsedEngArr;
+}
 //"Private function" Check is number
 function isNumeric(n){
 	return !isNaN(parseFloat(n)) && isFinite(n);
@@ -76,8 +94,9 @@ function createNumbersArray(elements,totalSize){//10,10
 	}
 	return arrUnique;
 }
-//Get all documents from DB by given IDs, and get chunk of string from the first element of an array rus|ukr 
-function arrayOfTasks(dataDB,language){
+//Get all documents from DB by given IDs, and get chunk of string from the first element of an array rus|ukr
+//If third parameter is true, clean an Array from brackets "eng":["abide[ə'baɪd]","abode[ə'bəud]","abode[ə'bəud]"]
+function arrayOfTasks(dataDB,language,cleanEng){
 	let task = [];
 			let i = 0;
 			while(dataDB.length > i){
@@ -93,8 +112,13 @@ function arrayOfTasks(dataDB,language){
 					//If string isn't a single word slice it by comma
 					objectData.translatedWord = parseString(dataDB[i].ukr[0]);
 				}
-				//Assign an array of English words to the property
-				objectData.engArray = dataDB[i].eng;
+				//Clean English string
+				if(cleanEng){
+					objectData.engArray = parseEngString(dataDB[i].eng,delimiter = "[");
+				}else{
+					//Assign an array of English words to the property
+					objectData.engArray = dataDB[i].eng;
+				}
 				//Set id
 				objectData.id = dataDB[i]._id;
 				//Push object to an Array

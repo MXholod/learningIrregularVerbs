@@ -1,6 +1,7 @@
 const express = require("express");
 const dbs = require("../config/db");
 const helpers = require("../utils/exerciseHelpers");
+const method_1 = require("../models/exercises_methods/Method_1");
 let routes = express.Router();
 //Range of word rows on each page
 const rowsAmount = 20;//Must be 50
@@ -9,7 +10,7 @@ routes.get("/method1",(request,response)=>{
 	let language = response.locals.lang.identifier;
 	//Ten rows each time
 	let tenRows;
-	//First time visit
+	//First time visit http://localhost:3000/method1?currentPageAmount=1
 	if(Number(request.query.currentPageAmount) == 1 && !request.session.numbers){//&& !request.session.numbers
 		//Get unique numbers from given range - 50
 		let arrUniqueNums = helpers.exercises.uniqueNumbers(rowsAmount,25);//Get 10 from 25
@@ -23,13 +24,16 @@ routes.get("/method1",(request,response)=>{
 		dbs.databases.verbs.find({_id:{$in:tenRows}},function(err, docs){
 			if(docs.length > 0){
 			//Create an Array of data objects [{translatedWord:'ru|ua word',engArray:['e1','e2','e3'],id:1},{},..]
-				let templateData = helpers.exercises.arrayOfTasks(docs,language);
+				let templateData = helpers.exercises.arrayOfTasks(docs,language,true);
+				//Set specific property 'spoiled' for each object to that task-1.
+				let m1 = method_1(templateData);
 				//Elements of Data Array are equal to random numbers Array. Objects in random order. 
 				let mixedWords = helpers.exercises.changePositions(tenRows,templateData);
 				response.render("method-1",{
 					userLoginSession : request.session.login,
 					title:"Method 1",
-					randomRows:mixedWords //Array of objects {rusWord:"Ѓыть",engArray:["be","was, were","been"]}
+					randomRows:mixedWords, //Array of objects {rusWord:"Ѓыть",engArray:["be","was, were","been"]}
+					met1:m1
 				});
 			}else{
 				request.session.numbers = "";
@@ -51,7 +55,7 @@ routes.get("/method1",(request,response)=>{
 		dbs.databases.verbs.find({_id:{$in:tenRows}},function(err, docs){
 			if(docs.length > 0){
 			//Create an Array of data objects [{translatedWord:'ru|ua word',engArray:['e1','e2','e3'],id:1},{},..]
-				let templateData = helpers.exercises.arrayOfTasks(docs,language);
+				let templateData = helpers.exercises.arrayOfTasks(docs,language,true);
 				//Elements of Data Array are equal to random numbers Array. Objects in random order. 
 				let mixedWords = helpers.exercises.changePositions(tenRows,templateData);
 				response.render("method-1-walk-through",{
