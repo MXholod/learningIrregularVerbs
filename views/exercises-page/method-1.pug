@@ -28,6 +28,7 @@ block appContent
 			each val, index in randomRows
 				div(class="wrapper__method1__main__task")
 					div(class="task__row1")
+						div(style="visibility:hidden;") #{val.spoiled}
 						button(class="task__correct") Верно
 						button(class="task__incorrect") Не верно
 					div(class="task__row2")
@@ -38,4 +39,8 @@ block appContent
 						div(class="task__e3") #{val.engArray[2]}
 			p
 				a(href="/method1?currentPageAmount=2" class="btn btn-primary") Go to 2
-			p Result: #{met1}
+			p #{test}
+			hr
+			p #{test2}
+			hr
+			p #{test3}

@@ -97,7 +97,7 @@ function createNumbersArray(elements,totalSize){//10,10
 //Get all documents from DB by given IDs, and get chunk of string from the first element of an array rus|ukr
 //If third parameter is true, clean an Array from brackets "eng":["abide[ə'baɪd]","abode[ə'bəud]","abode[ə'bəud]"]
 function arrayOfTasks(dataDB,language,cleanEng){
-	let task = [];
+	let rows = [];
 			let i = 0;
 			while(dataDB.length > i){
 				//Temporary object created each time in a loop
@@ -122,14 +122,15 @@ function arrayOfTasks(dataDB,language,cleanEng){
 				//Set id
 				objectData.id = dataDB[i]._id;
 				//Push object to an Array
-				task.push(objectData);
+				rows.push(objectData);
 				i++;
 			}
-	return task;
+	return rows;
 }
-//Set elements of Data Array to random order, according to random Array numbers 
+//Set elements of Data Array to random order, according to random Array numbers
+//1.[only normal]  2.[{translatedWord:'ru|ua',engArray:['e1','e2','e3'],id:1,spoiled:true},{},..] 
 function changePositions(arrayUniqueNums,arrayDataDB){
-	let resultData = [];
+	let resultData = [],iter = 0;
 	//Random numbers Array in loop
 	for(var i = 0;i<arrayUniqueNums.length;i++){
 		//Data Array in loop
@@ -137,19 +138,17 @@ function changePositions(arrayUniqueNums,arrayDataDB){
 			//If element from 'Random Nums Array' is equal to 'id' from 'Data Array' then add this element to
 			//'result Array'
 			if(arrayUniqueNums[i] == arrayDataDB[j].id){
-				resultData.push(arrayDataDB[j]);
+				//resultData.push(arrayDataDB[j]);
+				resultData[iter] = arrayDataDB[j];
+				iter++;
 			}
 		}
 	}
 	return resultData;
 }
-//Get first 10 from array each time 
-function calculateRange(randomIDs){
-	return randomIDs.splice(0,10);
-}
+
 exports.exercises = {
 	uniqueNumbers : createNumbersArray,
 	arrayOfTasks : arrayOfTasks,
 	changePositions : changePositions,
-	getPortionIDs : calculateRange
 };
