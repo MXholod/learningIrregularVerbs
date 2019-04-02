@@ -6,6 +6,10 @@ block variables
 	- methods = true;
 block appContent
 	div(class="wrapper__method2")
+		div(class="wrapper__method2__info-panel")
+			div
+				div Information 1-10
+				div Counter 5:00
 		div(class="main-window")
 			div(class="numbers")
 				div(class="numbers__n-1 numbers__nums-pos")
@@ -21,4 +25,15 @@ block appContent
 						<text x="20" y="250" stroke="#fff" stroke-width="5" font-size="300" fill="#c7ebfa" font-family="Helvetica">3</text>
 					</svg>
 		div(class="wrapper__method2__main")
-			p Method 2
+			each val, index in dropableRows
+				div(class="wrapper__method2__main__task")
+					div(class="task__row1")
+						div(class="task__unique") #{val.id}
+						div(class="task__hidden") #{val.empty}
+						button(class="task__correct") Верно
+						button(class="task__incorrect") Не верно
+					div(class="task__row2")
+						div(class="task__translate") #{val.translatedWord}
+						div(class="task__e1") #{val.engArray[0]}
+						div(class="task__e2") #{val.engArray[1]}
+						div(class="task__e3") #{val.engArray[2]}

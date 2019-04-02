@@ -1,0 +1,34 @@
+extends ../layout.pug
+block variables
+	- mainPage = false;
+	- profilePage = false;
+	- listVerbs = false;
+	- methods = false;
+block appContent
+	div(class="wrapper__method2")
+		div(class="wrapper__method2__info-panel")
+			div
+				div Information 11-20
+				div Counter 5:00
+		div(class="wrapper__method1__main")
+			each val, index in randomRows
+				div(class="wrapper__method1__main__task")
+					div(class="task__row1")
+						div(class="task__unique") #{val.id}
+						div(class="task__hidden") #{val.spoiled}
+						button(class="task__correct") Верно
+						button(class="task__incorrect") Не верно
+					div(class="task__row2")
+						div(class="task__translate") #{val.translatedWord}
+						div(class="task__e1") #{val.engArray[0]}
+						div(class="task__e2") #{val.engArray[1]}
+						div(class="task__e3") #{val.engArray[2]}
+			p
+				a(href="/method1?currentPageAmount="+currentNum class="btn btn-primary") Go to 2
+			p #{test}
+			hr
+			p #{test2}
+			hr
+			p #{test3}
+			hr
+			p #{test4}
