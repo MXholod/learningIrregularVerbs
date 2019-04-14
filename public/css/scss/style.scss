@@ -1154,6 +1154,7 @@ html,body {
 	}
 	.wrapper__method2{
 		@extend %methodsBaseStyle;
+		overflow:hidden;
 		.wrapper__method2__info-panel{
 			width:650px;
 			height:40px;
@@ -1204,6 +1205,7 @@ html,body {
 						float:left;
 						width:175px;
 						padding:2px 4px;
+						text-align:center;
 					}
 					.task__translate{
 						@extend %word;
@@ -1221,11 +1223,51 @@ html,body {
 					.task__e3{
 						@extend %word;
 					}
+					.task__empty-field{
+						background-color:#EA97E0;
+						border: 1px solid #604A5E;
+						border-radius:5px;
+						height:22px;
+						width:165px;
+						margin-top:1px;
+						margin-left:1px;
+					}
 					&:after{
 						content:"";
 						display:table;
 						clear:both;
 					}
+				}
+			}
+		}
+		.wrapper__method2__single-words{
+			height:460px;
+			padding-top:7px;
+			width:300px;
+			background-color:#AA88A6;
+			position:relative;
+			top:-510px;
+			left:780px;
+			border:2px solid #604A5E;
+			border-top-left-radius:5px;
+			border-bottom-left-radius:5px;
+			.single-words__word{
+				width:165px;
+				height:25px;
+				padding:2px;
+				background-color:#EA97E0;
+				border:1px solid #604A5E;
+				border-radius:5px;
+				color:#4E414D;
+				margin-bottom:19px;
+				transition: margin-left 0.5s linear;
+				&:first-child{
+					margin-top:10px;
+				}
+				&:hover{
+					margin-left:-100px;
+					cursor:move;
+					text-align:center;
 				}
 			}
 		}

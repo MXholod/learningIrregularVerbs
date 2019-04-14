@@ -29,11 +29,26 @@ block appContent
 				div(class="wrapper__method2__main__task")
 					div(class="task__row1")
 						div(class="task__unique") #{val.id}
-						div(class="task__hidden") #{val.empty}
+						div(class="task__hidden") #{val.index}
 						button(class="task__correct") Верно
 						button(class="task__incorrect") Не верно
 					div(class="task__row2")
 						div(class="task__translate") #{val.translatedWord}
-						div(class="task__e1") #{val.engArray[0]}
-						div(class="task__e2") #{val.engArray[1]}
-						div(class="task__e3") #{val.engArray[2]}
+						if val.engArray[0] === ""
+							div(class="task__e1 task__empty-field") #{val.engArray[0]}
+						else
+							div(class="task__e1") #{val.engArray[0]}
+						if val.engArray[1] === ""
+							div(class="task__e2 task__empty-field") #{val.engArray[1]}
+						else
+							div(class="task__e2") #{val.engArray[1]}
+						if val.engArray[2] === ""
+							div(class="task__e3 task__empty-field") #{val.engArray[2]}
+						else
+							div(class="task__e3") #{val.engArray[2]}
+		div(class="wrapper__method2__single-words")
+			each value, ind in singleWords
+				div(class="single-words__word" data-wordInfo=value.id+','+value.index) #{value.word}
+		p
+			a(href="/method2?currentPageAmount="+currentNum class="btn btn-primary") Go to 2
+		p #{lastLength}

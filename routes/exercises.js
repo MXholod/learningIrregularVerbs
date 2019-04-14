@@ -2,17 +2,19 @@ const express = require("express");
 const dbs = require("../config/db");
 const helpers = require("../utils/exerciseHelpers");
 const method_1 = require("../models/exercises_methods/Method_1");
+const method_2 = require("../models/exercises_methods/Method_2");
 
 let routes = express.Router();
-//Range of word rows on each page
-const rowsAmount = 30;//Must be 50
+//First method route
 routes.get("/method1",(request,response)=>{
+	//Range of word rows on each page
+	const rowsAmount = 30;//Must be 75
 	//Get current language rus|ukr
 	let language = response.locals.lang.identifier;
 	//First time visit http://localhost:3000/method1?currentPageAmount=1
 	if(Number(request.query.currentPageAmount) == 1 && !request.session.numbers){//&& !request.session.numbers
-		//Get unique numbers from given range - 50
-			let arrUniqueNums = helpers.exercises.uniqueNumbers(rowsAmount,120);//Get 30 from 70
+		//Get unique ID numbers from given range - 75
+			let arrUniqueNums = helpers.exercises.uniqueNumbers(rowsAmount,120);//Get 30 from 120
 		//Create object with IDs and spoiled IDs: {IDs:[...],spoiledPortionsIDs:[[...],[...],[...],[...],[...]]}
 		//Call this Method only once. 50 and 25. Divide to spoiled and normals IDs for all 5 pages.
 			let objectIDs = method_1.cutForSpoiledIDs(arrUniqueNums);
@@ -100,22 +102,76 @@ routes.get("/method1",(request,response)=>{
 	}
 });
 routes.get("/method2",(request,response)=>{
+	//Range of word rows on each page
+	const rowsAmount = 30;//Must be 50
 	//Get current language rus|ukr
 	let language = response.locals.lang.identifier;
 	//First time visit http://localhost:3000/method2?currentPageAmount=1
 	if(Number(request.query.currentPageAmount) == 1 && !request.session.numbers){//&& !request.session.numbers
-		let objectsTest = [
-			{id:1,empty:false,translatedWord:"ukr-1",engArray:["eng-1","eng-2","eng-3"]},
-			{id:2,empty:true,translatedWord:"ukr-2",engArray:["eng-1","eng-2","eng-3"]},
-			{id:3,empty:false,translatedWord:"ukr-3",engArray:["eng-1","eng-2","eng-3"]}
-			];
-		response.render("method-2",{
-			userLoginSession : request.session.login,
-			title:"Method 2",
-			dropableRows:objectsTest
+		//Get unique ID numbers from given range - 50
+			let arrUniqueNums = helpers.exercises.uniqueNumbers(rowsAmount,120);//Get 30 from 120
+		//Get array [[The first is: 10 ],[The remainder is: 40]]
+		let twoArraysIDs = method_2.getPortionIDs(arrUniqueNums);
+		//Serialize the rest of IDs.
+		let serializedArray = JSON.stringify(twoArraysIDs[1]);
+		//Save the rest of IDs to the Session.
+		request.session.numbers = serializedArray;
+		//Request to DB
+		dbs.databases.verbs.find({_id:{$in:twoArraysIDs[0]}},function(err, docs){
+			if(docs.length > 0){
+			//Create an Array of data objects [{translatedWord:'ru|ua word',engArray:['e1','e2','e3'],id:1},{},..]
+				let templateData = helpers.exercises.arrayOfTasks(docs,language,true);
+				//Set an empty field to each row. Get two arrays.[[all objects],[missing words]]
+				let twoArray = method_2.setEmptyFieldInRow(templateData);
+				//Elements of Data Array are equal to random numbers Array. Objects in random order.
+				let mixedWords = helpers.exercises.changePositions(twoArraysIDs[0],twoArray[0]);
+				//Render template with data
+				response.render("method-2",{
+					userLoginSession : request.session.login,
+					title:"Method 2",
+					//Query string argument for next page
+					currentNum: (Number(request.query.currentPageAmount)+1),
+					dropableRows: mixedWords,
+					singleWords: twoArray[1],
+				lastLength: `${twoArray[1][0].word} - ${twoArray[1][1].word} - ${twoArray[1][2].word} - ${twoArray[1][3].word} - ${twoArray[1][4].word} - ${twoArray[1][5].word} - ${twoArray[1][6].word} - ${twoArray[1][7].word} - ${twoArray[1][8].word} - ${twoArray[1][9].word}`
+				});
+			}else{
+				request.session.numbers = "";
+				redirect(301,'/exercises');
+			}
 		});
 	}else{//Each other time
-	
+		let arrUniqueNums = JSON.parse(request.session.numbers);
+		//Get array [[...],[...]]
+		let twoArraysIDs = method_2.getPortionIDs(arrUniqueNums);
+		//Serialize the rest of IDs.
+		let serializedArray = JSON.stringify(twoArraysIDs[1]);
+		//Save the rest of IDs to the Session.
+		request.session.numbers = serializedArray;
+		//Request to DB
+		dbs.databases.verbs.find({_id:{$in:twoArraysIDs[0]}},function(err, docs){
+			if(docs.length > 0){
+			//Create an Array of data objects [{translatedWord:'ru|ua word',engArray:['e1','e2','e3'],id:1},{},..]
+				let templateData = helpers.exercises.arrayOfTasks(docs,language,true);
+				//Set an empty field to each row. Get two arrays.[[all objects],[missing words]]
+				let twoArray = method_2.setEmptyFieldInRow(templateData);
+				//Elements of Data Array are equal to random numbers Array. Objects in random order.
+				let mixedWords = helpers.exercises.changePositions(twoArraysIDs[0],twoArray[0]);
+				//Render template with data
+				response.render("method-2-walk-through",{
+					userLoginSession : request.session.login,
+					title:"Method 2",
+					//Query string argument for next page
+					currentNum: (Number(request.query.currentPageAmount)+1),
+					dropableRows:mixedWords,
+					singleWords: twoArray[1],
+					lastLength: twoArraysIDs[1].length
+				});
+			}else{
+				request.session.numbers = "";
+				redirect(301,'/exercises');
+			}
+		});
 	}
 });
 routes.get("/method3",(request,response)=>{
