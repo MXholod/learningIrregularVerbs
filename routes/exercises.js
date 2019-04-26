@@ -3,6 +3,7 @@ const dbs = require("../config/db");
 const helpers = require("../utils/exerciseHelpers");
 const method_1 = require("../models/exercises_methods/Method_1");
 const method_2 = require("../models/exercises_methods/Method_2");
+const method_3 = require("../models/exercises_methods/Method_3");
 
 let routes = express.Router();
 //First method route
@@ -175,9 +176,80 @@ routes.get("/method2",(request,response)=>{
 	}
 });
 routes.get("/method3",(request,response)=>{
-	response.render("method-3",{
-		userLoginSession : request.session.login,
-		title:"Method 3"
+	//Range of word rows on each page
+	const rowsAmount = 30;//Must be 50
+	//Get current language rus|ukr
+	let language = response.locals.lang.identifier;
+	//First time visit http://localhost:3000/method2?currentPageAmount=1
+	if(Number(request.query.currentPageAmount) == 1 && !request.session.numbers){//&& !request.session.numbers
+		//Get unique ID numbers from given range - 50
+			let arrUniqueNums = helpers.exercises.uniqueNumbers(rowsAmount,120);//Get 30 from 120
+		//Get array [[The first is: 10 ],[The remainder is: 40]]
+		let twoArraysIDs = method_3.getPortionIDs(arrUniqueNums);
+		//Serialize the rest of IDs.
+		let serializedArray = JSON.stringify(twoArraysIDs[1]);
+		//Save the rest of IDs to the Session.
+		request.session.numbers = serializedArray;
+		//Request to DB
+		dbs.databases.verbs.find({_id:{$in:twoArraysIDs[0]}},function(err, docs){
+			if(docs.length > 0){
+			//Create an Array of data objects [{translatedWord:'ru|ua word',engArray:['e1','e2','e3'],id:1},{},..]
+				let templateData = helpers.exercises.arrayOfTasks(docs,language,true);
+				//Set an empty field to each row. Get two arrays.[[all objects],[missing words]]
+				let twoArray = method_3.setEmptyFieldInRow(templateData);
+				//Elements of Data Array are equal to random numbers Array. Objects in random order.
+				let mixedWords = helpers.exercises.changePositions(twoArraysIDs[0],twoArray[0]);
+				//Elements of Single words data Array are equal to random numbers Array.
+				let mixedSingleWords = helpers.exercises.changePositions(twoArraysIDs[0],twoArray[1]);
+				//Render template with data
+				response.render("method-3",{
+					userLoginSession : request.session.login,
+					title:"Method 3",
+					//Query string argument for next page
+					currentNum: (Number(request.query.currentPageAmount)+1),
+					dropableRows: mixedWords,
+					//singleWords: mixedSingleWords,
+				lastLength: `${mixedSingleWords[0].word} - ${mixedSingleWords[1].word} - ${mixedSingleWords[2].word} - ${mixedSingleWords[3].word} - ${mixedSingleWords[4].word} - ${mixedSingleWords[5].word} - ${mixedSingleWords[6].word} - ${mixedSingleWords[7].word} - ${mixedSingleWords[8].word} - ${mixedSingleWords[9].word}`
+				});
+			}else{
+				request.session.numbers = "";
+				redirect(301,'/exercises');
+			}
 		});
+	}else{//Each other time
+		let arrUniqueNums = JSON.parse(request.session.numbers);
+		//Get array [[...],[...]]
+		let twoArraysIDs = method_3.getPortionIDs(arrUniqueNums);
+		//Serialize the rest of IDs.
+		let serializedArray = JSON.stringify(twoArraysIDs[1]);
+		//Save the rest of IDs to the Session.
+		request.session.numbers = serializedArray;
+		//Request to DB
+		dbs.databases.verbs.find({_id:{$in:twoArraysIDs[0]}},function(err, docs){
+			if(docs.length > 0){
+			//Create an Array of data objects [{translatedWord:'ru|ua word',engArray:['e1','e2','e3'],id:1},{},..]
+				let templateData = helpers.exercises.arrayOfTasks(docs,language,true);
+				//Set an empty field to each row. Get two arrays.[[all objects],[missing words]]
+				let twoArray = method_3.setEmptyFieldInRow(templateData);
+				//Elements of Data Array are equal to random numbers Array. Objects in random order.
+				let mixedWords = helpers.exercises.changePositions(twoArraysIDs[0],twoArray[0]);
+				//Elements of Single words data Array are equal to random numbers Array.
+				let mixedSingleWords = helpers.exercises.changePositions(twoArraysIDs[0],twoArray[1]);
+				//Render template with data
+				response.render("method-3-walk-through",{
+					userLoginSession : request.session.login,
+					title:"Method 3",
+					//Query string argument for next page
+					currentNum: (Number(request.query.currentPageAmount)+1),
+					dropableRows:mixedWords,
+					//singleWords: mixedSingleWords,
+					lastLength: `${mixedSingleWords[0].word} - ${mixedSingleWords[1].word} - ${mixedSingleWords[2].word} - ${mixedSingleWords[3].word} - ${mixedSingleWords[4].word} - ${mixedSingleWords[5].word} - ${mixedSingleWords[6].word} - ${mixedSingleWords[7].word} - ${mixedSingleWords[8].word} - ${mixedSingleWords[9].word}`
+				});
+			}else{
+				request.session.numbers = "";
+				redirect(301,'/exercises');
+			}
+		});
+	}
 });
 module.exports = routes;
