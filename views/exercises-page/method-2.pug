@@ -27,11 +27,12 @@ block appContent
 		div(class="wrapper__method2__main")
 			each val, index in dropableRows
 				div(class="wrapper__method2__main__task")
+					div(class="task__row0")
+						div(class="task__translate") #{val.translatedWord}
 					div(class="task__row1")
 						div(class="task__unique") #{val.id}
 						div(class="task__hidden") #{val.index}
 					div(class="task__row2")
-						div(class="task__translate") #{val.translatedWord}
 						if val.engArray[0] === ""
 							div(class="task__e1 task__empty-field")
 						else

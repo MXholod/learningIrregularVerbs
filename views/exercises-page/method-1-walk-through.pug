@@ -13,13 +13,14 @@ block appContent
 		div(class="wrapper__method1__main")
 			each val, index in randomRows
 				div(class="wrapper__method1__main__task")
+					div(class="task__row0")
+						div(class="task__translate") #{val.translatedWord}
 					div(class="task__row1")
 						div(class="task__unique") #{val.id}
 						div(class="task__hidden") #{val.spoiled}
 						button(class="task__correct") Верно
 						button(class="task__incorrect") Не верно
 					div(class="task__row2")
-						div(class="task__translate") #{val.translatedWord}
 						div(class="task__e1") #{val.engArray[0]}
 						div(class="task__e2") #{val.engArray[1]}
 						div(class="task__e3") #{val.engArray[2]}

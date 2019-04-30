@@ -71,10 +71,11 @@ html,body {
 	width:100%;
 	background-color:#f6f6f6;
 	.wrapper__index{/*BG Image for main page*/
-		height:$base-height;
+		height:($base-height + 6px);
 		background-image:url('../../images/Main-page.png');
 		background-position:center center;
 		background-repeat:no-repeat;
+		background-size:810px 606px;
 		overflow:hidden;
 		.wrapper__index__left{
 			width:$base-width / 2;
@@ -179,7 +180,7 @@ html,body {
 		}
 	}
 	.wrapper__profile{
-		height:$base-height;
+		height:($base-height + 6px);
 		background-color:#fce5c0;
 		position:relative;
 			$menu-height:80px;
@@ -357,7 +358,7 @@ html,body {
 			}
 		}
 		.wrapper__profile__menu{
-			width:$rest-width;
+			width:($rest-width + 10px);
 			margin-left:$marginLeft;
 			height:$menu-height;
 			background-color:#a67b35;
@@ -372,7 +373,7 @@ html,body {
 						width:($rest-width - 50px) / 4;
 						height:40px;
 						float:left;
-						margin-left:10px;
+						margin-left:12px;
 						background:#f288ed url('../../svg/ball.svg') 0px 5px/25px 25px no-repeat padding-box border-box scroll;
 						padding-left:25px;
 						border:1px solid #000;
@@ -409,8 +410,8 @@ html,body {
 			}
 		}
 		.wrapper__profile__content{
-			width:$rest-width;
-			height:($base-height - $menu-height) - 5px;
+			width:($rest-width + 10px);
+			height:($base-height - $menu-height);
 			margin-left:$marginLeft;
 			overflow:hidden;
 			position:relative;
@@ -424,8 +425,8 @@ html,body {
 			}
 			@include profileColor("",#fce5c0);
 			%profile-content{
-				width:($rest-width + 4px);
-				height:($base-height - $menu-height) - 10px;
+				width:($rest-width + 14px);
+				height:($base-height - $menu-height - 5px);
 				border:2px solid #f8fc86;
 				position:absolute;
 				top:5px;
@@ -567,8 +568,8 @@ html,body {
 		}
 	}
 	.wrapper__list-verbs{
-		height:$base-height;
-		width:$base-width;
+		height:($base-height + 6px);
+		width:($base-width + 10px);
 		background-color:#f6e4b7;
 		padding-top:40px;
 		overflow:hidden;
@@ -595,6 +596,7 @@ html,body {
 							padding: 3px;
 							border-radius: 5px;
 							margin-left: 140px;
+							outline:none;
 						}
 					}
 					&:last-child{
@@ -609,6 +611,7 @@ html,body {
 							padding: 3px;
 							border-radius: 5px;
 							margin-left: 130px;
+							outline:none;
 						}
 					}
 				}
@@ -656,13 +659,13 @@ html,body {
 					}
 					.wrapper__list-verbs__all-verbs__full-list__header__v-1{
 						@extend %verb-row-style;
-						width:237px;
+						width:240px;
 					}.wrapper__list-verbs__all-verbs__full-list__header__v-2{
 						@extend %verb-row-style;
-						width:237px;
+						width:240px;
 					}.wrapper__list-verbs__all-verbs__full-list__header__v-3{
 						@extend %verb-row-style;
-						width:269px;
+						width:273px;
 					}
 				}
 				.wrapper__list-verbs__all-verbs__full-list__rows{
@@ -772,15 +775,14 @@ html,body {
 				}
 				.wrapper__list-verbs__all-verbs__portion-list__pages{
 					width:793px;
-					height:473px;
+					height:470px;
 					border:2px solid #000;
-					margin:-2px auto 0px;
 					position:relative;
 					.wrapper__list-verbs__all-verbs__portion-list__page{
 						position:absolute;
-						top:0px;
+						top:-2px;
 						left:-2px;
-						width:791px;
+						width:801px;
 						height:471px;
 						border-bottom:2px solid #000;
 						background-color:#f1f1d9;
@@ -825,7 +827,7 @@ html,body {
 							}
 							span:nth-child(3n+4){
 								border-right:none;
-								width:254px;
+								width:264px;
 							}
 							&:after{
 								display:table;
@@ -945,7 +947,7 @@ html,body {
 		}
 	}
 	.wrapper__exercises{
-		min-height:600px;
+		min-height:606px;
 		padding-top:40px;
 		background-color:#fce5c0;
 		.wrapper__exercises__main{
@@ -1025,8 +1027,8 @@ html,body {
 	%methodsBaseStyle{
 		/*Countdown code here*/
 		.main-window{
-			width:800px;
-			height:600px;
+			width:810px;
+			height:606px;
 			position:absolute;
 			top:0px;
 			left:0px;
@@ -1069,7 +1071,7 @@ html,body {
 				}
 			}
 		}
-		height:600px;
+		height:606px;
 		padding-top:0px;
 		background-color:#fce5c0;
 	}
@@ -1098,8 +1100,25 @@ html,body {
 				height:50px;
 				margin:0px auto 5px;
 				border:1px solid #000;
+				.task__row0{
+					width:175px;
+					height:48px;
+					float:left;
+					border-right:1px solid grey;
+					.task__translate{
+						text-align:center;
+						width:175px;
+						padding:2px 4px;
+						text-align:center;
+						height:25px;
+						color:#5D0F6D;
+						font-variant:small-caps;
+					}
+				}
 				.task__row1{
 					height:50%;
+					width:528px;
+					float:left;
 					background-color:#AAAAAA;
 					text-align:right;
 					font: normal normal 11.5px/14px Verdana,Helvetica,sans-serif;
@@ -1121,19 +1140,15 @@ html,body {
 				}
 				.task__row2{
 					height:50%;
+					width:528px;
+					float:left;
 					%word{
 						float:left;
 						width:175px;
 						padding:2px 4px;
 						text-align:center;
 					}
-					.task__translate{
-						@extend %word;
-						border-right:1px solid #000;
-						height:25px;
-						color:#5D0F6D;
-						font-variant:small-caps;
-					}
+					
 					.task__e1{
 						@extend %word;
 					}
@@ -1148,6 +1163,11 @@ html,body {
 						display:table;
 						clear:both;
 					}
+				}
+				&:after{
+					content:"";
+					display:table;
+					clear:both;
 				}
 			}
 		}
@@ -1178,8 +1198,25 @@ html,body {
 				height:50px;
 				margin:0px auto 5px;
 				border:1px solid #000;
+				.task__row0{
+					width:175px;
+					height:48px;
+					float:left;
+					border-right:1px solid grey;
+					.task__translate{
+						text-align:center;
+						width:175px;
+						padding:2px 4px;
+						text-align:center;
+						height:25px;
+						color:#5D0F6D;
+						font-variant:small-caps;
+					}
+				}
 				.task__row1{
 					height:50%;
+					width:528px;
+					float:left;
 					background-color:#AAAAAA;
 					text-align:right;
 					font: normal normal 11.5px/14px Verdana,Helvetica,sans-serif;
@@ -1195,18 +1232,13 @@ html,body {
 				}
 				.task__row2{
 					height:50%;
+					width:528px;
+					float:left;
 					%word{
 						float:left;
 						width:175px;
 						padding:2px 4px;
 						text-align:center;
-					}
-					.task__translate{
-						@extend %word;
-						border-right:1px solid #000;
-						height:25px;
-						color:#5D0F6D;
-						font-variant:small-caps;
 					}
 					.task__e1{
 						@extend %word;
@@ -1222,7 +1254,7 @@ html,body {
 						border: 1px solid #604A5E;
 						border-radius:5px;
 						height:22px;
-						width:165px;
+						width:175px;
 						margin-top:1px;
 						margin-left:1px;
 					}
@@ -1231,6 +1263,11 @@ html,body {
 						display:table;
 						clear:both;
 					}
+				}
+				&:after{
+					content:"";
+					display:table;
+					clear:both;
 				}
 			}
 		}
@@ -1292,8 +1329,25 @@ html,body {
 				height:50px;
 				margin:0px auto 5px;
 				border:1px solid #000;
+				.task__row0{
+					width:175px;
+					height:48px;
+					float:left;
+					border-right:1px solid grey;
+					.task__translate{
+						text-align:center;
+						width:175px;
+						padding:2px 4px;
+						text-align:center;
+						height:25px;
+						color:#5D0F6D;
+						font-variant:small-caps;
+					}
+				}
 				.task__row1{
 					height:50%;
+					width:528px;
+					float:left;
 					background-color:#AAAAAA;
 					text-align:right;
 					font: normal normal 11.5px/14px Verdana,Helvetica,sans-serif;
@@ -1309,18 +1363,13 @@ html,body {
 				}
 				.task__row2{
 					height:50%;
+					width:528px;
+					float:left;
 					%word{
 						float:left;
 						width:175px;
 						padding:2px 4px;
 						text-align:center;
-					}
-					.task__translate{
-						@extend %word;
-						border-right:1px solid #000;
-						height:25px;
-						color:#5D0F6D;
-						font-variant:small-caps;
 					}
 					.task__e1{
 						@extend %word;
@@ -1348,6 +1397,11 @@ html,body {
 						clear:both;
 					}
 				}
+				&:after{
+					content:"";
+					display:table;
+					clear:both;
+				}
 			}
 		}
 	}
@@ -1360,6 +1414,7 @@ html,body {
 		border-radius:20px;	
 		color:#fff;
 		position:relative;
+		top:-7px;
 		overflow:hidden;
 		&:before{
 			position:absolute;
@@ -1645,8 +1700,8 @@ html,body {
 	}
 }
 #greeting{
-	width:$base-width;
-	height:$base-height;
+	width:($base-width + 10px);
+	height:($base-height + 6px);
 	background-color:rgba(0,0,0,0.8);
 	position:absolute;
 	top:0;
