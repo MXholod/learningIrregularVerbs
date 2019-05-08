@@ -63,10 +63,10 @@ function changePositions(arrayData,spoiled){
 	for(var i = 0;i<arrayData.length;i++){
 		//Data Array in loop
 		for(var j = 0;j<spoiled.length;j++){
-			//
+			//IF property 'id' is equal to spoiled 'index' then save current object to the 'resultSpoiled[]'
 			if(arrayData[i].id === spoiled[j]){
 				resultSpoiled[j] = arrayData[i];
-				//
+				//Found similarities
 				equalToSpoiled = true;
 				break;
 			}
@@ -119,12 +119,12 @@ function spoilRandomObject(normalObjects,spoiledObjects,randomIndexes){
 				var spoiledObj = spoiledObjects.splice(0,1);
 				//Take a current Object from array
 				normalObjects[i].engArray[indexRand] = spoiledObj[0].engArray[indexRand];
-				//Set true if object is spoiled
-				normalObjects[i].spoiled = true;
+				//Set false if object is spoiled
+				normalObjects[i].spoiled = false;
 				break;
 			}else{
-				//Set false if object is not spoiled
-				normalObjects[i].spoiled = false;
+				//Set true if object is not spoiled
+				normalObjects[i].spoiled = true;
 			}
 		}
 	}

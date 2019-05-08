@@ -1124,18 +1124,20 @@ html,body {
 					font: normal normal 11.5px/14px Verdana,Helvetica,sans-serif;
 					.task__unique{
 						visibility:hidden;
-						width:0px;
-						height:0px;
+						display:inline-block;
 					}
 					.task__hidden{
 						visibility:hidden;
 						display:inline-block;
 					}
 					.task__correct{
-						/*background-color:pink;*/
+						background-color:#9cdb95;
+						border-radius:5px;
+						margin-right:10px;
 					}
 					.task__incorrect{
-						/*background-color:violet;*/
+						background-color:#f77474;
+						border-radius:5px;
 					}
 				}
 				.task__row2{
