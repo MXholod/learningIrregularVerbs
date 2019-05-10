@@ -248,12 +248,31 @@ module.exports = __webpack_require__(4);
 			return false;
 		}
 	}
+	//Clear SessionStorage data Method1, Method2, Method3
+	function clearSessionStorageMethods(){
+		var btnProfile = document.getElementById("userSettingsPage");
+		btnProfile.addEventListener("click",function(){
+			if(typeof(Storage) !== "undefined"){
+				if(sessionStorage.getItem("method1")){
+					sessionStorage.removeItem("method1");
+				}
+				if(sessionStorage.getItem("method2")){
+					sessionStorage.removeItem("method2");
+				}
+				if(sessionStorage.getItem("method3")){
+					sessionStorage.removeItem("method3");
+				}
+			}
+		},false);
+	}
 	window.addEventListener("load",()=>{
 		//User profile button
 		var userBtn = saveUserProfileButton(".settings__base_userPage_profile");
 		onceSaveToSessionStorage(userBtn);
 		//Rewrite attribute checked
 		setCheckedInputs();
+		//Clear SessionStorage data Method1, Method2, Method3
+		clearSessionStorageMethods();
 	},false);
 })();
 
