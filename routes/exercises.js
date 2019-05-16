@@ -4,7 +4,8 @@ const helpers = require("../utils/exerciseHelpers");
 const method_1 = require("../models/exercises_methods/Method_1");
 const method_2 = require("../models/exercises_methods/Method_2");
 const method_3 = require("../models/exercises_methods/Method_3");
-
+const errLog = require("../utils/errorLogger");
+const infoLog = require("../utils/infoLogger");
 let routes = express.Router();
 //First method route
 routes.get("/method1",(request,response)=>{
@@ -133,8 +134,8 @@ routes.get("/method2",(request,response)=>{
 					//Query string argument for next page
 					currentNum: (Number(request.query.currentPageAmount)+1),
 					dropableRows: mixedWords,
-					singleWords: twoArray[1],
-				lastLength: `${twoArray[1][0].word} - ${twoArray[1][1].word} - ${twoArray[1][2].word} - ${twoArray[1][3].word} - ${twoArray[1][4].word} - ${twoArray[1][5].word} - ${twoArray[1][6].word} - ${twoArray[1][7].word} - ${twoArray[1][8].word} - ${twoArray[1][9].word}`
+					singleWords: twoArray[1]
+				//lastLength: `${twoArray[1][0].word} - ${twoArray[1][1].word} - ${twoArray[1][2].word} - ${twoArray[1][3].word} - ${twoArray[1][4].word} - ${twoArray[1][5].word} - ${twoArray[1][6].word} - ${twoArray[1][7].word} - ${twoArray[1][8].word} - ${twoArray[1][9].word}`
 				});
 			}else{
 				request.session.numbers = "";
@@ -165,8 +166,8 @@ routes.get("/method2",(request,response)=>{
 					//Query string argument for next page
 					currentNum: (Number(request.query.currentPageAmount)+1),
 					dropableRows:mixedWords,
-					singleWords: twoArray[1],
-					lastLength: twoArraysIDs[1].length
+					singleWords: twoArray[1]
+					//lastLength: twoArraysIDs[1].length
 				});
 			}else{
 				request.session.numbers = "";
@@ -195,8 +196,10 @@ routes.get("/method3",(request,response)=>{
 			if(docs.length > 0){
 			//Create an Array of data objects [{translatedWord:'ru|ua word',engArray:['e1','e2','e3'],id:1},{},..]
 				let templateData = helpers.exercises.arrayOfTasks(docs,language,true);
+				errLog.printError(templateData);
 				//Set an empty field to each row. Get two arrays.[[all objects],[missing words]]
 				let twoArray = method_3.setEmptyFieldInRow(templateData);
+				infoLog.printInfo(twoArray[1]);
 				//Elements of Data Array are equal to random numbers Array. Objects in random order.
 				let mixedWords = helpers.exercises.changePositions(twoArraysIDs[0],twoArray[0]);
 				//Elements of Single words data Array are equal to random numbers Array.
@@ -208,8 +211,8 @@ routes.get("/method3",(request,response)=>{
 					//Query string argument for next page
 					currentNum: (Number(request.query.currentPageAmount)+1),
 					dropableRows: mixedWords,
-					//singleWords: mixedSingleWords,
-				lastLength: `${mixedSingleWords[0].word} - ${mixedSingleWords[1].word} - ${mixedSingleWords[2].word} - ${mixedSingleWords[3].word} - ${mixedSingleWords[4].word} - ${mixedSingleWords[5].word} - ${mixedSingleWords[6].word} - ${mixedSingleWords[7].word} - ${mixedSingleWords[8].word} - ${mixedSingleWords[9].word}`
+					singleWords: mixedSingleWords,
+				//lastLength: `${mixedSingleWords[0].word} - ${mixedSingleWords[1].word} - ${mixedSingleWords[2].word} - ${mixedSingleWords[3].word} - ${mixedSingleWords[4].word} - ${mixedSingleWords[5].word} - ${mixedSingleWords[6].word} - ${mixedSingleWords[7].word} - ${mixedSingleWords[8].word} - ${mixedSingleWords[9].word}`
 				});
 			}else{
 				request.session.numbers = "";
@@ -242,8 +245,8 @@ routes.get("/method3",(request,response)=>{
 					//Query string argument for next page
 					currentNum: (Number(request.query.currentPageAmount)+1),
 					dropableRows:mixedWords,
-					//singleWords: mixedSingleWords,
-					lastLength: `${mixedSingleWords[0].word} - ${mixedSingleWords[1].word} - ${mixedSingleWords[2].word} - ${mixedSingleWords[3].word} - ${mixedSingleWords[4].word} - ${mixedSingleWords[5].word} - ${mixedSingleWords[6].word} - ${mixedSingleWords[7].word} - ${mixedSingleWords[8].word} - ${mixedSingleWords[9].word}`
+					singleWords: mixedSingleWords,
+					//lastLength: `${mixedSingleWords[0].word} - ${mixedSingleWords[1].word} - ${mixedSingleWords[2].word} - ${mixedSingleWords[3].word} - ${mixedSingleWords[4].word} - ${mixedSingleWords[5].word} - ${mixedSingleWords[6].word} - ${mixedSingleWords[7].word} - ${mixedSingleWords[8].word} - ${mixedSingleWords[9].word}`
 				});
 			}else{
 				request.session.numbers = "";

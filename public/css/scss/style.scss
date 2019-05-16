@@ -1403,10 +1403,17 @@ html,body {
 					font: normal normal 11.5px/14px Verdana,Helvetica,sans-serif;
 					.task__unique{
 						visibility:hidden;
-						width:0px;
-						height:0px;
+						display:inline-block;
 					}
 					.task__hidden{
+						visibility:hidden;
+						display:inline-block;
+					}
+					.task__result{
+						visibility:hidden;
+						display:inline-block;
+					}
+					.task__word{
 						visibility:hidden;
 						display:inline-block;
 					}
@@ -1451,6 +1458,50 @@ html,body {
 					content:"";
 					display:table;
 					clear:both;
+				}
+			}
+		}
+		.wrapper__method3__move-on{
+			display:none;
+			width:50px;
+			height:50px;
+			position:relative;
+			top:-50px;
+			left:760px;
+			border-radius:50%;
+			background-color:#f4bfeb;
+			border:1px solid #fff;
+			overflow:hidden;
+			.move-on__link{
+				display: block;
+				width:50px;
+				height:50px;
+				overflow:hidden;
+				position:absolute;
+				top:0px;
+				left:18px;
+				@keyframes moveonDrag{
+					0% {
+						transform: rotate(90deg) translateY(0px);
+					}
+					50%{
+						transform: rotate(90deg) translateY(15px);
+					}
+					100%{
+						transform: rotate(90deg) translateY(0px);
+					}
+				}
+				&:after{
+					content:"";
+					display:block;
+					width:0px;
+					height:0px;
+					border-top:25px solid transparent;
+					border-left:25px solid transparent;
+					border-right:25px solid transparent;
+					border-bottom:25px solid #da27bc;
+					/*transform: rotate(90deg) translateY(0px);*/
+					animation: moveonDrag 4s infinite;
 				}
 			}
 		}

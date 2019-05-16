@@ -35,6 +35,8 @@ block appContent
 					div(class="task__row1")
 						div(class="task__unique") #{val.id}
 						div(class="task__hidden") #{val.index}
+						div(class="task__result") 0
+						div(class="task__word") #{singleWords[index].word}
 					div(class="task__row2")
 						if val.engArray[0] === ""
 							input(type="text" class="task__e1 task__empty-field" value=val.engArray[0])
@@ -48,6 +50,5 @@ block appContent
 							input(type="text" class="task__e1 task__empty-field" value=val.engArray[2])
 						else
 							div(class="task__e3") #{val.engArray[2]}
-		p
-			a(href="/method3?currentPageAmount="+currentNum class="btn btn-primary") Go to 2
-		p #{lastLength}
+		div(class="wrapper__method3__move-on")
+			a(href="/method3?currentPageAmount="+currentNum class="move-on__link")
