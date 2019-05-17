@@ -1134,10 +1134,12 @@ html,body {
 						background-color:#9cdb95;
 						border-radius:5px;
 						margin-right:10px;
+						cursor:pointer;
 					}
 					.task__incorrect{
 						background-color:#f77474;
 						border-radius:5px;
+						cursor:pointer;
 					}
 				}
 				.task__row2{
@@ -1170,6 +1172,50 @@ html,body {
 					content:"";
 					display:table;
 					clear:both;
+				}
+			}
+		}
+		.wrapper__method1__move-on{
+			display:none;
+			width:50px;
+			height:50px;
+			position:relative;
+			top:-50px;
+			left:760px;
+			border-radius:50%;
+			background-color:#f77474;
+			border:1px solid #fff;
+			overflow:hidden;
+			.move-on__link{
+				display: block;
+				width:50px;
+				height:50px;
+				overflow:hidden;
+				position:absolute;
+				top:0px;
+				left:0px;
+				@keyframes moveonChoose{
+					0% {
+						transform: rotate(90deg) translateY(-13px) scale(0.6);
+					}
+					50%{
+						transform: rotate(90deg) translateY(-18px) scale(0.9);
+					}
+					100%{
+						transform: rotate(90deg) translateY(-13px) scale(0.6);
+					}
+				}
+				&:after{
+					content:"";
+					display:block;
+					width:0px;
+					height:0px;
+					border-top:25px solid transparent;
+					border-left:25px solid transparent;
+					border-right:25px solid transparent;
+					border-bottom:25px solid #c95d5d;
+					/*transform: rotate(90deg) translateY(-13px) scale(0.8);*/
+					animation: moveonChoose 3s infinite;
 				}
 			}
 		}
@@ -1326,16 +1372,16 @@ html,body {
 				overflow:hidden;
 				position:absolute;
 				top:0px;
-				left:18px;
+				left:0px;
 				@keyframes moveonDrag{
 					0% {
-						transform: rotate(90deg) translateY(0px);
+						transform: rotate(90deg) translateY(-13px) scale(0.6);
 					}
 					50%{
-						transform: rotate(90deg) translateY(15px);
+						transform: rotate(90deg) translateY(-18px) scale(0.9);
 					}
 					100%{
-						transform: rotate(90deg) translateY(0px);
+						transform: rotate(90deg) translateY(-13px) scale(0.6);
 					}
 				}
 				&:after{
@@ -1348,7 +1394,7 @@ html,body {
 					border-right:25px solid transparent;
 					border-bottom:25px solid #028ACE;
 					/*transform: rotate(90deg) translateY(0px);*/
-					animation: moveonDrag 4s infinite;
+					animation: moveonDrag 3s infinite;
 				}
 			}
 		}
@@ -1479,16 +1525,16 @@ html,body {
 				overflow:hidden;
 				position:absolute;
 				top:0px;
-				left:18px;
-				@keyframes moveonDrag{
+				left:0px;
+				@keyframes moveonInput{
 					0% {
-						transform: rotate(90deg) translateY(0px);
+						transform: rotate(90deg) translateY(-13px) scale(0.6);
 					}
 					50%{
-						transform: rotate(90deg) translateY(15px);
+						transform: rotate(90deg) translateY(-18px) scale(0.9);
 					}
 					100%{
-						transform: rotate(90deg) translateY(0px);
+						transform: rotate(90deg) translateY(-13px) scale(0.6);
 					}
 				}
 				&:after{
@@ -1501,7 +1547,7 @@ html,body {
 					border-right:25px solid transparent;
 					border-bottom:25px solid #da27bc;
 					/*transform: rotate(90deg) translateY(0px);*/
-					animation: moveonDrag 4s infinite;
+					animation: moveonInput 3s infinite;
 				}
 			}
 		}
