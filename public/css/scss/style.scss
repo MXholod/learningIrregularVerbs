@@ -1075,12 +1075,55 @@ html,body {
 		padding-top:0px;
 		background-color:#fce5c0;
 	}
+	%infoPanel{
+		%textBlock{
+			display:inline-block;
+			heigh:inherit;
+			min-width:30px;
+			vertical-align:top;
+			font-size:20px;
+			margin-top:10px;
+			font-family:Lasco_Bold;
+			margin-left:35px;
+			font-weight:bold;
+			color:#808080;
+		}
+		.info-panel__pages{
+			float:left;
+			width:300px;
+			height:40px;
+			font-size:0px;
+			.info-panel__pages-text{
+				@extend %textBlock;
+			}
+			.info-panel__dash{
+				@extend %textBlock;
+				margin-left:10px;
+				min-width:20px;
+			}
+		}
+		.info-panel__timer{
+			float:left;
+			width:350px;
+			height:40px;
+			.info-panel__timer-text{
+				@extend %textBlock;
+				font-size:17px;
+			}
+		}
+		&:after{
+			content:"";
+			display:table;
+			clear:both;
+		}
+	}
 	.wrapper__method1{
 		@extend %methodsBaseStyle;
 		.wrapper__method1__info-panel{
 			width:650px;
 			height:40px;
 			margin-left:150px;
+			@extend %infoPanel;
 			/*background-color:lime;*/
 		}
 		.wrapper__method1__main{
@@ -1227,6 +1270,7 @@ html,body {
 			width:650px;
 			height:40px;
 			margin-left:150px;
+			@extend %infoPanel;
 			/*background-color:lime;*/
 		}
 		.wrapper__method2__main{
@@ -1406,6 +1450,7 @@ html,body {
 			width:650px;
 			height:40px;
 			margin-left:150px;
+			@extend %infoPanel;
 			/*background-color:lime;*/
 		}
 		.wrapper__method3__main{
