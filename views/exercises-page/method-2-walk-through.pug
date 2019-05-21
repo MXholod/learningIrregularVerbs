@@ -10,9 +10,7 @@ block variables
 block appContent
 	div(class="wrapper__method2")
 		div(class="wrapper__method2__info-panel")
-			div
-				div Information 11-20
-				div Counter 5:00
+			include info-panel.pug
 		div(class="wrapper__method2__main")
 			each val, index in dropableRows
 				div(class="wrapper__method2__main__task")
