@@ -104,6 +104,14 @@ module.exports = {
 				]
 			}
 		},
+		"methodsHeader":{
+			"infoPanelPage":{
+				"infoPanelPageHeader":"Страница"
+			},
+			"infoPanelTimer":{
+				"infoPanelPageTimer":"Осталось времени:"
+			}
+		},
 		"serverSisdeOnly":{
 			"emailRestoring":{
 				"topic":"Восстановление пароля",
@@ -217,6 +225,14 @@ module.exports = {
 					"Необхідно переставити неправильні дієслова на свої місця згідно перекладу.",
 					"Почати"
 				]
+			}
+		},
+		"methodsHeader":{
+			"infoPanelPage":{
+				"infoPanelPageHeader":"Сторінка"
+			},
+			"infoPanelTimer":{
+				"infoPanelPageTimer":"Залишилося часу:"
 			}
 		},
 		"serverSisdeOnly":{
