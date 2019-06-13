@@ -1,0 +1,8 @@
+extends ../layout.pug
+block variables
+	- mainPage = false;
+	- profilePage = false;
+	- listVerbs = false;
+block appContent
+	div(class="wrapper__exercises-result")
+		p #{result}
