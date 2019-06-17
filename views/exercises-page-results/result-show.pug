@@ -5,4 +5,33 @@ block variables
 	- listVerbs = false;
 block appContent
 	div(class="wrapper__exercises-result")
-		p #{result}
+		table(class="scoreboard")
+			caption Табло Упражнения №1
+			thead(class="scoreboard__thead")
+				tr
+					th Игрок:
+					th Пройдено страниц:
+					th Потрачено времени:
+			tbody(class="scoreboard__tbody")
+				tr
+					td(class="scoreboard__player") Maximus
+					td 5
+					td 200
+				tr
+					td(colspan="3" class="scoreboard__inform") Верные варианты:
+				tr
+					td(class="scoreboard__correct-choosen") 12
+					td(class="scoreboard__correct-text") из
+					td(class="scoreboard__correct-total") 50
+				tr
+					td(colspan="3" class="scoreboard__inform") Неверные варианты:
+				tr
+					td(class="scoreboard__incorrect-choosen") 12
+					td(class="scoreboard__incorrect-text") из
+					td(class="scoreboard__incorrect-total") 50 
+			tfoot(class="scoreboard__tfoot")
+				tr
+					td(colspan="2" class="scoreboard__general-text") Прогресс успешности пройденного упражнения №1: 
+					td(class="scoreboard__general-percentage") 100%
+		div(class="return-navigation")
+			a(href="#" class="btn btn-warning return-navigation__button") Перейти на страницу профиля

@@ -1024,6 +1024,100 @@ html,body {
 			}
 		}
 	}
+	.wrapper__exercises-result{
+		$scoreboard-top-padding: 186px;
+		min-height:606px;
+		padding-top:40px;
+		background-color:#fce5c0;
+		.scoreboard{
+			width:700px;
+			height: 606px - $scoreboard-top-padding;
+			border:7px solid #b3a2a2; 
+			background-color:#1f0606;
+			color:#c40e0e;
+			margin:0px auto;
+			font-size:25px;
+			font-family:Lasco_Bold;
+			caption{
+				caption-side:top;
+				text-align:center;
+			}
+			.scoreboard__thead{
+				tr{
+					th{
+						color:#fff;
+						width:calc(100% / 3);
+						text-align:center;
+						padding:5px;
+					}
+				}
+			}
+			.scoreboard__tbody{
+				height:250px;
+				tr{
+					td{
+						width:calc(100% / 3);
+						text-align:center;
+						font-size:25px;
+						padding-top:10px;
+					}
+					.scoreboard__player{
+						&::first-letter{
+							font-size:1.7em;
+						}
+					}
+					.scoreboard__inform{
+						color:#fff;
+					}
+					.scoreboard__correct-choosen{
+					
+					}
+					.scoreboard__correct-text{
+					
+					}
+					.scoreboard__correct-total{
+					
+					}
+					.scoreboard__incorrect-choosen{
+					
+					}
+					.scoreboard__incorrect-text{
+					
+					}
+					.scoreboard__incorrect-total{
+					
+					}
+				}
+			}
+			.scoreboard__tfoot{
+				tr{
+					.scoreboard__general-text{
+						color:#fff;
+						font-size:0.8em;
+						text-align:center;
+						padding:5px;
+						&::first-letter{
+							font-size:1.2em;
+						}
+					}
+					.scoreboard__general-percentage{
+						padding:5px;
+						text-align:center;
+					}
+				}
+			}
+		}
+		.return-navigation{
+			height:80px;
+			width:100%;
+			.return-navigation__button{
+				display:block;
+				margin:20px auto;
+				width:300px;
+				font:normal small-caps bold 16px/24px Verdana,Helvetica sans-serif;
+			}
+		}
+	}
 	%methodsBaseStyle{
 		/*Countdown code here*/
 		.main-window{
