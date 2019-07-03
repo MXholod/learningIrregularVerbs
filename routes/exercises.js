@@ -10,13 +10,13 @@ let routes = express.Router();
 //First method route
 routes.get("/method1",(request,response)=>{
 	//Range of word rows on each page
-	const rowsAmount = 45;//Must be 75
+	const rowsAmount = 75;//Must be 75
 	//Get current language rus|ukr
 	let language = response.locals.lang.identifier;
 	//First time visit http://localhost:3000/method1?currentPageAmount=1
 	if(Number(request.query.currentPageAmount) == 1 && !request.session.numbers){//&& !request.session.numbers
 		//Get unique ID numbers from given range - 75
-			let arrUniqueNums = helpers.exercises.uniqueNumbers(rowsAmount,120);//Get 30 from 120
+			let arrUniqueNums = helpers.exercises.uniqueNumbers(rowsAmount,150);//Get 75 from 150
 			//Create object with IDs and spoiled IDs: {IDs:[...],spoiledPortionsIDs:[[...],[...],[...],[...],[...]]}
 		//Call this Method only once. 50 and 25. Divide to spoiled and normals IDs for all 5 pages.
 			let objectIDs = method_1.cutForSpoiledIDs(arrUniqueNums);
@@ -88,13 +88,13 @@ routes.get("/method1",(request,response)=>{
 });
 routes.get("/method2",(request,response)=>{
 	//Range of word rows on each page
-	const rowsAmount = 30;//Must be 50
+	const rowsAmount = 50;//Must be 50
 	//Get current language rus|ukr
 	let language = response.locals.lang.identifier;
 	//First time visit http://localhost:3000/method2?currentPageAmount=1
 	if(Number(request.query.currentPageAmount) == 1 && !request.session.numbers){//&& !request.session.numbers
 		//Get unique ID numbers from given range - 50
-			let arrUniqueNums = helpers.exercises.uniqueNumbers(rowsAmount,120);//Get 30 from 120
+			let arrUniqueNums = helpers.exercises.uniqueNumbers(rowsAmount,150);//Get 50 from 150
 		//Get array [[The first is: 10 ],[The remainder is: 40]]
 		let twoArraysIDs = method_2.getPortionIDs(arrUniqueNums);
 		//Serialize the rest of IDs.
@@ -161,13 +161,13 @@ routes.get("/method2",(request,response)=>{
 });
 routes.get("/method3",(request,response)=>{
 	//Range of word rows on each page
-	const rowsAmount = 30;//Must be 50
+	const rowsAmount = 50;//Must be 50
 	//Get current language rus|ukr
 	let language = response.locals.lang.identifier;
 	//First time visit http://localhost:3000/method2?currentPageAmount=1
 	if(Number(request.query.currentPageAmount) == 1 && !request.session.numbers){//&& !request.session.numbers
 		//Get unique ID numbers from given range - 50
-			let arrUniqueNums = helpers.exercises.uniqueNumbers(rowsAmount,120);//Get 30 from 120
+			let arrUniqueNums = helpers.exercises.uniqueNumbers(rowsAmount,150);//Get 50 from 150
 		//Get array [[The first is: 10 ],[The remainder is: 40]]
 		let twoArraysIDs = method_3.getPortionIDs(arrUniqueNums);
 		//Serialize the rest of IDs.
