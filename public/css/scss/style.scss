@@ -1066,33 +1066,36 @@ html,body {
 							font-size:1.7em;
 						}
 					}
-					.scoreboard__inform{
-						color:#fff;
+					.scoreboard__passed-pages{
+						
+					}
+					.scoreboard__time{
+						
+					}
+					.scoreboard__correct{
+						color:#6bed4e;
+					}
+					.scoreboard__total-header{
+						color:#fadd4d;
 					}
 					.scoreboard__correct-choosen{
-					
+						color:#6bed4e;
 					}
-					.scoreboard__correct-text{
-					
+					.scoreboard__incorrect{
+						color:#fc2b2b;
 					}
-					.scoreboard__correct-total{
-					
+					.scoreboard__total{
+						color:#fadd4d;
 					}
 					.scoreboard__incorrect-choosen{
-					
-					}
-					.scoreboard__incorrect-text{
-					
-					}
-					.scoreboard__incorrect-total{
-					
+						color:#fc2b2b;
 					}
 				}
 			}
 			.scoreboard__tfoot{
 				tr{
 					.scoreboard__general-text{
-						color:#fff;
+						color:#1737d4;
 						font-size:0.8em;
 						text-align:center;
 						padding:5px;
@@ -1103,6 +1106,7 @@ html,body {
 					.scoreboard__general-percentage{
 						padding:5px;
 						text-align:center;
+						color:#1737d4;
 					}
 				}
 			}

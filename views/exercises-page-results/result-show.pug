@@ -3,35 +3,43 @@ block variables
 	- mainPage = false;
 	- profilePage = false;
 	- listVerbs = false;
+	- resultPage = true;
 block appContent
 	div(class="wrapper__exercises-result")
 		table(class="scoreboard")
-			caption Табло Упражнения №1
+			caption 
+				span(data-language="something") Табло Упражнения 
+				span(class="scoreboard__exercise-number") №
 			thead(class="scoreboard__thead")
 				tr
 					th Игрок:
 					th Пройдено страниц:
-					th Потрачено времени:
+					th Осталось времени:
 			tbody(class="scoreboard__tbody")
 				tr
-					td(class="scoreboard__player") Maximus
-					td 5
-					td 200
+					td(class="scoreboard__player") #{userLoginSession}
+					td(class="scoreboard__passed-pages") 1
+					td(class="scoreboard__time") 0:00
 				tr
-					td(colspan="3" class="scoreboard__inform") Верные варианты:
+					td(colspan="2" class="scoreboard__correct") Верные варианты:
+					td(class="scoreboard__total-header") Всего выбрано вариантов:
 				tr
-					td(class="scoreboard__correct-choosen") 12
-					td(class="scoreboard__correct-text") из
-					td(class="scoreboard__correct-total") 50
+					td(colspan="2" class="scoreboard__correct-choosen") 0
+					td
 				tr
-					td(colspan="3" class="scoreboard__inform") Неверные варианты:
+					td(colspan="2" class="scoreboard__incorrect") Неверные варианты:
+					td(class="scoreboard__total") 0
 				tr
-					td(class="scoreboard__incorrect-choosen") 12
-					td(class="scoreboard__incorrect-text") из
-					td(class="scoreboard__incorrect-total") 50 
+					td(colspan="2" class="scoreboard__incorrect-choosen") 0
+					td
 			tfoot(class="scoreboard__tfoot")
 				tr
-					td(colspan="2" class="scoreboard__general-text") Прогресс успешности пройденного упражнения №1: 
-					td(class="scoreboard__general-percentage") 100%
+					td(colspan="2" class="scoreboard__general-text") 
+						span() Прогресс успешности пройденного упражнения 
+						span(class="scoreboard__exercise-number") № : 
+					td(class="scoreboard__general-percentage")
+						span(class="scoreboard__success-result") 0
+						span(class="scoreboard__sign") %
 		div(class="return-navigation")
 			a(href="#" class="btn btn-warning return-navigation__button") Перейти на страницу профиля
+		div(id="hiddenHash" hidden) #{hash}
