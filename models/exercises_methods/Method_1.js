@@ -6,12 +6,12 @@ function cutForSpoiledIDs(arr){
 		spoiledPortionsIDs:[]
 	};
 	var num;
-	//Cut from 50 to 75 for spoiled IDs and save it to the property 'spoiledIDs'
-	var spoiledIDs = arr.splice(30,45);//50,75
+	//Cut from 50 to 75 for spoiled IDs and save it to the property 'spoiledIDs'. Cut last 25 numbers.
+	var spoiledIDs = arr.splice(50,75);//50,75
 	//Cut from 0 to 50 IDs
-	idsObject.IDs = arr.splice(0,30);//0,50
+	idsObject.IDs = arr.splice(0,50);//0,50
 	//Prepare for each page in loop spoiled IDs. Random amount.
-	for(var i = 0;i < 3; i++){
+	for(var i = 0;i < 5; i++){
 		//Generate random range from 1 to 5
 		num = Math.round(Math.random()*(5-1))+1;
 		//Cut from the Array from 1 to 5 elements 
