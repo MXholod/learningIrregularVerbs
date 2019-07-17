@@ -6,28 +6,28 @@ block variables
 	- resultPage = true;
 block appContent
 	div(class="wrapper__exercises-result")
-		table(class="scoreboard")
+		table(class="scoreboard" id="resultTable" data-language="resultTable")
 			caption 
-				span(data-language="something") Табло Упражнения 
+				span(data-language="resultTable") #{lang.resultPage.resultTable.captionHeader.header} 
 				span(class="scoreboard__exercise-number") №
 			thead(class="scoreboard__thead")
 				tr
-					th Игрок:
-					th Пройдено страниц:
-					th Осталось времени:
+					th(data-language="resultTable") #{lang.resultPage.resultTable.theadHeader.player}
+					th(data-language="resultTable") #{lang.resultPage.resultTable.theadHeader.passedPages}
+					th(data-language="resultTable") #{lang.resultPage.resultTable.theadHeader.timeLeft}
 			tbody(class="scoreboard__tbody")
 				tr
 					td(class="scoreboard__player") #{userLoginSession}
 					td(class="scoreboard__passed-pages") 1
 					td(class="scoreboard__time") 0:00
 				tr
-					td(colspan="2" class="scoreboard__correct") Верные варианты:
-					td(class="scoreboard__total-header") Всего выбрано вариантов:
+					td(colspan="2" class="scoreboard__correct" data-language="resultTable") #{lang.resultPage.resultTable.variantsOne.correct}
+					td(class="scoreboard__total-header" data-language="resultTable") #{lang.resultPage.resultTable.variantsOne.total}
 				tr
 					td(colspan="2" class="scoreboard__correct-choosen") 0
 					td
 				tr
-					td(colspan="2" class="scoreboard__incorrect") Неверные варианты:
+					td(colspan="2" class="scoreboard__incorrect" data-language="resultTable") #{lang.resultPage.resultTable.variantsTwo.incorrect}
 					td(class="scoreboard__total") 0
 				tr
 					td(colspan="2" class="scoreboard__incorrect-choosen") 0
@@ -35,7 +35,7 @@ block appContent
 			tfoot(class="scoreboard__tfoot")
 				tr
 					td(colspan="2" class="scoreboard__general-text") 
-						span() Прогресс успешности пройденного упражнения 
+						span(data-language="resultTable") #{lang.resultPage.resultTable.progressSuccess.text} 
 						span(class="scoreboard__exercise-number") № : 
 					td(class="scoreboard__general-percentage")
 						span(class="scoreboard__success-result") 0

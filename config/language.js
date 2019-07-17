@@ -112,6 +112,26 @@ module.exports = {
 				"infoPanelPageTimer":"Осталось времени:"
 			}
 		},
+		"resultPage":{
+			"resultTable":{
+				"captionHeader":{"header":"Табло Упражнения"},
+				"theadHeader":{
+					"player":"Игрок:",
+					"passedPages":"Пройдено страниц:",
+					"timeLeft":"Осталось времени:"
+				},
+				"variantsOne":{
+					"correct":"Верные варианты:",
+					"total":"Всего выбрано вариантов:"
+				},
+				"variantsTwo":{
+					"incorrect":"Неверные варианты:"
+				},
+				"progressSuccess":{
+					"text":"Прогресс успешности пройденного упражнения"
+				}
+			}
+		},
 		"serverSisdeOnly":{
 			"emailRestoring":{
 				"topic":"Восстановление пароля",
@@ -233,6 +253,26 @@ module.exports = {
 			},
 			"infoPanelTimer":{
 				"infoPanelPageTimer":"Залишилося часу:"
+			}
+		},
+		"resultPage":{
+			"resultTable":{
+				"captionHeader":{"header":"Табло Вправи"},
+				"theadHeader":{
+					"player":"Гравець:",
+					"passedPages":"Пройдено сторінок:",
+					"timeLeft":"Залишилося часу:"
+				},
+				"variantsOne":{
+					"correct":"Вірні варіанти:",
+					"total":"Всього вибрано варіантів:"
+				},
+				"variantsTwo":{
+					"incorrect":"Невірні варіанти:"
+				},
+				"progressSuccess":{
+					"text":"Прогрес успішності пройденої вправи"
+				}
 			}
 		},
 		"serverSisdeOnly":{
