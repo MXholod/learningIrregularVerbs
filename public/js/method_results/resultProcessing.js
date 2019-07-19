@@ -1,5 +1,7 @@
 (function(){
 	const preparedData = {
+		"login":"",
+		"hash":"",
 		"methodNumber":0,
 		"time":"0:00",
 		"successArray":[],
@@ -7,9 +9,12 @@
 		"successResult":0,
 		"failureResult":0,
 		"totalAnswers":0,
+		"failedAsString":"",
 		"successProgressPercentage":0
 	};
 	window.addEventListener("load",function(){
+		//Disable button "to profile" temporarily.
+		disableButton();
 		init();
 	},false);
 	function init(){
@@ -134,6 +139,16 @@
 			document.querySelector(".scoreboard__total").textContent = preparedData.totalAnswers;
 			document.querySelector(".scoreboard__incorrect-choosen").textContent = preparedData.failureResult;
 			document.querySelector(".scoreboard__success-result").textContent = preparedData.successProgressPercentage;
+			//Get user's login
+			preparedData.login = document.querySelector(".scoreboard__player").textContent;
+			//Get user's hash
+			preparedData.hash = document.querySelector("#hiddenHash").textContent;
+			//All failed data combine to a string
+			preparedData.failedAsString = failedToString();
+			//Subscribe on click event to clear Session Storage
+			let buttonToProfile = document.getElementsByClassName("return-navigation__button")[0];
+			buttonToProfile.addEventListener("click",clearStorage,false);
+			console.log(preparedData);
 		}
 	}
 	//Calculate percentage based on the result
@@ -145,5 +160,39 @@
 		}
 		y2 = (y1 * result) / limit;
 		preparedData.successProgressPercentage = y2;
+	}
+	//All failed attempts as a string
+	function failedToString(){
+		let tempFailureArray = Array();
+		preparedData.failureArray.forEach((elem,ind,arr)=>{
+			tempFailureArray[ind] = elem.id;
+		});
+		return tempFailureArray.join(",");
+	}
+	//Disable button "to profile" temporarily.
+	function disableButton(){
+		let buttonToProfile = document.getElementsByClassName("return-navigation__button")[0];
+		buttonToProfile.setAttribute("href","#");//There is a hash instead of href="/profile"
+	}
+	//Clear data from Session Storage when go to the Profile
+	function clearStorage(){
+		//a - element
+		let that = this;
+		window.setTimeout(function(){
+			that.setAttribute("href","/profile");//href="/profile"
+		},10000);
+		if(this.getAttribute("href") == "/profile"){
+			if(typeof(Storage) !== "undefined"){
+				if(sessionStorage.getItem("method1")){
+					sessionStorage.removeItem("method1");
+				}
+				if(sessionStorage.getItem("method2")){
+					sessionStorage.removeItem("method2");
+				}
+				if(sessionStorage.getItem("method3")){
+					sessionStorage.removeItem("method3");
+				}
+			}
+		}	
 	}
 })();
