@@ -10,7 +10,8 @@
 		"failureResult":0,
 		"totalAnswers":0,
 		"failedAsString":"",
-		"successProgressPercentage":0
+		"successProgressPercentage":0,
+		"dateTime":0
 	};
 	window.addEventListener("load",function(){
 		//Disable button "to profile" temporarily.
@@ -145,10 +146,14 @@
 			preparedData.hash = document.querySelector("#hiddenHash").textContent;
 			//All failed data combine to a string
 			preparedData.failedAsString = failedToString();
+			//Set current date 
+			preparedData.dateTime = setTime();
 			//Subscribe on click event to clear Session Storage
-			let buttonToProfile = document.getElementsByClassName("return-navigation__button")[0];
-			buttonToProfile.addEventListener("click",clearStorage,false);
-			console.log(preparedData);
+			//let buttonToProfile = document.getElementsByClassName("return-navigation__button")[0];
+			//buttonToProfile.addEventListener("click",clearStorage,false);
+			//console.log(preparedData);
+			//Send User's data result through the Socket
+			window.socket.emit('userResultEvent', { userResult: preparedData });
 		}
 	}
 	//Calculate percentage based on the result
@@ -177,11 +182,12 @@
 	//Clear data from Session Storage when go to the Profile
 	function clearStorage(){
 		//a - element
-		let that = this;
-		window.setTimeout(function(){
-			that.setAttribute("href","/profile");//href="/profile"
-		},10000);
-		if(this.getAttribute("href") == "/profile"){
+		let buttonToProfile = document.getElementsByClassName("return-navigation__button")[0];
+		//let that = this;
+		//window.setTimeout(function(){
+			buttonToProfile.setAttribute("href","/profile");//href="/profile"
+		//},10000);
+		if(buttonToProfile.getAttribute("href") == "/profile"){
 			if(typeof(Storage) !== "undefined"){
 				if(sessionStorage.getItem("method1")){
 					sessionStorage.removeItem("method1");
@@ -195,4 +201,19 @@
 			}
 		}	
 	}
+	//
+	function setTime(){
+		let date = new Date();
+		return date.getTime();//Quantity of milliseconds since 1970 01 01
+	}
+	//Client Socket function
+	//When socket event is on activate the link to profile.
+	window.socket.on('userResultRecordedEvent', function(data){
+		if(data.activateLink){
+			clearStorage();
+			console.log(data.activateLink);
+		}
+				//console.log(data.activateLink);
+	});
+	
 })();

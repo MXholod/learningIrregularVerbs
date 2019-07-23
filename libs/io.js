@@ -3,6 +3,7 @@ module.exports = function(app){
 	const io = require('socket.io')(server);
 	const dbs = require("../config/db");
 	const lang = require("./../config/language");
+	const infoLog = require("../utils/infoLogger");//printInfo()
 	var langs = [lang.ru,lang.ua];
 	var setLangInd = 0;
 	//var language = "ru";
@@ -116,6 +117,11 @@ module.exports = function(app){
 				});
 				
 			});
+			//
+			socket.on('userResultEvent',function(data){
+				socket.emit('userResultRecordedEvent',{activateLink:true});
+			});
+			
 	});
 	return server;
 };

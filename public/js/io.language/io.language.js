@@ -118,9 +118,9 @@
 				}
 			}
 		}
-		//Launch Socket
-		var socket = io.connect('http://localhost:3000');	
-			socket.on('getLanguage', function(data){
+	//Launch Socket
+	window.socket = io.connect('http://localhost:3000');	
+		window.socket.on('getLanguage', function(data){
 						//console.log(data);//d
 				//1. Get DOM elements to insert data from parsed object
 				var domElements = parseHtmlByIdAndAttr(parentIDs,"data-language");
@@ -155,13 +155,13 @@
 			}
 			//Working with Socket.IO on Client Side
 			function socketData(d){//console.log(parentIDs,"Client");
-					if(d == "rus"){
-						//console.log(d);
-						socket.emit('setLanguage', { language: "ru", ind:0, ids:parentIDs});
-					}
-					if(d == "ukr"){
-						//console.log(d);
-						socket.emit('setLanguage', { language: "ua",ind:1, ids:parentIDs});
-					}
+				if(d == "rus"){
+					//console.log(d);
+					window.socket.emit('setLanguage', { language: "ru", ind:0, ids:parentIDs});
+				}
+				if(d == "ukr"){
+					//console.log(d);
+					window.socket.emit('setLanguage', { language: "ua",ind:1, ids:parentIDs});
+				}
 			}
 	})();
