@@ -3,7 +3,8 @@ module.exports = function(app){
 	const io = require('socket.io')(server);
 	const dbs = require("../config/db");
 	const lang = require("./../config/language");
-	const infoLog = require("../utils/infoLogger");//printInfo()
+	const Method = require("../models/MethodModel");//Model of one of the three Methods
+	const MethodFailed = require("../models/MethodFailedModel");//Model of one of the three MethodFailed
 	var langs = [lang.ru,lang.ua];
 	var setLangInd = 0;
 	//var language = "ru";
@@ -119,7 +120,56 @@ module.exports = function(app){
 			});
 			//
 			socket.on('userResultEvent',function(data){
-				socket.emit('userResultRecordedEvent',{activateLink:true});
+				// docs is an array, If no document is found, docs is equal to []
+				//Find User by hash
+				dbs.databases.users.find({ hash: data.userResult.hash }, function (err, docs) {
+					//Paste base Data into specific Method 
+					if(docs.length > 0){
+						//Prepare Method Model
+						Method.uid = docs[0]._id;
+						Method.login = data.userResult.login;
+						Method.hash = data.userResult.hash;
+						Method.methodNum = data.userResult.methodNumber;
+						Method.gameTime = data.userResult.time;
+						Method.successResult = data.userResult.successResult;
+						Method.failureResult = data.userResult.failureResult;
+						Method.totalAnswers = data.userResult.totalAnswers;
+						Method.successPercentage = data.userResult.successProgressPercentage;
+						Method.dateTime = data.userResult.dateTime;
+						//Insert prepared data by Model into DB
+						dbs.databases['method'+Method.methodNum].insert({
+							uid:Method.uid,
+							login:Method.login,
+							hash:Method.hash,
+							methodNum:Method.methodNum,
+							gameTime:Method.gameTime,
+							successResult:Method.successResult,
+							failureResult:Method.failureResult,
+							totalAnswers:Method.totalAnswers,
+							successPercentage:Method.successPercentage,
+							dateTime:Method.dateTime
+						}, function (err, newDocs) {
+							//Prepare MethodFailed Model
+							MethodFailed.uid = newDocs.uid;
+							MethodFailed.login = newDocs.login;
+							MethodFailed.failedAsString = data.userResult.failedAsString;
+							MethodFailed.dateTime = newDocs.dateTime;
+							//Paste only failed Data into related Method
+							dbs.databases['m'+newDocs.methodNum+'_failed'].insert({ 
+								uid:MethodFailed.uid,
+								login:MethodFailed.login,
+								failedAsString:MethodFailed.failedAsString,
+								dateTime:MethodFailed.dateTime
+							}, function (err, docs) {
+								socket.emit("userResultRecordedEvent",{activateLink:true});
+							});
+						});
+					}
+					
+					
+						
+				});
+				
 			});
 			
 	});

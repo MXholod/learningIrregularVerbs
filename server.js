@@ -1,6 +1,6 @@
 const path = require("path");
 const dbs = require("./config/db");
-dbs.createDataBases("users","verbs");
+dbs.createDataBases("users","verbs","method1","m1_failed","method2","m2_failed","method3","m3_failed");
 dbs.insertVerbsToDB('verbs');
 const express = require("express");
 const app = express();

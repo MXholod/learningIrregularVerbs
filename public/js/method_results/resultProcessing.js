@@ -1,17 +1,17 @@
 (function(){
 	const preparedData = {
-		"login":"",
-		"hash":"",
-		"methodNumber":0,
-		"time":"0:00",
-		"successArray":[],
-		"failureArray":[],
-		"successResult":0,
-		"failureResult":0,
-		"totalAnswers":0,
-		"failedAsString":"",
-		"successProgressPercentage":0,
-		"dateTime":0
+		"login":"",//MethodMOdel
+		"hash":"",//MethodMOdel
+		"methodNumber":0,//MethodMOdel
+		"time":"0:00",//MethodMOdel
+		"successArray":[],//
+		"failureArray":[],//
+		"successResult":0,//MethodMOdel && MethodFailedModel
+		"failureResult":0,//MethodMOdel && MethodFailedModel
+		"totalAnswers":0,//MethodMOdel
+		"failedAsString":"",//MethodFailedModel
+		"successProgressPercentage":0,//MethodMOdel
+		"dateTime":0//MethodMOdel && MethodFailedModel
 	};
 	window.addEventListener("load",function(){
 		//Disable button "to profile" temporarily.
