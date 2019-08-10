@@ -130,8 +130,10 @@ routes.get("/exercises",(request,response)=>{
 //AJAX processing
 routes.post("/user_results",(request,response)=>{
 	//Send code error 0 to user
-	var methNum = request.body.methN;
-	var obj = {"allResults":"All results "+methNum};
+	var obj = {
+			"methodNumber": request.body.methNum,
+			"hashUser": request.body.userHash
+		};
 	var data = JSON.stringify(obj);
 	response.setHeader('Content-type', 'application/json; charset=utf-8');
 	response.send(data);

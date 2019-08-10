@@ -1,3 +1,32 @@
+//Function creates cross-browser object XMLHttpRequest 
+	function getXmlHttp(){
+		var xmlhttp;
+		try{
+			xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");//newer versions of IE5+
+		}catch(e){
+			try{
+				//Old versions of Internet Explorer (IE5 and IE6) use an ActiveX object 
+				//instead of the XMLHttpRequest object
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");//older versions of IE5+, 
+			}catch(E){
+				try{
+					//проверяем, поддерживает ли событие onload, это старый XMLHttpRequest,
+					//значит это IE8,9, и используем XDomainRequest
+					if("onload" in new XMLHttpRequest()){
+						xmlhttp = new XDomainRequest;
+					}else{
+						throw new Error("Not IE");
+					}
+				}catch(Ex){
+					xmlhttp = false;
+				}
+			}
+		}
+		if(!xmlhttp && typeof(XMLHttpRequest) != 'undefined'){
+			xmlhttp = new XMLHttpRequest();//IE7, Firefox, Safari etc
+		}
+		return xmlhttp;
+	}
 //Clicking on menu button panels are changing
 (function(){
 	window.addEventListener("load",function(){
@@ -26,6 +55,8 @@
 						//If class doesn't exist !false
 							removeUnusedClassesMenu(LIs);
 							this.firstChild.classList.add(classesArray[j]);
+							//Draw the data result, LI element as parameter
+							drawData(this);
 							movePanels(j);
 					}else{
 						//console.log("This node type is not an element",this.firstChild.nodeValue);
@@ -77,38 +108,67 @@
 			//console.log("Past index is ",pastIndex);
 		}
 	}
+	//Draw data result incoming from server
+	function drawData(elLi){
+		var methodNum = Number(elLi.dataset.orderexercise);
+		//Check a number of a method to detect a panel
+		switch(methodNum){
+			case 1: requestToServer(1,true).then(function(serverData){
+					console.log(serverData);
+				}).catch(function(error) {
+					console.log("Error!!!");
+					console.log(error);
+				});
+			break;
+			case 2: requestToServer(2,true).then(function(serverData){
+					console.log(serverData);
+				}).catch(function(error) {
+					console.log("Error!!!");
+					console.log(error);
+				});
+			break;
+			case 3: requestToServer(3,true).then(function(serverData){
+					console.log(serverData);
+				}).catch(function(error) {
+					console.log("Error!!!");
+					console.log(error);
+				});
+			break;
+		}
+		
+	}
+	//
+	function requestToServer(methodNumber,jsonParse){
+		//Get User hash from hidden HTML element
+		var hiddenUserHash = document.getElementById("hiddenHash").textContent;
+		//Use Promise to get the data
+		return new Promise(function(resolve, reject){
+			var xmlHttp = getXmlHttp();
+			xmlHttp.onload = function(){
+				if(jsonParse){
+					try{
+						resolve(JSON.parse(this.responseText));
+					}catch(e){
+						reject(e);
+					}
+				}else{
+					resolve(this.responseText);
+				}
+			};
+			xmlHttp.addEventListener("error", function() {
+				reject(new Error("Network error"));
+			});
+			xmlHttp.open('POST','/user_results',true);
+			xmlHttp.setRequestHeader('Content-Type','application/json; charset=utf-8');
+			//Object to JSON	
+			var methodNum = JSON.stringify({methNum:methodNumber,userHash:hiddenUserHash});
+			//Send object of data
+			xmlHttp.send(methodNum);
+		});
+	}
 })();
 //AJAX for adding user's data to rewrite his Login, Password and Email(if exists)
 (function(){
-	//Function creates cross-browser object XMLHttpRequest 
-	function getXmlHttp(){
-		var xmlhttp;
-		try{
-			xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");//newer versions of IE5+
-		}catch(e){
-			try{
-				//Old versions of Internet Explorer (IE5 and IE6) use an ActiveX object 
-				//instead of the XMLHttpRequest object
-				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");//older versions of IE5+, 
-			}catch(E){
-				try{
-					//проверяем, поддерживает ли событие onload, это старый XMLHttpRequest,
-					//значит это IE8,9, и используем XDomainRequest
-					if("onload" in new XMLHttpRequest()){
-						xmlhttp = new XDomainRequest;
-					}else{
-						throw new Error("Not IE");
-					}
-				}catch(Ex){
-					xmlhttp = false;
-				}
-			}
-		}
-		if(!xmlhttp && typeof(XMLHttpRequest) != 'undefined'){
-			xmlhttp = new XMLHttpRequest();//IE7, Firefox, Safari etc
-		}
-		return xmlhttp;
-	}
 	//Keep correct value of Login,Password,Email inputs
 	var correctLogPassEmail = [];
 	//Show dialogue window before User save his own data

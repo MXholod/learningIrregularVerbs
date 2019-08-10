@@ -16,6 +16,7 @@ block appContent
 			div(class="wrapper__profile__smokeBlock__loader")
 		section(class="wrapper__profile__leftColumn")
 			div(class="wrapper__profile__leftColumn__subSlidingMenu")
+				div(id="hiddenHash" hidden) #{userHashSession}
 			table(id="profileLeftColumn" data-language="profileLeftColumn")
 				thead
 					tr
@@ -23,7 +24,7 @@ block appContent
 				tbody
 					tr
 						td
-							include t-shirtSVG
+							include t-shirtSVG.pug
 				tfoot
 					tr
 						td
@@ -33,11 +34,11 @@ block appContent
 				ul(id="profileMenu" data-language="profileMenu")
 					li
 						a(href="#" data-language="profileMenu" class="a-profile__menu__settings_active") #{lang.profile.profileMenu[0]}
-					li
+					li(data-orderExercise="1")
 						a(href="#" data-language="profileMenu") #{lang.profile.profileMenu[1]}
-					li
+					li(data-orderExercise="2")
 						a(href="#" data-language="profileMenu") #{lang.profile.profileMenu[2]}
-					li
+					li(data-orderExercise="3")
 						a(href="#" data-language="profileMenu") #{lang.profile.profileMenu[3]}
 		section(class="wrapper__profile__content")
 			include profile-settings
