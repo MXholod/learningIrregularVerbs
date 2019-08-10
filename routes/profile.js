@@ -98,6 +98,7 @@ routes.get("/profile",(request,response)=>{
 			var lastVisit = date.retrieveTimeFromDb(request.session.dateBeforeNow,'default');
 			response.render("profile",{//Send to user profile
 				userLoginSession : request.session.login,
+				userHashSession : sessionHash,
 				uLogin : docs[0].login,
 				uPassword : docs[0].password,
 				uEmail : docs[0].email,
@@ -126,5 +127,14 @@ routes.get("/exercises",(request,response)=>{
 	var data = JSON.stringify({"verbs":verbsList});
 	response.send(data);
 });*/
+//AJAX processing
+routes.post("/user_results",(request,response)=>{
+	//Send code error 0 to user
+	var methNum = request.body.methN;
+	var obj = {"allResults":"All results "+methNum};
+	var data = JSON.stringify(obj);
+	response.setHeader('Content-type', 'application/json; charset=utf-8');
+	response.send(data);
+});
 
 module.exports = routes;

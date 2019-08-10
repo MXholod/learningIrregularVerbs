@@ -7,7 +7,6 @@ const emailRestoreSend = require("../utils/emailRestore");
 let routes = express.Router();
 //Main page
 routes.get("/",(request,response)=>{
-	//response.send("<h1>Hello</h1>");
 	//global.d1 = d1[0];
 	//Find Russian and Ukrainian verbs and add them to language.js file
 	dbs.databases.verbs.find({},function(err, docs){
@@ -74,6 +73,7 @@ routes.post("/authorize",(request,response)=>{
 									var lastVisit = date.retrieveTimeFromDb(docs[0].dateLastVisit,'default');
 									response.render("profile",{//Send to user profile
 										userLoginSession : request.session.login,
+										userHashSession : request.session.hash,
 										uLogin : User.login,
 										uPassword : User.pass,
 										uEmail : docs[0].email, //"masik@i.ua", //User.email //for test
@@ -83,7 +83,7 @@ routes.post("/authorize",(request,response)=>{
 							}
 						);
 			}else{
-				//User came in the first time
+				//User has come in the first time
 				//Insert data to database and go to Profile page
 				dbs.databases.users.insert({
 					login : User.login, 
@@ -96,6 +96,7 @@ routes.post("/authorize",(request,response)=>{
 					var lastVisit = date.retrieveTimeFromDb(now,'empty');
 					response.render("profile",{//Send to user profile
 						userLoginSession : request.session.login,
+						userHashSession : request.session.hash,
 						uLogin : User.login,
 						uPassword : User.pass,
 						uEmail : User.email, //"masik@i.ua", //User.email //for test
