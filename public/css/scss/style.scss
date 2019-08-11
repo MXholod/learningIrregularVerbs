@@ -556,6 +556,63 @@ html,body {
 			.wrapper__profile__content_method-one{
 				@include profileColor("",#fba99c);
 				@extend %profile-content;
+				$height-item:70px;
+				.list-container{
+					width:600px; /*Parent width is 650px*/
+					height: ($height-item * 5) + ((2px+2px)*5) + (10px * 5) - 10px;/*5 heights, 5*2 borders, 5 margin-top*/
+					margin:0px auto;
+					.list-container__list-item{
+						width:inherit;
+						height:$height-item;
+						margin:10px 0px 0px;
+						border:2px solid #fff;
+						.list-container__row{
+							height:25px;
+							.list-container__cell{
+								width:(590px / 4);
+								height:25px;
+								float:left;
+							}
+							&:after{
+								content:"";
+								display:table;
+								clear:both;
+							}
+						}
+					}
+				}
+				.list-pagination{
+					width:102px;
+					height:40px;
+					border:1px solid #fff;
+					position:relative;
+					top:0px;
+					left:280px;
+					.list-pagination__go{
+						position:absolute;
+						top:0px;
+						width:40px;
+						height:40px;
+					}
+					.list-pagination__go-left{
+						left:-50px;
+						button{
+							background-color:violet;
+							&:hover{
+								cursor:pointer;
+							}
+						}
+					}
+					.list-pagination__go-right{
+						right:-41px;
+						button{
+							background-color:violet;
+							&:hover{
+								cursor:pointer;
+							}
+						}
+					}
+				}
 			}
 			.wrapper__profile__content_method-two{
 				@include profileColor("",#c7ebfa);

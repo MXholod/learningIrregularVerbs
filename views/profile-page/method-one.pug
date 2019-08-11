@@ -1,2 +1,29 @@
 section(class="wrapper__profile__content_method-one wrapper__profile__move-back-content")
-	p Hello from method one
+	h2 Method 1
+	div(class="list-container")
+		mixin list_item(dateT,successRes,failureRes,totalAns,gameT,successPer)
+			div(class="list-container__list-item")
+				div(class="list-container__row")
+					div(class="list-container__cell") #{dateT}
+					div(class="list-container__cell") #{successRes}
+					div(class="list-container__cell") #{failureRes}
+					div(class="list-container__cell") #{totalAns}
+				div(class="list-container__row")
+					div(class="list-container__cell")
+					div(class="list-container__cell") #{gameT}
+					div(class="list-container__cell") #{successPer}
+					div(class="list-container__cell")
+		+list_item("14:48",5,2,7,"00:28","3%")
+		+list_item("19:00",3,12,15,"00:00","5%")
+		+list_item("10:36",4,1,5,"00:56","6%")
+		+list_item("04:00",7,1,8,"01:01","2%")
+		+list_item("02:20",10,3,13,"00:44","8%")
+	div(class="list-pagination")
+		div(class="list-pagination__go list-pagination__go-left")
+			button ARR L
+		div(class="list-pagination__go list-pagination__go-right")
+			button  ARR R
+		nav
+			ul(class="pagination")
+				li(class="page-item")
+					a(class="page-link" href="#") 1
