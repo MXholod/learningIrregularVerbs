@@ -108,36 +108,42 @@
 			//console.log("Past index is ",pastIndex);
 		}
 	}
+	//Pagination settings
+	const paginationSettings = {
+		"itemsOnPage":5
+	};
 	//Draw data result incoming from server
 	function drawData(elLi){
+		//Get a number of a method that is clicked by. 
 		var methodNum = Number(elLi.dataset.orderexercise);
 		//Check a number of a method to detect a panel
 		switch(methodNum){
 			case 1: requestToServer(1,true).then(function(serverData){
 					console.log(serverData);
+					createPaginationButtons(serverData);
 				}).catch(function(error) {
-					console.log("Error!!!");
-					console.log(error);
+					//
+					console.log("Error!!! ",error);
 				});
 			break;
 			case 2: requestToServer(2,true).then(function(serverData){
 					console.log(serverData);
 				}).catch(function(error) {
-					console.log("Error!!!");
-					console.log(error);
+					//
+					console.log("Error!!! ",error);
 				});
 			break;
 			case 3: requestToServer(3,true).then(function(serverData){
 					console.log(serverData);
 				}).catch(function(error) {
-					console.log("Error!!!");
-					console.log(error);
+					//
+					console.log("Error!!! ",error);
 				});
 			break;
 		}
 		
 	}
-	//
+	//AJAX and Promise request to retrieve the data from the server.
 	function requestToServer(methodNumber,jsonParse){
 		//Get User hash from hidden HTML element
 		var hiddenUserHash = document.getElementById("hiddenHash").textContent;
@@ -161,10 +167,44 @@
 			xmlHttp.open('POST','/user_results',true);
 			xmlHttp.setRequestHeader('Content-Type','application/json; charset=utf-8');
 			//Object to JSON	
-			var methodNum = JSON.stringify({methNum:methodNumber,userHash:hiddenUserHash});
+			var methodNum = JSON.stringify({
+				methNum:methodNumber,
+				userHash:hiddenUserHash
+				});
 			//Send object of data
 			xmlHttp.send(methodNum);
 		});
+	}
+	//Draw the pagination buttons if data come from the server
+	function createPaginationButtons(data){
+		//'data' looks like - [methodNumber,arrayOfData]
+		if(data[1].length > 0){
+			//Get the parent block of the pagination. If data is absent then hide this block.
+			let parentList = document.querySelector(".list-pagination");
+			if(parentList.style.display == "none"){
+				parentList.style.display = "block";
+			}
+			//Find a specific pagination block according to the method.
+			let ulMethod = document.querySelector(".pagination-"+data[0]);	
+				ulMethod.innerHTML = "";
+			//Calculate an amount of pages.
+			let pages = Math.ceil(data[1].length / paginationSettings.itemsOnPage);//11 / 5 
+			//Generate pagination items according to the incoming data
+			for(let i = 1;i <= pages;i++){
+				let li = document.createElement("LI");
+					li.setAttribute("class","page-item");
+				let a = document.createElement("A");
+					a.setAttribute("class","page-link");
+					a.setAttribute("href","#");
+				let text = document.createTextNode(i); 
+					a.appendChild(text);
+					li.appendChild(a);
+					ulMethod.appendChild(li);
+			}
+		}else{//Get the parent block of the pagination. If data is present then show this block.
+			let parentList = document.querySelector(".list-pagination");
+			parentList.style.display = "none";
+		}
 	}
 })();
 //AJAX for adding user's data to rewrite his Login, Password and Email(if exists)

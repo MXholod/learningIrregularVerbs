@@ -4,6 +4,7 @@ const User = require("../models/UserModel");
 const date = require("../utils/date");
 const validateForm = require("../utils/validateForm");
 let routes = express.Router();
+
 //AJAX
 routes.post("/resave",(request,response)=>{
 	//NEW Login, Password, Email.
@@ -130,13 +131,17 @@ routes.get("/exercises",(request,response)=>{
 //AJAX processing
 routes.post("/user_results",(request,response)=>{
 	//Send code error 0 to user
-	var obj = {
+	/*var obj = {
 			"methodNumber": request.body.methNum,
 			"hashUser": request.body.userHash
-		};
-	var data = JSON.stringify(obj);
-	response.setHeader('Content-type', 'application/json; charset=utf-8');
-	response.send(data);
+		};*/
+	dbs.databases["method"+request.body.methNum].find({ hash: request.body.userHash }, function (err, docs) {
+		// docs is an array containing documents, If no document is found, docs is equal to []
+		var data = JSON.stringify([request.body.methNum,docs]);
+		response.setHeader('Content-type', 'application/json; charset=utf-8');
+		response.send(data);
+	});
+	
 });
 
 module.exports = routes;
