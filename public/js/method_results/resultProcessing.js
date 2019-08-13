@@ -154,6 +154,9 @@
 			//console.log(preparedData);
 			//Send User's data result through the Socket
 			window.socket.emit('userResultEvent', { userResult: preparedData });
+		}else{
+			//If not one of words wasn't chosen. Clear the Session Storage and make the button 'to profile' is an active.
+			clearStorage();
 		}
 	}
 	//Calculate percentage based on the result
