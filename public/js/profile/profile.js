@@ -110,7 +110,11 @@
 	}
 	//Pagination settings
 	const paginationSettings = {
-		"itemsOnPage":5
+		"itemsOnPage":5,
+		"buttonsAElement":[],
+		"activePage":0,
+		"activePageStyle": null,
+		"ulBaseOffset":0
 	};
 	//Draw data result incoming from server
 	function drawData(elLi){
@@ -119,8 +123,30 @@
 		//Check a number of a method to detect a panel
 		switch(methodNum){
 			case 1: requestToServer(1,true).then(function(serverData){
-					console.log(serverData);
+					//console.log(serverData);
+					//Show the list of data when panel appears. First page data only. 1 - is by default.
+					displayData(1,serverData);
+					//Create pagination buttons according to the data
 					createPaginationButtons(serverData);
+					//Get data when clicking by pagination buttons
+					getDataByClickingPages(function(){
+						//Check the property 'paginationSettings.activePageStyle'. Does it contain the class? 
+						if(paginationSettings.activePageStyle != null){
+							//If class is present then remove it.
+							paginationSettings.activePageStyle.classList.remove("list-pagination__active-page");
+						}
+						//Save 'this' - is an 'a' element
+						paginationSettings.activePageStyle = this;
+						//Set class to the 'a' element
+						paginationSettings.activePageStyle.classList.add("list-pagination__active-page");
+						//Convert String to the Number of current Method
+						let pageNumber = +this.textContent;
+						//Redraw the number of the current Method and the Page.
+							document.getElementById(`pageExercise-${serverData[0]}`).textContent = serverData[0];
+							document.getElementById(`pageNumber-${serverData[0]}`).textContent = pageNumber;
+						//Show the data on the Page
+						displayData(pageNumber,serverData);
+					});
 				}).catch(function(error) {
 					//
 					console.log("Error!!! ",error);
@@ -180,15 +206,17 @@
 		//'data' looks like - [methodNumber,arrayOfData]
 		if(data[1].length > 0){
 			//Get the parent block of the pagination. If data is absent then hide this block.
-			let parentList = document.querySelector(".list-pagination");
+			let parentList = document.querySelector("#listP-"+data[0]);
 			if(parentList.style.display == "none"){
 				parentList.style.display = "block";
 			}
-			//Find a specific pagination block according to the method.
+			//Find a specific pagination block according to the method. It is UL element.
 			let ulMethod = document.querySelector(".pagination-"+data[0]);	
 				ulMethod.innerHTML = "";
 			//Calculate an amount of pages.
 			let pages = Math.ceil(data[1].length / paginationSettings.itemsOnPage);//11 / 5 
+			//Manage the arrow buttons
+			manageArrowButtons(pages,ulMethod,data[0]);
 			//Generate pagination items according to the incoming data
 			for(let i = 1;i <= pages;i++){
 				let li = document.createElement("LI");
@@ -199,12 +227,125 @@
 				let text = document.createTextNode(i); 
 					a.appendChild(text);
 					li.appendChild(a);
+					//Save A element into the paginationSettings array
+					paginationSettings.buttonsAElement.push(a);
 					ulMethod.appendChild(li);
 			}
+			//If the array isn't empty
+			if(paginationSettings.buttonsAElement.length > 0){
+				//Save first 'a' element
+				paginationSettings.activePageStyle = paginationSettings.buttonsAElement[0];
+				//Set class to the 'a' element
+				paginationSettings.activePageStyle.classList.add("list-pagination__active-page");
+			}
 		}else{//Get the parent block of the pagination. If data is present then show this block.
-			let parentList = document.querySelector(".list-pagination");
+			let parentList = document.querySelector("#listP-"+data[0]);
 			parentList.style.display = "none";
 		}
+	}
+	//Manage the arrow buttons
+	function manageArrowButtons(pages,ulMethod,methodN){
+		//Get arrow pagination buttons.
+		let leftB = document.getElementById(`arrowLeft-${methodN}`);
+		let rightB = document.getElementById(`arrowRight-${methodN}`);
+		//If more than three then shows the arrow buttons.
+		if(pages > 3){
+			leftB.parentNode.style.visibility = "visible";
+			rightB.parentNode.style.visibility = "visible";
+			//Slide to left
+			setEventArrowButtons(leftB,function(){
+				//Get the value of the left property of the style object
+				paginationSettings.ulBaseOffset = isNaN(parseInt(ulMethod.style.left)) ? 0 : parseInt(ulMethod.style.left);
+				//If less than zero 
+				if(paginationSettings.ulBaseOffset < 0){
+					//Move UL element to the right when clicking on the left button.
+					ulMethod.style.left = (paginationSettings.ulBaseOffset+33)+"px";
+				}
+			});
+			//Slide to right
+			setEventArrowButtons(rightB,function(){
+				//Get the value of the left property of the style object
+				paginationSettings.ulBaseOffset = isNaN(parseInt(ulMethod.style.left)) ? 0 : parseInt(ulMethod.style.left);
+				//Calculate right edge of moving UL
+				let lastPosition = 33 * ((-1) * pages) - ((-3) * 33);
+				//If more than negative edge of the left property of the style object.
+				if(paginationSettings.ulBaseOffset > lastPosition){
+					//Move UL element to the left when clicking on the right button.
+					ulMethod.style.left = (paginationSettings.ulBaseOffset-33)+"px";
+				}
+			});
+		}//If pages are less than three hide pagination block.
+		if(pages <= 3){
+			leftB.parentNode.style.visibility = "hidden";
+			rightB.parentNode.style.visibility = "hidden";
+		}
+	}
+	function setEventArrowButtons(btn,func){
+		btn.addEventListener("click",func,false);
+	}
+	//Get data by clicking on the pages buttons
+	function getDataByClickingPages(byOnClick){
+		//Array of A elements, subscribe on click event
+		if(paginationSettings.buttonsAElement.length > 0){
+			//We sort through all the previously created elements.
+			for(let elA of paginationSettings.buttonsAElement){
+				//Click by A element
+				elA.addEventListener("click",function(){
+					//Get the number of page
+					byOnClick.call(this);
+				},false);
+			}
+		}
+	}
+	//Display data from the DB in HTML
+	function displayData(pageNum,data){
+		//'data' looks like - [methodNumber,arrayOfData]
+		//If number of pages are equal then do nothing.
+		if(paginationSettings.activePage === pageNum){
+			return false;
+		}else{
+			paginationSettings.activePage = pageNum;
+		}
+		//Calculate a portion of the elements. Start and End positions
+		let start = (pageNum - 1) * paginationSettings.itemsOnPage;
+		let end = start + paginationSettings.itemsOnPage;
+		//Slice the portion of the elements
+		let portioOfPage = data[1].slice(start,end);
+		//Find the parent element
+		let parentContainer = document.querySelector(`#listC-${data[0]}`);
+		//Get all of his five children DIVs
+		let fiveDivRows = parentContainer.children;
+		//Hide all elements before the data will be inserted into them.
+		for(let i = 0;i < paginationSettings.itemsOnPage;i++){
+			fiveDivRows[i].style.visibility = "hidden";
+		}
+		//Set data in the loop
+		for(let i = 0;i < portioOfPage.length;i++){
+			//Show hidden element because it contains data.
+			if(fiveDivRows[i].style.visibility == "hidden"){
+				fiveDivRows[i].style.visibility = "visible";
+			}
+			//First line in row
+			fiveDivRows[i].firstChild.children[0].textContent = createDateFormat(portioOfPage[i].dateTime); 
+			fiveDivRows[i].firstChild.children[1].textContent = portioOfPage[i].successResult; 
+			fiveDivRows[i].firstChild.children[2].textContent = portioOfPage[i].failureResult; 
+			fiveDivRows[i].firstChild.children[3].textContent = portioOfPage[i].totalAnswers; 
+			//Second line in row
+			fiveDivRows[i].lastChild.children[0].textContent = "";//Cell is empty 
+			fiveDivRows[i].lastChild.children[1].textContent = portioOfPage[i].gameTime; 
+			fiveDivRows[i].lastChild.children[2].textContent = portioOfPage[i].successPercentage; 
+			fiveDivRows[i].lastChild.children[3].textContent = "button";
+		}
+	}
+	//Create date and time format
+	function createDateFormat(ms){
+		let date = new Date(ms);
+		let day = date.getDate() < 10 ? "0"+date.getDate() : date.getDate();
+		let month = (date.getMonth()+1) < 10 ? "0"+(date.getMonth()+1) : (date.getMonth()+1);
+		let year =  date.getFullYear();
+		let hours = date.getHours() < 10 ? "0"+date.getHours() : date.getHours();
+		let minutes = date.getMinutes() < 10 ? "0"+date.getMinutes() : date.getMinutes();
+		return `${day}/${month}/${year} ${hours}:${minutes}`;
 	}
 })();
 //AJAX for adding user's data to rewrite his Login, Password and Email(if exists)
