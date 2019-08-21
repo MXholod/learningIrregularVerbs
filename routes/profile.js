@@ -137,11 +137,17 @@ routes.post("/user_results",(request,response)=>{
 		};*/
 	dbs.databases["method"+request.body.methNum].find({ hash: request.body.userHash }, function (err, docs) {
 		// docs is an array containing documents, If no document is found, docs is equal to []
-		var data = JSON.stringify([request.body.methNum,docs]);
+			//Sort the Array
+			function makeSort(a,b){
+				return a.dateTime - b.dateTime;
+			}
+			//Sort and rotate 'docs' in reverse order
+			let sorted = docs.sort(makeSort).reverse();
+		//Prepare the data
+		let data = JSON.stringify([request.body.methNum,sorted]);
 		response.setHeader('Content-type', 'application/json; charset=utf-8');
 		response.send(data);
 	});
-	
 });
 
 module.exports = routes;
