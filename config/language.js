@@ -48,7 +48,7 @@ module.exports = {
 			}
 		},
 		"profile":{
-			"profileMenu":["Настройки профиля","Упражнение 1","Упражнение 2","Упражнение 3"],
+			"profileMenu":["Настройки профиля","Результаты упражнения 1","Результаты упражнения 2","Результаты упражнения 3"],
 			"profileLeftColumn":["Теперь ты в игре!","Перейти к обучению"],
 			"profileSmokeBlock":{
 				"headerWarning":"Текущие данные профиля будут перезаписаны!",
@@ -132,6 +132,13 @@ module.exports = {
 				}
 			}
 		},
+		"underResultTable":{
+			"resultTableButton":{
+				"button":{
+					"value":"Перейти на страницу профиля"
+				}
+			}
+		},
 		"serverSisdeOnly":{
 			"emailRestoring":{
 				"topic":"Восстановление пароля",
@@ -191,7 +198,7 @@ module.exports = {
 			}
 		},
 		"profile":{
-			"profileMenu":["Налаштування профілю","Вправа 1","Вправа 2","Вправа 3"],
+			"profileMenu":["Налаштування профілю","Результати вправи 1","Результати вправи 2","Результати вправи 3"],
 			"profileLeftColumn":["Тепер ти в грі!","Перейти до навчання"],
 			"profileSmokeBlock":{
 				"headerWarning":"Поточні дані профілю будуть перезаписані!",
@@ -272,6 +279,13 @@ module.exports = {
 				},
 				"progressSuccess":{
 					"text":"Прогрес успішності пройденої вправи"
+				}
+			}
+		},
+		"underResultTable":{
+			"resultTableButton":{
+				"button":{
+					"value":"Перейти на сторінку профілю"
 				}
 			}
 		},

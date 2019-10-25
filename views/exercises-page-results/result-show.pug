@@ -40,6 +40,6 @@ block appContent
 					td(class="scoreboard__general-percentage")
 						span(class="scoreboard__success-result") 0
 						span(class="scoreboard__sign") %
-		div(class="return-navigation")
-			a(href="/profile" class="btn btn-warning return-navigation__button") Перейти на страницу профиля
+		div(class="return-navigation" id="resultTableButton" data-language="resultTableButton")
+			a(href="/profile" class="btn btn-warning return-navigation__button" data-language="resultTableButton") #{lang.underResultTable.resultTableButton.button.value}
 		div(id="hiddenHash" hidden) #{hash}
