@@ -8,14 +8,26 @@ section(class="wrapper__profile__content_method-one wrapper__profile__move-back-
 		mixin list_item(dateT,successRes,failureRes,totalAns,gameT,successPer)
 			div(class="list-container__list-item")
 				div(class="list-container__row")
-					div(class="list-container__cell") #{dateT}
-					div(class="list-container__cell") #{successRes}
-					div(class="list-container__cell") #{failureRes}
-					div(class="list-container__cell") #{totalAns}
+					div(class="list-container__cell")
+						div Дата прохождения:
+						div #{dateT}
+					div(class="list-container__cell")
+						div Правильные варианты:
+						div #{successRes}
+					div(class="list-container__cell")
+						div Неправильные варианты:
+						div #{failureRes}
+					div(class="list-container__cell")
+						div Всего вариантов:
+						div #{totalAns}
 				div(class="list-container__row")
 					div(class="list-container__cell")
-					div(class="list-container__cell") #{gameT}
-					div(class="list-container__cell") #{successPer}
+					div(class="list-container__cell")
+						div Остаток игрового времени:
+						div #{gameT}
+					div(class="list-container__cell") 
+						div Процент успешности:
+						div #{successPer}
 					div(class="list-container__cell")
 		+list_item("00:00",0,0,0,"00:00","0%")
 		+list_item("00:00",0,0,0,"00:00","0%")

@@ -394,14 +394,14 @@
 				fiveDivRows[i].style.visibility = "visible";
 			}
 			//First line in row
-			fiveDivRows[i].firstChild.children[0].textContent = createDateFormat(portioOfPage[i].dateTime); 
-			fiveDivRows[i].firstChild.children[1].textContent = portioOfPage[i].successResult; 
-			fiveDivRows[i].firstChild.children[2].textContent = portioOfPage[i].failureResult; 
-			fiveDivRows[i].firstChild.children[3].textContent = portioOfPage[i].totalAnswers; 
+			fiveDivRows[i].firstChild.children[0].children[1].textContent = createDateFormat(portioOfPage[i].dateTime); 
+			fiveDivRows[i].firstChild.children[1].children[1].textContent = portioOfPage[i].successResult; 
+			fiveDivRows[i].firstChild.children[2].children[1].textContent = portioOfPage[i].failureResult; 
+			fiveDivRows[i].firstChild.children[3].children[1].textContent = portioOfPage[i].totalAnswers; 
 			//Second line in row
 			fiveDivRows[i].lastChild.children[0].textContent = "";//Cell is empty 
-			fiveDivRows[i].lastChild.children[1].textContent = portioOfPage[i].gameTime; 
-			fiveDivRows[i].lastChild.children[2].textContent = portioOfPage[i].successPercentage; 
+			fiveDivRows[i].lastChild.children[1].children[1].textContent = portioOfPage[i].gameTime; 
+			fiveDivRows[i].lastChild.children[2].children[1].textContent = portioOfPage[i].successPercentage; 
 			fiveDivRows[i].lastChild.children[3].textContent = "button";
 		}
 	}

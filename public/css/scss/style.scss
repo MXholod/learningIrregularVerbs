@@ -654,12 +654,20 @@ html,body {
 						height:$height-item;
 						margin:10px 0px 0px;
 						border:2px solid #fff;
+						background-color:#B67B7B;
 						.list-container__row{
 							height:25px;
 							.list-container__cell{
 								width:(590px / 4);
 								height:25px;
 								float:left;
+								font: normal normal normal 12px/13px "Helvetica";
+								text-align:center;
+								div{
+									&:last-child{
+										font-weight:bold;
+									}
+								}
 							}
 							&:after{
 								content:"";
@@ -667,6 +675,9 @@ html,body {
 								clear:both;
 							}
 						}
+					}
+					.list-container__list-item:nth-child(2n+1){
+						background-color:#DF9276;
 					}
 				}
 				.list-pagination{
@@ -769,12 +780,20 @@ html,body {
 						height:$height-item;
 						margin:10px 0px 0px;
 						border:2px solid #fff;
+						background-color:#B67B7B;
 						.list-container__row{
 							height:25px;
 							.list-container__cell{
 								width:(590px / 4);
 								height:25px;
 								float:left;
+								font: normal normal normal 12px/13px "Helvetica";
+								text-align:center;
+								div{
+									&:last-child{
+										font-weight:bold;
+									}
+								}
 							}
 							&:after{
 								content:"";
@@ -782,6 +801,9 @@ html,body {
 								clear:both;
 							}
 						}
+					}
+					.list-container__list-item:nth-child(2n+1){
+						background-color:#DF9276;
 					}
 				}
 				@extend %methods-pagination;
@@ -834,12 +856,20 @@ html,body {
 						height:$height-item;
 						margin:10px 0px 0px;
 						border:2px solid #fff;
+						background-color:#B67B7B;
 						.list-container__row{
 							height:25px;
 							.list-container__cell{
 								width:(590px / 4);
 								height:25px;
 								float:left;
+								font: normal normal normal 12px/13px "Helvetica";
+								text-align:center;
+								div{
+									&:last-child{
+										font-weight:bold;
+									}
+								}
 							}
 							&:after{
 								content:"";
@@ -847,6 +877,9 @@ html,body {
 								clear:both;
 							}
 						}
+					}
+					.list-container__list-item:nth-child(2n+1){
+						background-color:#DF9276;
 					}
 				}
 				@extend %methods-pagination;
