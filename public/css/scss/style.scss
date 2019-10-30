@@ -553,6 +553,59 @@ html,body {
 					}
 				}
 			}
+			%methods-pagination{
+				.list-pagination{
+					width:100px;
+					height:40px;
+					/*border:1px solid #fff;*/
+					position:relative;
+					top:0px;
+					left:280px;
+					.list-pagination__go{
+						position:absolute;
+						top:0px;
+						width:40px;
+						height:40px;
+					}
+					.list-pagination__go-left{
+						left:-48px;
+						button{
+							background-color:violet;
+							outline-color:transparent;
+							&:hover{
+								cursor:pointer;
+							}
+						}
+					}
+					.list-pagination__go-right{
+						right:-39px;
+						button{
+							background-color:violet;
+							outline-color:transparent;
+							&:hover{
+								cursor:pointer;
+							}
+						}
+					}
+					.list-pagination__nav{
+						width:inherit;
+						height:inherit;
+						position:relative;
+						overflow:hidden;
+						.pagination{ /*ul*/
+							position:absolute;
+							top:0;
+							left:0;
+							.page-link {
+									box-shadow:none;
+							}
+							.list-pagination__active-page{
+								background-color:violet;
+							}
+						}
+					}
+				}
+			}
 			.wrapper__profile__content_method-one{
 				@include profileColor("",#fba99c);
 				@extend %profile-content;
@@ -671,10 +724,132 @@ html,body {
 			.wrapper__profile__content_method-two{
 				@include profileColor("",#c7ebfa);
 				@extend %profile-content;
+				$height-item:70px;
+				.page-information{
+					width:600px;
+					height:30px;
+					margin:0px auto;
+					font-family:Lasco_Bold;
+					color:#7a1f1f;
+					%info-blocks{
+						width:300px;
+						height:30px;
+						float:left;
+						padding:5px 5px 5px 80px;
+						&:first-letter{
+							font-size:1.2em;
+						}
+					}
+					div:first-child{
+						@extend %info-blocks;
+						span[id|='pageExercise']{
+							margin-left:20px;
+							font-size:1.3em;
+						}
+					}
+					div:last-child{
+						@extend %info-blocks;
+						span[id|='pageNumber']{
+							margin-left:20px;
+							font-size:1.3em;
+						}
+					}
+					&:after{
+						content:"";
+						display:table;
+						clear:both;
+					}
+				}
+				.list-container{
+					width:600px; /*Parent width is 650px*/
+					height: ($height-item * 5) + ((2px+2px)*5) + (10px * 5) - 10px;/*5 heights, 5*2 borders, 5 margin-top*/
+					margin:0px auto;
+					.list-container__list-item{
+						width:inherit;
+						height:$height-item;
+						margin:10px 0px 0px;
+						border:2px solid #fff;
+						.list-container__row{
+							height:25px;
+							.list-container__cell{
+								width:(590px / 4);
+								height:25px;
+								float:left;
+							}
+							&:after{
+								content:"";
+								display:table;
+								clear:both;
+							}
+						}
+					}
+				}
+				@extend %methods-pagination;
 			}
 			.wrapper__profile__content_method-three{
 				@include profileColor("",#fad6f4);
 				@extend %profile-content;
+				$height-item:70px;
+				.page-information{
+					width:600px;
+					height:30px;
+					margin:0px auto;
+					font-family:Lasco_Bold;
+					color:#7a1f1f;
+					%info-blocks{
+						width:300px;
+						height:30px;
+						float:left;
+						padding:5px 5px 5px 80px;
+						&:first-letter{
+							font-size:1.2em;
+						}
+					}
+					div:first-child{
+						@extend %info-blocks;
+						span[id|='pageExercise']{
+							margin-left:20px;
+							font-size:1.3em;
+						}
+					}
+					div:last-child{
+						@extend %info-blocks;
+						span[id|='pageNumber']{
+							margin-left:20px;
+							font-size:1.3em;
+						}
+					}
+					&:after{
+						content:"";
+						display:table;
+						clear:both;
+					}
+				}
+				.list-container{
+					width:600px; /*Parent width is 650px*/
+					height: ($height-item * 5) + ((2px+2px)*5) + (10px * 5) - 10px;/*5 heights, 5*2 borders, 5 margin-top*/
+					margin:0px auto;
+					.list-container__list-item{
+						width:inherit;
+						height:$height-item;
+						margin:10px 0px 0px;
+						border:2px solid #fff;
+						.list-container__row{
+							height:25px;
+							.list-container__cell{
+								width:(590px / 4);
+								height:25px;
+								float:left;
+							}
+							&:after{
+								content:"";
+								display:table;
+								clear:both;
+							}
+						}
+					}
+				}
+				@extend %methods-pagination;
 			}
 		}
 	}

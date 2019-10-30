@@ -123,11 +123,18 @@
 		//Check a number of a method to detect a panel
 		switch(methodNum){
 			case 1: requestToServer(1,true).then(function(serverData){
+					paginationSettings.itemsOnPage = 5;
+					paginationSettings.buttonsAElement = [];
+					paginationSettings.activePage = 0;
+					paginationSettings.activePageStyle = null;
+					paginationSettings.ulBaseOffset = 0;
 					//console.log(serverData);
 					//Show the list of data when panel appears. First page data only. 1 - is by default.
 					displayData(1,serverData);
 					//Create pagination buttons according to the data
 					createPaginationButtons(serverData);
+					//Redraw page number by default - 1
+					document.getElementById(`pageNumber-${serverData[0]}`).textContent = "1";
 					//Get data when clicking by pagination buttons
 					getDataByClickingPages(function(){
 						//Check the property 'paginationSettings.activePageStyle'. Does it contain the class? 
@@ -153,14 +160,75 @@
 				});
 			break;
 			case 2: requestToServer(2,true).then(function(serverData){
-					console.log(serverData);
+					paginationSettings.itemsOnPage = 5;
+					paginationSettings.buttonsAElement = [];
+					paginationSettings.activePage = 0;
+					paginationSettings.activePageStyle = null;
+					paginationSettings.ulBaseOffset = 0;
+					//console.log(serverData);
+					//Show the list of data when panel appears. First page data only. 1 - is by default.
+					displayData(1,serverData);
+					//Create pagination buttons according to the data
+					createPaginationButtons(serverData);
+					//Redraw page number by default - 1
+					document.getElementById(`pageNumber-${serverData[0]}`).textContent = "1";
+					//Get data when clicking by pagination buttons
+					getDataByClickingPages(function(){
+						//Check the property 'paginationSettings.activePageStyle'. Does it contain the class? 
+						if(paginationSettings.activePageStyle != null){
+							//If class is present then remove it.
+							paginationSettings.activePageStyle.classList.remove("list-pagination__active-page");
+						}
+						//Save 'this' - is an 'a' element
+						paginationSettings.activePageStyle = this;
+						//Set class to the 'a' element
+						paginationSettings.activePageStyle.classList.add("list-pagination__active-page");
+						//Convert String to the Number of current Method
+						let pageNumber = +this.textContent;
+						//Redraw the number of the current Method and the Page.
+							document.getElementById(`pageExercise-${serverData[0]}`).textContent = serverData[0];
+							document.getElementById(`pageNumber-${serverData[0]}`).textContent = pageNumber;
+						//Show the data on the Page
+						displayData(pageNumber,serverData);
+					});
 				}).catch(function(error) {
 					//
 					console.log("Error!!! ",error);
 				});
 			break;
 			case 3: requestToServer(3,true).then(function(serverData){
-					console.log(serverData);
+					paginationSettings.itemsOnPage = 5;
+					paginationSettings.buttonsAElement = [];
+					paginationSettings.activePage = 0;
+					paginationSettings.activePageStyle = null;
+					paginationSettings.ulBaseOffset = 0;
+					//console.log(serverData);
+					//Show the list of data when panel appears. First page data only. 1 - is by default.
+					displayData(1,serverData);
+					//Create pagination buttons according to the data
+					createPaginationButtons(serverData);
+					//Redraw page number by default - 1
+					document.getElementById(`pageNumber-${serverData[0]}`).textContent = "1";
+					//Get data when clicking by pagination buttons
+					getDataByClickingPages(function(){
+						//Check the property 'paginationSettings.activePageStyle'. Does it contain the class? 
+						if(paginationSettings.activePageStyle != null){
+							//If class is present then remove it.
+							paginationSettings.activePageStyle.classList.remove("list-pagination__active-page");
+						}
+						//Save 'this' - is an 'a' element
+						paginationSettings.activePageStyle = this;
+						//Set class to the 'a' element
+						paginationSettings.activePageStyle.classList.add("list-pagination__active-page");
+						//Convert String to the Number of current Method
+						let pageNumber = +this.textContent;
+						//Redraw the number of the current Method and the Page.
+							document.getElementById(`pageExercise-${serverData[0]}`).textContent = serverData[0];
+							document.getElementById(`pageNumber-${serverData[0]}`).textContent = pageNumber;
+						//Show the data on the Page
+						displayData(pageNumber,serverData);
+					});
+					
 				}).catch(function(error) {
 					//
 					console.log("Error!!! ",error);
