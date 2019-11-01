@@ -664,8 +664,24 @@ html,body {
 								font: normal normal normal 12px/13px "Helvetica";
 								text-align:center;
 								div{
+									&:first-child{
+										color:#530714;
+									}
 									&:last-child{
 										font-weight:bold;
+									}
+								}
+								.list-container__btn-failed-1{
+									display:inline-block;
+									width:120px;
+									border:1px solid #000;
+									border-radius:10px;
+									padding:2px;
+									background-color:#B2B2B2;
+									color:#000;
+									text-decoration:none;
+									&:hover{
+										background-color:lightgrey;
 									}
 								}
 							}
@@ -780,7 +796,7 @@ html,body {
 						height:$height-item;
 						margin:10px 0px 0px;
 						border:2px solid #fff;
-						background-color:#B67B7B;
+						background-color:#45A3C9;
 						.list-container__row{
 							height:25px;
 							.list-container__cell{
@@ -790,8 +806,24 @@ html,body {
 								font: normal normal normal 12px/13px "Helvetica";
 								text-align:center;
 								div{
+									&:first-child{
+										color:#000;
+									}
 									&:last-child{
 										font-weight:bold;
+									}
+								}
+								.list-container__btn-failed-2{
+									display:inline-block;
+									width:120px;
+									border:1px solid #000;
+									border-radius:10px;
+									padding:2px;
+									background-color:#B2B2B2;
+									color:#000;
+									text-decoration:none;
+									&:hover{
+										background-color:lightgrey;
 									}
 								}
 							}
@@ -803,7 +835,7 @@ html,body {
 						}
 					}
 					.list-container__list-item:nth-child(2n+1){
-						background-color:#DF9276;
+						background-color:#B6CDD7;
 					}
 				}
 				@extend %methods-pagination;
@@ -856,7 +888,7 @@ html,body {
 						height:$height-item;
 						margin:10px 0px 0px;
 						border:2px solid #fff;
-						background-color:#B67B7B;
+						background-color:#B86FAC;
 						.list-container__row{
 							height:25px;
 							.list-container__cell{
@@ -866,8 +898,24 @@ html,body {
 								font: normal normal normal 12px/13px "Helvetica";
 								text-align:center;
 								div{
+									&:first-child{
+										color:darkblue;
+									}
 									&:last-child{
 										font-weight:bold;
+									}
+								}
+								.list-container__btn-failed-3{
+									display:inline-block;
+									width:120px;
+									border:1px solid #000;
+									border-radius:10px;
+									padding:2px;
+									background-color:#B2B2B2;
+									color:#000;
+									text-decoration:none;
+									&:hover{
+										background-color:lightgrey;
 									}
 								}
 							}
@@ -879,7 +927,7 @@ html,body {
 						}
 					}
 					.list-container__list-item:nth-child(2n+1){
-						background-color:#DF9276;
+						background-color:#C59ABE;
 					}
 				}
 				@extend %methods-pagination;
