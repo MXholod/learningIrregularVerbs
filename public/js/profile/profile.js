@@ -402,7 +402,17 @@
 			fiveDivRows[i].lastChild.children[0].textContent = "";//Cell is empty 
 			fiveDivRows[i].lastChild.children[1].children[1].textContent = portioOfPage[i].gameTime; 
 			fiveDivRows[i].lastChild.children[2].children[1].textContent = portioOfPage[i].successPercentage; 
-			fiveDivRows[i].lastChild.children[3].textContent = "button";
+			//Get part of URN: profile/method1-mistaken-results
+			var a = fiveDivRows[i].lastChild.children[3].firstChild;
+			// '/profile/method1-mistaken-results' + "?id="+uid+"&dt="+dtime
+			var href = a.getAttribute("href");
+			if(href.length <= 33){
+				//Add query string part: profile/method1-mistaken-results + ?id="+uid+"&dt="+dtime
+				var fullHref = href+"?id="+portioOfPage[i].uid+"&dt="+portioOfPage[i].dateTime;
+				a.setAttribute("href",fullHref);
+			}else{
+				//console.log("Query string is exists");
+			}
 		}
 	}
 	//Create date and time format
