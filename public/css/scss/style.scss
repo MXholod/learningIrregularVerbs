@@ -932,6 +932,16 @@ html,body {
 				}
 				@extend %methods-pagination;
 			}
+			.wrapper__profile__failed-results{
+				width:664px;
+				height:515px;
+				border:2px solid #f6f6f6;
+				background-color:pink;
+				position:absolute;
+				top:520px;/*5px;*/
+				left:-2px;
+				z-index:4;
+			}
 		}
 	}
 	.wrapper__list-verbs{

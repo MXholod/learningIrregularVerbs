@@ -31,6 +31,8 @@
 (function(){
 	window.addEventListener("load",function(){
 		clearAndSetClassMenu();
+		//Close Failed Result Panel
+		closeResultPanel();
 	},false);
 	var classesArray = [
 		"a-profile__menu__settings_active",
@@ -404,6 +406,8 @@
 			fiveDivRows[i].lastChild.children[2].children[1].textContent = portioOfPage[i].successPercentage; 
 			//Get part of URN: profile/method1-mistaken-results
 			var a = fiveDivRows[i].lastChild.children[3].firstChild;
+			//Subscribe on click event 
+			a.addEventListener("click",displayFailed,false);
 			// '/profile/method1-mistaken-results' + "?id="+uid+"&dt="+dtime
 			var href = a.getAttribute("href");
 			if(href.length <= 33){
@@ -424,6 +428,35 @@
 		let hours = date.getHours() < 10 ? "0"+date.getHours() : date.getHours();
 		let minutes = date.getMinutes() < 10 ? "0"+date.getMinutes() : date.getMinutes();
 		return `${day}/${month}/${year} ${hours}:${minutes}`;
+	}
+	/* Show Failed results */
+	function displayFailed(e){
+		e.preventDefault();
+		let aValue = e.target.getAttribute("href");
+		//'id' of panel is - displayFailedResults
+		//Parse a string - /profile/method1-mistaken-results ? id=EOXhq4OocCN4afEF & dt=1572124235330
+		let startIdInd = aValue.indexOf("?");
+		let endIdInd = aValue.lastIndexOf("&");
+			//Plus four characters ?id= to get a correct hash of an 'id' - EOXhq4OocCN4afEF
+			let id = aValue.substring((startIdInd + 4),endIdInd);
+			//console.log("id ",id);
+		let startDateTimeInd = aValue.indexOf("&");
+			//Plus four characters &dt= to get a correct hash of a 'dateTime' - 1572124235330
+			let dt = aValue.substring((startDateTimeInd + 4));
+			//console.log("date time ",dt);
+		let failedResultsPanel = document.getElementById("displayFailedResults");
+		//Move panel to the top
+		failedResultsPanel.style.top = "5px";
+	}
+	//This function is only close Failed Results Panel
+	function closeResultPanel(){
+		//Subscribe on click event to close Result Panel
+		let closeFailedResultsPanel = document.getElementById("closeFailedResults");
+		closeFailedResultsPanel.addEventListener("click",function(){
+			let failedResultsPanel = document.getElementById("displayFailedResults");
+			//Move panel to the down
+			failedResultsPanel.style.top = "520px";
+		},false);
 	}
 })();
 //AJAX for adding user's data to rewrite his Login, Password and Email(if exists)
