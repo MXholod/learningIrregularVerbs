@@ -149,5 +149,29 @@ routes.post("/user_results",(request,response)=>{
 		response.send(data);
 	});
 });
-
+//Get User's failed result
+routes.post("/user-failed-results",(request,response)=>{
+	let db = "m"+request.body.method+"_failed";//m1_failed
+	//"uid":"EOXhq4OocCN4afEF","login":"Maximus","failedAsString":"87,33,64,16","dateTime":1572020667139,"
+	dbs.databases[db].find({"uid":request.body.id,"dateTime": Number(request.body.dt) }, function (err, docs){
+		//let data = {"login": docs[0].login, "ids": docs[0].failedAsString,"date":request.body.dt};
+		//dbs.databases.verbs.find( {"_id": docs[0].failedAsString},function(err, docs){
+			//Prepare the data
+			let arrOfStringNumbers = docs[0].failedAsString.split(",");//"22,1,45,3" -> ["22","1","45","3"]
+			let arrOfNumbers = arrOfStringNumbers.map((item,ind,arr)=>{//[22,1,45,3]
+				//return { "_id" : Number(item) };
+				return  Number(item);
+			});
+			dbs.databases.verbs.find( { "_id": { $in : arrOfNumbers } },function(err, docs){
+				let result = {
+					"incomingData" : docs,//arrOfNumbers,
+					"currentLanguage": request.body.language
+				};
+				//let dataToSearch = JSON.stringify(docs[0].failedAsString);
+				let dataToSearch = JSON.stringify(result);
+				response.setHeader('Content-type', 'application/json; charset=utf-8');
+				response.send(dataToSearch);
+			});
+	});
+});
 module.exports = routes;

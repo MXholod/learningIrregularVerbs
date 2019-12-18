@@ -116,7 +116,8 @@
 		"buttonsAElement":[],
 		"activePage":0,
 		"activePageStyle": null,
-		"ulBaseOffset":0
+		"ulBaseOffset":0,
+		"methodNumber":0
 	};
 	//Draw data result incoming from server
 	function drawData(elLi){
@@ -125,11 +126,13 @@
 		//Check a number of a method to detect a panel
 		switch(methodNum){
 			case 1: requestToServer(1,true).then(function(serverData){
+					//Initial pagination settings each time when switch between panels
 					paginationSettings.itemsOnPage = 5;
 					paginationSettings.buttonsAElement = [];
 					paginationSettings.activePage = 0;
 					paginationSettings.activePageStyle = null;
 					paginationSettings.ulBaseOffset = 0;
+					paginationSettings.methodNumber = methodNum;
 					//console.log(serverData);
 					//Show the list of data when panel appears. First page data only. 1 - is by default.
 					displayData(1,serverData);
@@ -162,11 +165,13 @@
 				});
 			break;
 			case 2: requestToServer(2,true).then(function(serverData){
+					//Initial pagination settings each time when switch between panels
 					paginationSettings.itemsOnPage = 5;
 					paginationSettings.buttonsAElement = [];
 					paginationSettings.activePage = 0;
 					paginationSettings.activePageStyle = null;
 					paginationSettings.ulBaseOffset = 0;
+					paginationSettings.methodNumber = methodNum;
 					//console.log(serverData);
 					//Show the list of data when panel appears. First page data only. 1 - is by default.
 					displayData(1,serverData);
@@ -199,11 +204,13 @@
 				});
 			break;
 			case 3: requestToServer(3,true).then(function(serverData){
+					//Initial pagination settings each time when switch between panels
 					paginationSettings.itemsOnPage = 5;
 					paginationSettings.buttonsAElement = [];
 					paginationSettings.activePage = 0;
 					paginationSettings.activePageStyle = null;
 					paginationSettings.ulBaseOffset = 0;
+					paginationSettings.methodNumber = methodNum;
 					//console.log(serverData);
 					//Show the list of data when panel appears. First page data only. 1 - is by default.
 					displayData(1,serverData);
@@ -381,7 +388,7 @@
 		let end = start + paginationSettings.itemsOnPage;
 		//Slice the portion of the elements
 		let portioOfPage = data[1].slice(start,end);
-		//Find the parent element
+		//Find the parent element (Panel)
 		let parentContainer = document.querySelector(`#listC-${data[0]}`);
 		//Get all of his five children DIVs
 		let fiveDivRows = parentContainer.children;
@@ -403,20 +410,33 @@
 			//Second line in row
 			fiveDivRows[i].lastChild.children[0].textContent = "";//Cell is empty 
 			fiveDivRows[i].lastChild.children[1].children[1].textContent = portioOfPage[i].gameTime; 
-			fiveDivRows[i].lastChild.children[2].children[1].textContent = portioOfPage[i].successPercentage; 
-			//Get part of URN: profile/method1-mistaken-results
+			fiveDivRows[i].lastChild.children[2].children[1].textContent = portioOfPage[i].successPercentage+"%"; 
+			//Get link
 			var a = fiveDivRows[i].lastChild.children[3].firstChild;
+			//Get link's value
+			var href = a.getAttribute("href");
+				//This variable will store the - '/profile/method1-mistaken-results'
+				var aValue = "";
+				//Get part of URN: profile/method1-mistaken-results
+				//If question sign is found cut the link
+				if(href.indexOf("?") !== -1){
+					//Cut from 0 index until question sign but without it '/profile/method1-mistaken-results'?
+					aValue = href.substring(0,href.indexOf("?"));
+					//Add query string part: profile/method1-mistaken-results + ?id="+uid+"&dt="+dtime
+					var fullHref = aValue+"?id="+portioOfPage[i].uid+"&dt="+portioOfPage[i].dateTime;
+					//console.log("Test 1",href.length," ",fullHref.length);
+					a.setAttribute("href",fullHref);
+				}else{
+					//Compare 
+					if(aValue.length <= href.length){
+					//Add query string part: profile/method1-mistaken-results + ?id="+uid+"&dt="+dtime
+					var fullHref = href+"?id="+portioOfPage[i].uid+"&dt="+portioOfPage[i].dateTime;
+					a.setAttribute("href",fullHref);
+					//console.log("Test 2",href.length," ",aValue.length);
+					}
+				}
 			//Subscribe on click event 
 			a.addEventListener("click",displayFailed,false);
-			// '/profile/method1-mistaken-results' + "?id="+uid+"&dt="+dtime
-			var href = a.getAttribute("href");
-			if(href.length <= 33){
-				//Add query string part: profile/method1-mistaken-results + ?id="+uid+"&dt="+dtime
-				var fullHref = href+"?id="+portioOfPage[i].uid+"&dt="+portioOfPage[i].dateTime;
-				a.setAttribute("href",fullHref);
-			}else{
-				//console.log("Query string is exists");
-			}
 		}
 	}
 	//Create date and time format
@@ -429,7 +449,9 @@
 		let minutes = date.getMinutes() < 10 ? "0"+date.getMinutes() : date.getMinutes();
 		return `${day}/${month}/${year} ${hours}:${minutes}`;
 	}
-	/* Show Failed results */
+	//Temporary storage incoming data from the server
+	const incomigData = [];
+	/* Show Failed results by clicking on 'a' element and take data from it's value attribute */
 	function displayFailed(e){
 		e.preventDefault();
 		let aValue = e.target.getAttribute("href");
@@ -444,9 +466,71 @@
 			//Plus four characters &dt= to get a correct hash of a 'dateTime' - 1572124235330
 			let dt = aValue.substring((startDateTimeInd + 4));
 			//console.log("date time ",dt);
-		let failedResultsPanel = document.getElementById("displayFailedResults");
-		//Move panel to the top
-		failedResultsPanel.style.top = "5px";
+			//Get current language
+		let language = "";
+			if(typeof(Storage) !== "undefined"){
+				if(sessionStorage.getItem("settings")){
+					let settings = JSON.parse(sessionStorage.getItem("settings"));
+					language = settings.language || "ru";
+				}
+			}
+		//Request to the server to get the data - Failed User Result
+		getFailedData(id,dt,language).then(function(failedData){
+			//failedData - {currentLanguage:string,incomingData:[]}
+			//Move panel to the top
+			console.log(failedData);
+			//Show panel with failed results
+			let failedResultsPanel = document.getElementById("displayFailedResults");
+			failedResultsPanel.style.top = "5px";
+			//Get zero failed panel
+			let displayIfZeroFailed = document.getElementById("displayIfZeroFailed");
+			//If there are no mistakes. Count failed, failedData.incomingData - is an Array
+			if(failedData.incomingData.length <= 0){
+				//If failed data don't exist hide this block
+				if(displayIfZeroFailed.classList.contains("failed-results__absent-data-hide")){
+					displayIfZeroFailed.classList.remove("failed-results__absent-data-hide");
+					//Display congratulation sentence!
+					displayIfZeroFailed.classList.add("failed-results__absent-data-visible");
+				}
+			}else{
+				if(displayIfZeroFailed.classList.contains("failed-results__absent-data-visible")){
+					displayIfZeroFailed.classList.remove("failed-results__absent-data-visible");
+					//Hide congratulation sentence.
+					displayIfZeroFailed.classList.add("failed-results__absent-data-hide");
+				}
+				//Display data
+			}
+		}).catch(function(err){
+			console.log(err);
+		});
+	}
+	//Request to the server for the data
+	function getFailedData(uid,dateTime,lang){
+		return new Promise(function(resolve,reject){
+			let xhr = getXmlHttp();
+			xhr.onload = function(){
+				try{
+					//Attempt to get the data
+					resolve(JSON.parse(xhr.responseText));
+				}catch(e){
+					reject(e);
+				}
+			};
+			xhr.addEventListener("error", function() {
+				reject(new Error("Network error"));
+			});
+			xhr.open('POST','/user-failed-results',true);
+			xhr.setRequestHeader('Content-Type','application/json; charset=utf-8');
+			//Object to JSON	
+			var failedRes = JSON.stringify({
+				method:paginationSettings.methodNumber,
+				id:uid,
+				dt:dateTime,
+				language:lang
+				});
+			//Send object of data
+			xhr.send(failedRes);
+		});
 	}
 	//This function is only close Failed Results Panel
 	function closeResultPanel(){
@@ -457,6 +541,14 @@
 			//Move panel to the down
 			failedResultsPanel.style.top = "520px";
 		},false);
+	}
+	//This function is for drawing the incoming failed data
+	function drawDataFromServer(){
+		console.log("");
+	}
+	//Redraw only data when switching between languages
+	function redrawOnlyData(){
+		
 	}
 })();
 //AJAX for adding user's data to rewrite his Login, Password and Email(if exists)

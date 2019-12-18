@@ -941,6 +941,18 @@ html,body {
 				top:520px;/*5px;*/
 				left:-2px;
 				z-index:4;
+				.failed-results__display-data{
+				
+				}
+				.failed-results__absent-data-hide{
+					display:none;
+				}
+				.failed-results__absent-data-visible{
+					display:block;
+					&:first-child{
+						text-align:center;
+					}
+				}
 			}
 		}
 	}
