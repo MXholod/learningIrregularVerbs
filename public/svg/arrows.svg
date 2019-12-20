@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" 
+xmlns="http://www.w3.org/2000/svg" 
+xmlns:xlink="http://www.w3.org/1999/xlink" 
+xml:space="preserve" width="40px" height="100px">
+	<path stroke="black" fill="#97397E" stroke-width="1" d="M5,15 25,15 25,5 35,20 25,35 25,25 5,25 Z5,15" />
+	<path stroke="black" fill="#97397E" stroke-width="1" d="M35,75 15,75 15,65 5,80 15,95 15,85 35,85 Z35,75" />
+</svg>
