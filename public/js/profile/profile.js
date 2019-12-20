@@ -471,15 +471,17 @@
 			if(typeof(Storage) !== "undefined"){
 				if(sessionStorage.getItem("settings")){
 					let settings = JSON.parse(sessionStorage.getItem("settings"));
-					language = settings.language || "ru";
+					if(settings.language === "ru"){
+						language = "rus"; 
+					}else{
+						language = settings.language;
+					} 
 				}
 			}
 		//Request to the server to get the data - Failed User Result
 		getFailedData(id,dt,language).then(function(failedData){
 			//failedData - {currentLanguage:string,incomingData:[]}
 			//Move panel to the top
-			console.log(failedData);
-			//Show panel with failed results
 			let failedResultsPanel = document.getElementById("displayFailedResults");
 			failedResultsPanel.style.top = "5px";
 			//Get zero failed panel
@@ -498,7 +500,8 @@
 					//Hide congratulation sentence.
 					displayIfZeroFailed.classList.add("failed-results__absent-data-hide");
 				}
-				//Display data
+				//Display data first time. Show panel with failed results
+				drawDataFromServer(failedData);
 			}
 		}).catch(function(err){
 			console.log(err);
@@ -540,15 +543,77 @@
 			let failedResultsPanel = document.getElementById("displayFailedResults");
 			//Move panel to the down
 			failedResultsPanel.style.top = "520px";
+			//Enable radio language buttons
+			let rus = document.getElementById("rus");
+			rus.disabled = false;
+			let ukr = document.getElementById("ukr");
+			ukr.disabled = false;
+			
+			//Clear parent element that displays data in the children elements	
+			let displayIfPresentFailed = document.getElementById("displayIfPresentFailed");
+			//Remove table element
+			if(displayIfPresentFailed.firstChild !== null){
+				displayIfPresentFailed.removeChild(displayIfPresentFailed.firstChild);
+			}
 		},false);
 	}
-	//This function is for drawing the incoming failed data
-	function drawDataFromServer(){
-		console.log("");
+	//This function is for drawing the incoming failed data. fd - is a failed data
+	function drawDataFromServer(fd){
+		//Disable radio language buttons
+			let rus = document.getElementById("rus");
+			rus.disabled = true;
+			let ukr = document.getElementById("ukr");
+			ukr.disabled = true;
+		//Parent element displays data in the children elements	
+		let displayIfPresentFailed = document.getElementById("displayIfPresentFailed");
+		//The data for the children elements - redrawOnlyData()
+		let onlyTextData = redrawOnlyData(fd.incomingData,fd.currentLanguage);
+		//
+			var table = document.createElement("TABLE");
+			var tr1 = tr2 = td1 = td2 = td3 = td4 = td5 = td6 = tx1 = tx2 = tx3 = tx4 = tx5 = tx6 = null;
+			onlyTextData.forEach(function(el,ind,arr){
+				tr1 = document.createElement("TR");
+					td1 = document.createElement("TD");
+					td2 = document.createElement("TD");
+					td3 = document.createElement("TD");
+						tx1 = document.createTextNode(el.eng[0]);
+						tx2 = document.createTextNode(el.eng[1]);
+						tx3 = document.createTextNode(el.eng[2]);
+							td1.appendChild(tx1);
+							td2.appendChild(tx2);
+							td3.appendChild(tx3);
+								tr1.appendChild(td1);
+								tr1.appendChild(td2);
+								tr1.appendChild(td3);
+									table.appendChild(tr1);
+				tr2 = document.createElement("TR");
+					td4 = document.createElement("TD");
+					td5 = document.createElement("TD");
+					td6 = document.createElement("TD");
+							tx4 = document.createTextNode(el.translation[0]);
+							tx5 = document.createTextNode(el.translation[1]);
+							tx6 = document.createTextNode(el.translation[2]);
+							td4.appendChild(tx4);
+							td5.appendChild(tx5);
+							td6.appendChild(tx6);
+								tr2.appendChild(td4);
+								tr2.appendChild(td5);
+								tr2.appendChild(td6);
+									table.appendChild(tr2);
+			});
+			//
+			displayIfPresentFailed.appendChild(table);
 	}
 	//Redraw only data when switching between languages
-	function redrawOnlyData(){
-		
+	function redrawOnlyData(dataWords,lang){
+		var verbs = dataWords.map((item,ind,arr)=>{
+			if(lang == "rus"){
+				return { "eng":item.eng, "translation":item.rus };
+			}else{
+				return { "eng":item.eng, "translation":item.ukr };
+			}
+		});
+		return verbs;
 	}
 })();
 //AJAX for adding user's data to rewrite his Login, Password and Email(if exists)
