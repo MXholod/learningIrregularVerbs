@@ -389,7 +389,7 @@
 		//Slice the portion of the elements
 		let portioOfPage = data[1].slice(start,end);
 		//Find the parent element (Panel)
-		let parentContainer = document.querySelector(`#listC-${data[0]}`);
+		let parentContainer = document.querySelector(`#listC${data[0]}`);
 		//Get all of his five children DIVs
 		let fiveDivRows = parentContainer.children;
 		//Hide all elements before the data will be inserted into them.
