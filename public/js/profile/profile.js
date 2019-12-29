@@ -450,7 +450,7 @@
 		return `${day}/${month}/${year} ${hours}:${minutes}`;
 	}
 	//Temporary storage incoming data from the server
-	const incomigData = [];
+	//const incomingData = [];
 	/* Show Failed results by clicking on 'a' element and take data from it's value attribute */
 	function displayFailed(e){
 		e.preventDefault();
@@ -569,10 +569,50 @@
 		//The data for the children elements - redrawOnlyData()
 		let onlyTextData = redrawOnlyData(fd.incomingData,fd.currentLanguage);
 		//
-			var table = document.createElement("TABLE");
-			var tr1 = tr2 = td1 = td2 = td3 = td4 = td5 = td6 = tx1 = tx2 = tx3 = tx4 = tx5 = tx6 = null;
+			//var table = document.createElement("TABLE");
+			var mainContainer = document.createElement("div");
+			mainContainer.setAttribute("class","main-container");
+			//var tr1 = tr2 = td1 = td2 = td3 = td4 = td5 = td6 = tx1 = tx2 = tx3 = tx4 = tx5 = tx6 = null;
+			var mainRow = upRow = downRow = upData1 = upData2 = upData3 = downData1 = downData2 = downData3 = tx1 = tx2 = tx3 = tx4 = tx5 = tx6 = null;
 			onlyTextData.forEach(function(el,ind,arr){
-				tr1 = document.createElement("TR");
+				mainRow = document.createElement("div");
+				mainRow.setAttribute("class","main-row");
+					//Make first row
+					upRow = document.createElement("div");
+					upRow.setAttribute("class","up-row");
+						upData1 = document.createElement("div");
+						upData2 = document.createElement("div");
+						upData3 = document.createElement("div");
+							tx1 = document.createTextNode(el.eng[0]);
+							tx2 = document.createTextNode(el.eng[1]);
+							tx3 = document.createTextNode(el.eng[2]);
+								upData1.appendChild(tx1);
+								upData2.appendChild(tx2);
+								upData3.appendChild(tx3);
+					upRow.appendChild(upData1);
+					upRow.appendChild(upData2);
+					upRow.appendChild(upData3);
+					//Make second row
+					downRow = document.createElement("div");
+					downRow.setAttribute("class","down-row");
+						downData1 = document.createElement("div");
+						downData2 = document.createElement("div");
+						downData3 = document.createElement("div");
+							tx4 = document.createTextNode(el.translation[0]);
+							tx5 = document.createTextNode(el.translation[1]);
+							tx6 = document.createTextNode(el.translation[2]);
+								downData1.appendChild(tx4);
+								downData2.appendChild(tx5);
+								downData3.appendChild(tx6);
+					downRow.appendChild(downData1);
+					downRow.appendChild(downData2);
+					downRow.appendChild(downData3);
+				mainRow.appendChild(upRow);
+				mainRow.appendChild(downRow);
+				//
+				
+				mainContainer.appendChild(mainRow);
+				/*tr1 = document.createElement("TR");
 					td1 = document.createElement("TD");
 					td2 = document.createElement("TD");
 					td3 = document.createElement("TD");
@@ -599,10 +639,11 @@
 								tr2.appendChild(td4);
 								tr2.appendChild(td5);
 								tr2.appendChild(td6);
-									table.appendChild(tr2);
+									table.appendChild(tr2);*/
 			});
 			//
-			displayIfPresentFailed.appendChild(table);
+			//displayIfPresentFailed.appendChild(table);
+			displayIfPresentFailed.appendChild(mainContainer);
 	}
 	//Redraw only data when switching between languages
 	function redrawOnlyData(dataWords,lang){
