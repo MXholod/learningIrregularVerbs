@@ -1,40 +1,37 @@
 section(class="wrapper__profile__content_method-two wrapper__profile__move-back-content")
-	div(class="page-information" id="pageInfo-2")
-		div(data-language="pageInfo-2") Упражнение
+	div(class="page-information" id="pageInfo2" data-language="pageInfo2")
+		div(data-language="pageInfo2") #{lang.failedResults.pageInfo2.exercise}
 			span(id="pageExercise-2") 2
-		div(data-language="pageInfo-2") Страница
+		div(data-language="pageInfo2") #{lang.failedResults.pageInfo2.page}
 			span(id="pageNumber-2") 1
-	div(class="list-container" id="listC-2")
-		mixin list_item2(dateT,successRes,failureRes,totalAns,gameT,successPer)
+	div(class="list-container" id="listC2" data-language="listC2")
+		mixin list_item2(dateT,successRes,failureRes,totalAns,gameT,successPer,ind)
 			div(class="list-container__list-item")
 				div(class="list-container__row")
 					div(class="list-container__cell")
-						div Дата прохождения:
+						div(data-language="listC2") #{lang.failedResults.listC2.items[ind].dateOfPassage}
 						div #{dateT}
 					div(class="list-container__cell")
-						div Правильные варианты:
+						div(data-language="listC2") #{lang.failedResults.listC2.items[ind].rightOptions}
 						div #{successRes}
 					div(class="list-container__cell")
-						div Неправильные варианты:
+						div(data-language="listC2") #{lang.failedResults.listC2.items[ind].wrongOptions}
 						div #{failureRes}
 					div(class="list-container__cell")
-						div Всего вариантов:
+						div(data-language="listC2") #{lang.failedResults.listC2.items[ind].totalOptions}
 						div #{totalAns}
 				div(class="list-container__row")
 					div(class="list-container__cell")
 					div(class="list-container__cell")
-						div Остаток игрового времени:
+						div(data-language="listC2") #{lang.failedResults.listC2.items[ind].restPlayingTime}
 						div #{gameT}
 					div(class="list-container__cell") 
-						div Процент успешности:
+						div(data-language="listC2") #{lang.failedResults.listC2.items[ind].successRate}
 						div #{successPer}
 					div(class="list-container__cell")
-						a(href="/profile/method2-mistaken-results" class="list-container__btn-failed-2") Просмотреть не угаданные
-		+list_item2("00:00",0,0,0,"00:00","0%")
-		+list_item2("00:00",0,0,0,"00:00","0%")
-		+list_item2("00:00",0,0,0,"00:00","0%")
-		+list_item2("00:00",0,0,0,"00:00","0%")
-		+list_item2("00:00",0,0,0,"00:00","0%")
+						a(href="/profile/method2-mistaken-results" class="list-container__btn-failed-2" data-language="listC2") #{lang.failedResults.listC2.items[ind].viewNotGuessed}
+		-for(let i = 0;i<5;i++)
+			+list_item2("00:00",0,0,0,"00:00","0%",i)
 	div(class="list-pagination" id="listP-2")
 		div(class="list-pagination__go list-pagination__go-left")
 			button(id="arrowLeft-2")
