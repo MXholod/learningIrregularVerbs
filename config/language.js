@@ -245,6 +245,59 @@ module.exports = {
 						"viewNotGuessed":"Просмотреть не угаданные"
 					}
 				]
+			},
+			"pageInfo3":{
+				"exercise":"Упражнение",
+				"page":"Страница"
+			},
+			"listC3":{
+				"items":[
+					{
+						"dateOfPassage":"Дата прохождения:",
+						"rightOptions":"Правильные варианты:",
+						"wrongOptions":"Неправильные варианты:",
+						"totalOptions":"Всего вариантов:",
+						"restPlayingTime":"Остаток игрового времени:",
+						"successRate":"Процент успешности:",
+						"viewNotGuessed":"Просмотреть не угаданные"
+					},
+					{
+						"dateOfPassage":"Дата прохождения:",
+						"rightOptions":"Правильные варианты:",
+						"wrongOptions":"Неправильные варианты:",
+						"totalOptions":"Всего вариантов:",
+						"restPlayingTime":"Остаток игрового времени:",
+						"successRate":"Процент успешности:",
+						"viewNotGuessed":"Просмотреть не угаданные"
+					},
+					{
+						"dateOfPassage":"Дата прохождения:",
+						"rightOptions":"Правильные варианты:",
+						"wrongOptions":"Неправильные варианты:",
+						"totalOptions":"Всего вариантов:",
+						"restPlayingTime":"Остаток игрового времени:",
+						"successRate":"Процент успешности:",
+						"viewNotGuessed":"Просмотреть не угаданные"
+					},
+					{
+						"dateOfPassage":"Дата прохождения:",
+						"rightOptions":"Правильные варианты:",
+						"wrongOptions":"Неправильные варианты:",
+						"totalOptions":"Всего вариантов:",
+						"restPlayingTime":"Остаток игрового времени:",
+						"successRate":"Процент успешности:",
+						"viewNotGuessed":"Просмотреть не угаданные"
+					},
+					{
+						"dateOfPassage":"Дата прохождения:",
+						"rightOptions":"Правильные варианты:",
+						"wrongOptions":"Неправильные варианты:",
+						"totalOptions":"Всего вариантов:",
+						"restPlayingTime":"Остаток игрового времени:",
+						"successRate":"Процент успешности:",
+						"viewNotGuessed":"Просмотреть не угаданные"
+					}
+				]
 			}
 		},
 		"serverSisdeOnly":{
@@ -456,6 +509,59 @@ module.exports = {
 				"page":"Сторінка"
 			},
 			"listC2":{
+				"items":[
+					{
+						"dateOfPassage":"Дата проходження:",
+						"rightOptions":"Правильні варіанти:",
+						"wrongOptions":"Неправильні варіанти:",
+						"totalOptions":"Всього варіантів:",
+						"restPlayingTime:":"Залишок ігрового часу:",
+						"successRate":"Відсоток успішності:",
+						"viewNotGuessed":"Переглянути не відгадані варіанти"
+					},
+					{
+						"dateOfPassage":"Дата проходження:",
+						"rightOptions":"Правильні варіанти:",
+						"wrongOptions":"Неправильні варіанти:",
+						"totalOptions":"Всього варіантів:",
+						"restPlayingTime:":"Залишок ігрового часу:",
+						"successRate":"Відсоток успішності:",
+						"viewNotGuessed":"Переглянути не відгадані варіанти"
+					},
+					{
+						"dateOfPassage":"Дата проходження:",
+						"rightOptions":"Правильні варіанти:",
+						"wrongOptions":"Неправильні варіанти:",
+						"totalOptions":"Всього варіантів:",
+						"restPlayingTime:":"Залишок ігрового часу:",
+						"successRate":"Відсоток успішності:",
+						"viewNotGuessed":"Переглянути не відгадані варіанти"
+					},
+					{
+						"dateOfPassage":"Дата проходження:",
+						"rightOptions":"Правильні варіанти:",
+						"wrongOptions":"Неправильні варіанти:",
+						"totalOptions":"Всього варіантів:",
+						"restPlayingTime:":"Залишок ігрового часу:",
+						"successRate":"Відсоток успішності:",
+						"viewNotGuessed":"Переглянути не відгадані варіанти"
+					},
+					{
+						"dateOfPassage":"Дата проходження:",
+						"rightOptions":"Правильні варіанти:",
+						"wrongOptions":"Неправильні варіанти:",
+						"totalOptions":"Всього варіантів:",
+						"restPlayingTime:":"Залишок ігрового часу:",
+						"successRate":"Відсоток успішності:",
+						"viewNotGuessed":"Переглянути не відгадані варіанти"
+					}
+				]
+			},
+			"pageInfo3":{
+				"exercise":"Вправа",
+				"page":"Сторінка"
+			},
+			"listC3":{
 				"items":[
 					{
 						"dateOfPassage":"Дата проходження:",
