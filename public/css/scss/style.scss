@@ -978,6 +978,79 @@ html,body {
 					& p:first-child{
 						text-align:center;
 					}
+					.failed-results__happy-ball{
+						margin: 50px auto 0;
+						width: 100px;
+						height: 100px;
+						.ball-one ellipse:first-child{
+							animation-duration: 2s;
+							animation-delay: 1s;
+							animation-name: move_ball-eye1;
+							animation-iteration-count: infinite;
+							animation-direction: normal;
+							animation-timing-function: linear;
+							animation-fill-mode: backwards;
+						}
+						.ball-two ellipse:first-child{
+							animation-duration: 2s;
+							animation-delay: 2s;
+							animation-name: move_ball-eye2;
+							animation-iteration-count: infinite;
+							animation-direction: normal;
+							animation-timing-function: linear;
+							animation-fill-mode: backwards;
+						}
+						.ball-one ellipse:last-child{
+							animation-duration: 2s;
+							animation-delay: 2s;
+							animation-name: move_ball-eye-apple1;
+							animation-iteration-count: infinite;
+							animation-direction: normal;
+							animation-timing-function: linear;
+							animation-fill-mode: backwards;
+						}
+						.ball-two ellipse:last-child{
+							animation-duration: 2s;
+							animation-delay: 2s;
+							animation-name: move_ball-eye-apple2;
+							animation-iteration-count: infinite;
+							animation-direction: normal;
+							animation-timing-function: linear;
+							animation-fill-mode: backwards;
+						}
+						.ball-three{
+							animation-duration: 1s;
+							animation-name: move_ball-3;
+							animation-iteration-count: infinite;
+							animation-direction: alternate;
+							animation-timing-function: linear;
+							animation-fill-mode: backwards;
+						}
+						@keyframes move_ball-3{
+							0%{transform:translateX(-1px);}
+							100%{transform:translateX(1px);}
+						}
+						@keyframes move_ball-eye1{
+							0%{ry:6;}
+							50%{ry:5;}
+							100%{ry:6;}
+						}
+						@keyframes move_ball-eye2{
+							0%{ry:6;}
+							50%{ry:5;}
+							100%{ry:6;}
+						}
+						@keyframes move_ball-eye-apple1{
+							0%{ry:2;}
+							50%{ry:1.5;}
+							100%{ry:2;}
+						}
+						@keyframes move_ball-eye-apple2{
+							0%{ry:2;}
+							50%{ry:1.5;}
+							100%{ry:2;}
+						}
+					}
 				}
 			}
 		}
