@@ -2,7 +2,7 @@ section(class="wrapper__profile__failed-results" id="displayFailedResults")
 	div
 		button(id="closeFailedResults") X
 	div(class="failed-results__display-data" id="displayIfPresentFailed")
-	div(class="failed-results__absent-data-hide" id="displayIfZeroFailed")
-		p Congratulations! You have never made a mistake.
+	div(class="failed-results__absent-data-hide" id="displayIfZeroFailed" data-language="displayIfZeroFailed")
+		p(data-language="displayIfZeroFailed") #{lang.singleBlockFailedResults.displayIfZeroFailed.congratulationTitle}
 		div(class="failed-results__happy-ball")
 			include happyBall.pug 

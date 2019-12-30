@@ -300,6 +300,11 @@ module.exports = {
 				]
 			}
 		},
+		"singleBlockFailedResults":{
+			"displayIfZeroFailed":{
+				"congratulationTitle":"Поздравляем! Вы не допустили ни одной ошибки!"
+			}
+		},
 		"serverSisdeOnly":{
 			"emailRestoring":{
 				"topic":"Восстановление пароля",
@@ -609,6 +614,11 @@ module.exports = {
 						"viewNotGuessed":"Переглянути не відгадані варіанти"
 					}
 				]
+			}
+		},
+		"singleBlockFailedResults":{
+			"displayIfZeroFailed":{
+				"congratulationTitle":"Вітаємо! Ви не допустили жодної помилки!"
 			}
 		},
 		"serverSisdeOnly":{
