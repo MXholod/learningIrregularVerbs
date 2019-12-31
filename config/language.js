@@ -72,6 +72,11 @@ module.exports = {
 				"goToListText":"Перейти к списку"
 			}
 		},
+		"verbsListToProfile":{
+			"toListVerbs":{
+				"buttonTitle":"Вернуться к профилю"
+			}
+		},
 		"verbsListTop":{
 			"bothListHeaders":{
 				"fullListHeader":"неправильных глаголов одним списком.",
@@ -391,6 +396,11 @@ module.exports = {
 				"lastVisitText":"Дата Вашого останього відвідування.",
 				"verbListText":"Перелік неправильних дієслів для вивчення.",
 				"goToListText":"Перейти до переліку"
+			}
+		},
+		"verbsListToProfile":{
+			"toListVerbs":{
+				"buttonTitle":"Повернутися до профілю"
 			}
 		},
 		"verbsListTop":{
