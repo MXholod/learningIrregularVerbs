@@ -1065,6 +1065,25 @@ html,body {
 		}
 	}
 	.wrapper__list-verbs{
+		#toListVerbs{
+			position:absolute;
+			top:10px;
+			left:360px;
+			z-index:1000;
+			& a{
+				padding:5px;
+				text-decoration:none;
+				border:2px solid #BE8117;
+				border-radius:10px;
+				color:#594116;
+				font-family:Lasco_Bold;
+				background-color:#C8B227;
+				font-size: 0.8em;
+				&:hover{
+					background-color:#E4D367;
+				}
+			}
+		}
 		height:($base-height + 6px);
 		width:($base-width + 10px);
 		background-color:#f6e4b7;
