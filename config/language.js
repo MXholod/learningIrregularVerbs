@@ -82,6 +82,11 @@ module.exports = {
 			"fullListTableHeader":["1-я форма","2-я форма","3-я форма"],
 			"portionListTableHeader":["1-я форма","2-я форма","3-я форма"]
 		},
+		"exerciseButtonToProfile":{
+			"toProfileExercises":{
+				"buttonTitle":"Вернуться к профилю"
+			}
+		},
 		"exercises":{
 			"exerciseItems":{
 				"exercise1":[
@@ -397,6 +402,11 @@ module.exports = {
 			},
 			"fullListTableHeader":["1-ша форма","2-га форма","3-тя форма"],
 			"portionListTableHeader":["1-ша форма","2-га форма","3-тя форма"]
+		},
+		"exerciseButtonToProfile":{
+			"toProfileExercises":{
+				"buttonTitle":"Повернутися до профілю"
+			}
 		},
 		"exercises":{
 			"exerciseItems":{

@@ -1449,16 +1449,18 @@ html,body {
 			top:10px;
 			left:360px;
 			z-index:1000;
-			padding:5px;
-			text-decoration:none;
-			border:2px solid #BE8117;
-			border-radius:10px;
-			color:#594116;
-			font-family:Lasco_Bold;
-			background-color:#C8B227;
-			font-size: 0.8em;
-			&:hover{
-				background-color:#E4D367;
+			& a{
+				padding:5px;
+				text-decoration:none;
+				border:2px solid #BE8117;
+				border-radius:10px;
+				color:#594116;
+				font-family:Lasco_Bold;
+				background-color:#C8B227;
+				font-size: 0.8em;
+				&:hover{
+					background-color:#E4D367;
+				}
 			}
 		}
 		min-height:606px;
@@ -1492,6 +1494,14 @@ html,body {
 							color:#fff;
 						}
 					}
+					a.btn:active{
+						outline:none;
+						box-shadow:none;
+					}
+					a.btn:focus, a.btn:active {
+					  outline: none !important;
+					  box-shadow: none !important;
+					}
 				}
 			}
 			.wrapper__exercises__main__exercise-2{
@@ -1513,6 +1523,14 @@ html,body {
 							color:#fff;
 						}
 					}
+					a.btn:active{
+						outline:none;
+						box-shadow:none;
+					}
+					a.btn:focus, a.btn:active {
+					  outline: none !important;
+					  box-shadow: none !important;
+					}
 				}
 			}
 			.wrapper__exercises__main__exercise-3{
@@ -1533,6 +1551,14 @@ html,body {
 							background-color:#cd6fbd;
 							color:#fff;
 						}
+					}
+					a.btn:active{
+						outline:none;
+						box-shadow:none;
+					}
+					a.btn:focus, a.btn:active {
+					  outline: none !important;
+					  box-shadow: none !important;
 					}
 				}
 			}
