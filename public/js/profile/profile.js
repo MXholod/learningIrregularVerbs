@@ -568,11 +568,10 @@
 		let displayIfPresentFailed = document.getElementById("displayIfPresentFailed");
 		//The data for the children elements - redrawOnlyData()
 		let onlyTextData = redrawOnlyData(fd.incomingData,fd.currentLanguage);
-		//
-			//var table = document.createElement("TABLE");
+			//
 			var mainContainer = document.createElement("div");
 			mainContainer.setAttribute("class","main-container");
-			//var tr1 = tr2 = td1 = td2 = td3 = td4 = td5 = td6 = tx1 = tx2 = tx3 = tx4 = tx5 = tx6 = null;
+			//
 			var mainRow = upRow = downRow = upData1 = upData2 = upData3 = downData1 = downData2 = downData3 = tx1 = tx2 = tx3 = tx4 = tx5 = tx6 = null;
 			onlyTextData.forEach(function(el,ind,arr){
 				mainRow = document.createElement("div");
@@ -610,39 +609,9 @@
 				mainRow.appendChild(upRow);
 				mainRow.appendChild(downRow);
 				//
-				
 				mainContainer.appendChild(mainRow);
-				/*tr1 = document.createElement("TR");
-					td1 = document.createElement("TD");
-					td2 = document.createElement("TD");
-					td3 = document.createElement("TD");
-						tx1 = document.createTextNode(el.eng[0]);
-						tx2 = document.createTextNode(el.eng[1]);
-						tx3 = document.createTextNode(el.eng[2]);
-							td1.appendChild(tx1);
-							td2.appendChild(tx2);
-							td3.appendChild(tx3);
-								tr1.appendChild(td1);
-								tr1.appendChild(td2);
-								tr1.appendChild(td3);
-									table.appendChild(tr1);
-				tr2 = document.createElement("TR");
-					td4 = document.createElement("TD");
-					td5 = document.createElement("TD");
-					td6 = document.createElement("TD");
-							tx4 = document.createTextNode(el.translation[0]);
-							tx5 = document.createTextNode(el.translation[1]);
-							tx6 = document.createTextNode(el.translation[2]);
-							td4.appendChild(tx4);
-							td5.appendChild(tx5);
-							td6.appendChild(tx6);
-								tr2.appendChild(td4);
-								tr2.appendChild(td5);
-								tr2.appendChild(td6);
-									table.appendChild(tr2);*/
 			});
 			//
-			//displayIfPresentFailed.appendChild(table);
 			displayIfPresentFailed.appendChild(mainContainer);
 	}
 	//Redraw only data when switching between languages
@@ -655,6 +624,130 @@
 			}
 		});
 		return verbs;
+	}
+})();
+//Delete data results of a chosen Method
+(function(){
+	//Blocking Multiple clicks at the same time on panels. 
+	const blockClick = {switchState : true};
+	//
+	window.addEventListener("load",function(){
+	//
+		clickDeleteData("methodDelete1",slidePanelUpDown);
+	});
+	//
+	function clickDeleteData(elId,funcToDo){
+		//Find button
+		let button = document.getElementById(elId).firstChild;
+		button.addEventListener("click",funcToDo,false);
+	}
+	//Find out the number of the method
+	function getMethodNumber(e){
+		//el.dataset.methodDelete1
+		let attrVal = this.getAttribute("data-language");
+		let num = attrVal.slice(attrVal.length-1,attrVal.length);
+		return num;
+	}
+	function slidePanelUpDown(){
+		//Parent is a DIV context had got from BUTTON 
+		let parent = this.parentNode;
+		//Get number of current method
+		let methodNumber = getMethodNumber.bind(parent)();
+		//Cover by "Yes"/"No" panel
+		//parent.children[1].style.top = "-38px";//.link__delete-method__links == this.children[0]
+		if(blockClick.switchState){//If switcher isn't occupied
+			goUp.call(parent.children[1],"-38px");//(Go up)
+		}
+		//The first link is sending data
+		parent.children[1].children[0].addEventListener("click",function(event){
+			event.preventDefault();
+			//Context of element an 'A'
+			sendOrNotData.call(this,true,methodNumber);
+		},false);
+		//The second link isn't sending data
+		parent.children[1].children[1].addEventListener("click",function(event){
+			event.preventDefault();
+			//Context of element an 'A'
+			sendOrNotData.call(this,false,methodNumber);
+		},false);
+	}
+	//
+	function sendOrNotData(canItSend,methodN){
+		if(canItSend){
+			if(blockClick.switchState){//If switcher isn't occupied
+				//Request to the server
+				goDown.call(this.parentNode,"0px");//(Go up)
+				console.log("Send data to the server to delete the data of a method ",methodN);
+			}
+		}else{
+			if(blockClick.switchState){//If switcher isn't occupied
+				//Decline request
+				goDown.call(this.parentNode,"0px");//(Go up)
+				console.log("Decline request to the server to delete the data of a method ",methodN);
+			}
+		}
+	}
+	//Lift panel to delete method data up
+	function goUp(limitPx){
+		//Occupy the switcher
+		blockClick.switchState = false;
+		//this - specifies div.class="link__delete-method__links" context is bound above
+		let that = this;
+		let limitPix = parseInt(limitPx) + 1;
+		var t1 = null,t2 = null,time = 30,count = 1,currentPx = 1;
+		t1 = window.setTimeout(function f1(){
+			t2 = window.setTimeout(f1,time);
+				//Go from zero to negative
+				if(limitPix < 0){//-38px < 0px (Go up) 
+					if(limitPix == currentPx){//-38 == -38 - true	
+						if(t2 != null){//Exit
+							window.clearTimeout(t2);
+							t2 = null;
+							//Release the switcher
+							blockClick.switchState = true;
+						}
+					}
+					//Create negative value
+					currentPx = ((count++)*(-1));
+					that.style.top = currentPx+"px";
+				}
+				//Clear timer1
+				if(t1 != null){
+					window.clearTimeout(t1);
+					t1 = null;
+				}
+		},time);
+	}
+	//Lift panel to delete method data down
+	function goDown(limitPx){
+		//Occupy the switcher
+		blockClick.switchState = false;
+		//this - specifies div.class="link__delete-method__links" context is bound above
+		let that = this;
+		let limitPix = parseInt(limitPx);//0
+		var t1 = null,t2 = null,time = 30,count = 0,currentPx = 0,start = parseInt(that.style.top);
+		t1 = window.setTimeout(function f1(){
+			t2 = window.setTimeout(f1,time);
+				//Go from negative to zero
+				if(limitPix == 0){//0px == 0px (Go down) 
+					if(limitPix == start){//0 == 0 - true
+						if(t2 != null){//Exit
+							window.clearTimeout(t2);
+							t2 = null;
+							//Release the switcher
+							blockClick.switchState = true;
+						}
+					}
+					//Create positive value
+					currentPx = (start += 1);
+					that.style.top = currentPx +"px";	
+				}
+				//Clear timer1
+				if(t1 != null){
+					window.clearTimeout(t1);
+					t1 = null;
+				}
+		},time);
 	}
 })();
 //AJAX for adding user's data to rewrite his Login, Password and Email(if exists)
