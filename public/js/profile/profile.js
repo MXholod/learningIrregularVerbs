@@ -390,6 +390,10 @@
 		let portioOfPage = data[1].slice(start,end);
 		//Find the parent element (Panel)
 		let parentContainer = document.querySelector(`#listC${data[0]}`);
+		//Show button 'delete results'
+		if(portioOfPage.length > 0){
+			document.getElementById(`methodDelete${data[0]}`).style.visibility = "visible";
+		}
 		//Get all of his five children DIVs
 		let fiveDivRows = parentContainer.children;
 		//Hide all elements before the data will be inserted into them.
@@ -671,19 +675,41 @@
 			sendOrNotData.call(this,false,methodNumber);
 		},false);
 	}
-	//
+	//Click on button "Yes" or "No" to delete data
 	function sendOrNotData(canItSend,methodN){
+		//Delete user's results
 		if(canItSend){
 			if(blockClick.switchState){//If switcher isn't occupied
+				//Get current User's hash
+				let hash = document.getElementById("hiddenHash").firstChild.nodeValue;
 				//Request to the server
-				goDown.call(this.parentNode,"0px");//(Go up)
-				console.log("Send data to the server to delete the data of a method ",methodN);
+					deleteDataResults(methodN,hash).then((serverData)=>{
+						if(serverData.status){
+							//Clear all fields in the interface
+							clearFields(methodN);
+							//Buttons panel goes down
+							goDown.call(this.parentNode,"0px");//(Go up)
+							//Hide button 'Delete results'
+							document.getElementById("methodDelete"+methodN).style.visibility = "hidden";
+							//Delete pagination items, find the pagination block (UL element) according to the method to remove LI.
+							let ulMethod = document.querySelector(".pagination-"+methodN);
+							if(ulMethod.children.length > 0){//LI (exists/exist) 
+								for(let i = 0;ulMethod.children.length > i;i++){
+									ulMethod.removeChild(ulMethod.children[i]);
+								}
+							}
+							//console.log("GOOD ",serverData);
+						}else{//The number of deleted rows is NOT the same in both databases
+							//console.log("BAD ",serverData);
+						}
+					}).catch(function(err){
+						console.log(err);
+					});		
 			}
 		}else{
 			if(blockClick.switchState){//If switcher isn't occupied
 				//Decline request
 				goDown.call(this.parentNode,"0px");//(Go up)
-				console.log("Decline request to the server to delete the data of a method ",methodN);
 			}
 		}
 	}
@@ -748,6 +774,56 @@
 					t1 = null;
 				}
 		},time);
+	}
+	//Send data to delete them on the server
+	function deleteDataResults(methodNumber,hash){
+		return new Promise(function(resolve,reject){
+			//Get XMLHttpRequest
+			let xhr = getXmlHttp();
+			xhr.onload = function(){
+				try{
+					//Attempt to get the data from the server
+					resolve(JSON.parse(xhr.responseText));
+				}catch(e){
+					reject(e);
+				}
+			};
+			xhr.addEventListener("error", function() {
+				reject(new Error("Network error"));
+			});
+			xhr.open('DELETE','/delete-user-result',true);
+			xhr.setRequestHeader('Content-Type','application/json; charset=utf-8');
+			//Object to JSON	
+			var methodDeleting = JSON.stringify({
+					method:methodNumber,
+					hash:hash
+				});
+			//Send object of data
+			xhr.send(methodDeleting);
+		});
+	}
+	//Clear fields after deleted
+	function clearFields(methodNum){
+		//Find the parent element (Panel)
+		let parentContainer = document.querySelector(`#listC${methodNum}`);
+		//Get all of his five children DIVs
+		let fiveDivRows = parentContainer.children;
+		//Set data in the loop
+		for(let i = 0;i < fiveDivRows.length;i++){
+			//Hide elements after data have been deleted.
+			fiveDivRows[i].style.visibility = "hidden";
+			//First line in row
+			fiveDivRows[i].firstChild.children[0].children[1].textContent = ""; 
+			fiveDivRows[i].firstChild.children[1].children[1].textContent = ""; 
+			fiveDivRows[i].firstChild.children[2].children[1].textContent = ""; 
+			fiveDivRows[i].firstChild.children[3].children[1].textContent = ""; 
+			//Second line in row
+			fiveDivRows[i].lastChild.children[0].textContent = "";//Cell is empty 
+			fiveDivRows[i].lastChild.children[1].children[1].textContent = ""; 
+			fiveDivRows[i].lastChild.children[2].children[1].textContent = ""; 
+				let attrVal = '/profile/method'+methodNum+'-mistaken-results';
+			fiveDivRows[i].lastChild.children[3].firstChild.setAttribute("href",attrVal);
+		}
 	}
 })();
 //AJAX for adding user's data to rewrite his Login, Password and Email(if exists)

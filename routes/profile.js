@@ -174,4 +174,32 @@ routes.post("/user-failed-results",(request,response)=>{
 			});
 	});
 });
+//Deleting user's data results
+routes.delete("/delete-user-result",(request,response)=>{
+	let hash = request.body.hash;
+	let db_method = "method"+request.body.method;//"method1"
+	let m_method_db = "m"+request.body.method+"_failed";//m1_failed
+		//First DB to select
+		dbs.databases[db_method].find({"hash":hash }, function (err, docs){
+			if(docs.length > 0){
+				//First DB to delete
+				dbs.databases[m_method_db].remove({ "uid":docs[0].uid }, { multi: true }, function (err, numRemoved) {
+					//Second DB delete
+					dbs.databases[db_method].remove({ "uid":docs[0].uid }, { multi: true }, function (err, numRemoved2) {
+						//Send object with success status to the client
+						const responseToClient = {status:false};
+						if(numRemoved == numRemoved2){//The number of deleted rows is the same in both databases
+							responseToClient.status = true;
+						}else{
+							responseToClient.status = false;
+						}
+						let methodDeleted = JSON.stringify(responseToClient);
+						response.setHeader('Content-type', 'application/json; charset=utf-8');
+						response.send(methodDeleted);
+						
+					});
+				});
+			}
+		});
+});
 module.exports = routes;

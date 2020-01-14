@@ -555,6 +555,7 @@ html,body {
 			}
 			%methods-delete-button{
 				.link__delete-method{
+					visibility:hidden;
 					width:180px;
 					height:40px;
 					position:absolute;
