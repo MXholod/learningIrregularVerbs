@@ -878,6 +878,7 @@ html,body {
 						background-color:#B6CDD7;
 					}
 				}
+				@extend %methods-delete-button;
 				@extend %methods-pagination;
 			}
 			.wrapper__profile__content_method-three{
@@ -970,6 +971,7 @@ html,body {
 						background-color:#C59ABE;
 					}
 				}
+				@extend %methods-delete-button;
 				@extend %methods-pagination;
 			}
 			.wrapper__profile__failed-results{

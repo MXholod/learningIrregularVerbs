@@ -32,6 +32,11 @@ section(class="wrapper__profile__content_method-two wrapper__profile__move-back-
 						a(href="/profile/method2-mistaken-results" class="list-container__btn-failed-2" data-language="listC2") #{lang.failedResults.listC2.items[ind].viewNotGuessed}
 		-for(let i = 0;i<5;i++)
 			+list_item2("00:00",0,0,0,"00:00","0%",i)
+	div(class="link__delete-method" data-language="methodDelete2" id="methodDelete2")
+		button(class="link__delete-method__button" data-language="methodDelete2") Удалить результаты упражнения №2
+		div(class="link__delete-method__links")
+			a(href="/profile/method2-delete" data-language="methodDelete2" id="methodDelete2-Yes") Да	
+			a(href="/profile/method2-delete" data-language="methodDelete2" id="methodDelete2-No") Нет
 	div(class="list-pagination" id="listP-2")
 		div(class="list-pagination__go list-pagination__go-left")
 			button(id="arrowLeft-2")

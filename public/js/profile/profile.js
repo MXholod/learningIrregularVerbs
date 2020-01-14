@@ -638,6 +638,8 @@
 	window.addEventListener("load",function(){
 	//
 		clickDeleteData("methodDelete1",slidePanelUpDown);
+		clickDeleteData("methodDelete2",slidePanelUpDown);
+		clickDeleteData("methodDelete3",slidePanelUpDown);
 	});
 	//
 	function clickDeleteData(elId,funcToDo){
