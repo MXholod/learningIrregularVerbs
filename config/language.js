@@ -310,6 +310,23 @@ module.exports = {
 				]
 			}
 		},
+		"deleteMethodsData":{
+			"methodDelete1":{
+				"description":"Удалить результаты упражнения № 1",
+				"buttonYes":"Да",
+				"buttonNo":"Нет"
+			},
+			"methodDelete2":{
+				"description":"Удалить результаты упражнения № 2",
+				"buttonYes":"Да",
+				"buttonNo":"Нет"
+			},
+			"methodDelete3":{
+				"description":"Удалить результаты упражнения № 3",
+				"buttonYes":"Да",
+				"buttonNo":"Нет"
+			}
+		},
 		"singleBlockFailedResults":{
 			"displayIfZeroFailed":{
 				"congratulationTitle":"Поздравляем! Вы не допустили ни одной ошибки!"
@@ -634,6 +651,23 @@ module.exports = {
 						"viewNotGuessed":"Переглянути не відгадані варіанти"
 					}
 				]
+			}
+		},
+		"deleteMethodsData":{
+			"methodDelete1":{
+				"description":"Видалити результати вправи № 1",
+				"buttonYes":"Так",
+				"buttonNo":"Ні"
+			},
+			"methodDelete2":{
+				"description":"Видалити результати вправи № 2",
+				"buttonYes":"Так",
+				"buttonNo":"Ні"
+			},
+			"methodDelete3":{
+				"description":"Видалити результати вправи № 3",
+				"buttonYes":"Так",
+				"buttonNo":"Ні"
 			}
 		},
 		"singleBlockFailedResults":{

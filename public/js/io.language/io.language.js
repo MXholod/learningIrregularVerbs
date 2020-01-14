@@ -87,7 +87,7 @@
 			return completedObject;
 		}
 		//3. This is an array of IDs we try to find on client side
-		var arrayIDs = new Array("basePanelText","basePanel","auth","authRestore","profileMenu","profileLeftColumn","profileUserData","profileUserVerbList","profileSmokeBlock","bothListHeaders","fullListTableHeader","portionListTableHeader","verbsList","verbsListPortion","exerciseItems","infoPanelPage","infoPanelTimer","resultTable","resultTableButton","pageInfo1","listC1","pageInfo2","listC2","pageInfo3","listC3","displayIfZeroFailed","toProfileExercises","toListVerbs");
+		var arrayIDs = new Array("basePanelText","basePanel","auth","authRestore","profileMenu","profileLeftColumn","profileUserData","profileUserVerbList","profileSmokeBlock","bothListHeaders","fullListTableHeader","portionListTableHeader","verbsList","verbsListPortion","exerciseItems","infoPanelPage","infoPanelTimer","resultTable","resultTableButton","pageInfo1","listC1","pageInfo2","listC2","pageInfo3","listC3","displayIfZeroFailed","toProfileExercises","toListVerbs","methodDelete1","methodDelete2","methodDelete3");
 		var parentIDs;
 		//5. Insert data from language file to HTML elements 
 		function insertDataToHTML(objectHtmlElements,objectStringsData){

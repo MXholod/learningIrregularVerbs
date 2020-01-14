@@ -33,10 +33,10 @@ section(class="wrapper__profile__content_method-one wrapper__profile__move-back-
 		-for(let i = 0;i<5;i++)
 			+list_item("00:00",0,0,0,"00:00","0%",i)
 	div(class="link__delete-method" data-language="methodDelete1" id="methodDelete1")
-		button(class="link__delete-method__button" data-language="methodDelete1") Удалить результаты упражнения №1
+		button(class="link__delete-method__button" data-language="methodDelete1") #{lang.deleteMethodsData.methodDelete1.description}
 		div(class="link__delete-method__links")
-			a(href="/profile/method1-delete" data-language="methodDelete1" id="methodDelete1-Yes") Да	
-			a(href="/profile/method1-delete" data-language="methodDelete1" id="methodDelete1-No") Нет	
+			a(href="/profile/method1-delete" data-language="methodDelete1" id="methodDelete1-Yes")  #{lang.deleteMethodsData.methodDelete1.buttonYes}
+			a(href="/profile/method1-delete" data-language="methodDelete1" id="methodDelete1-No") #{lang.deleteMethodsData.methodDelete1.buttonNo}	
 	div(class="list-pagination" id="listP-1")
 		div(class="list-pagination__go list-pagination__go-left")
 			button(id="arrowLeft-1")
