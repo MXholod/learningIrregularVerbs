@@ -179,6 +179,7 @@ routes.delete("/delete-user-result",(request,response)=>{
 	let hash = request.body.hash;
 	let db_method = "method"+request.body.method;//"method1"
 	let m_method_db = "m"+request.body.method+"_failed";//m1_failed
+	if(Number(request.body.method) !== 4){//If method numbers are like: 1,2,3
 		//First DB to select
 		dbs.databases[db_method].find({"hash":hash }, function (err, docs){
 			if(docs.length > 0){
@@ -201,5 +202,14 @@ routes.delete("/delete-user-result",(request,response)=>{
 				});
 			}
 		});
+	}else{
+		//If method number is like: 4. Delete all User's data: Method results and Profile data.
+		let methodDeleted2 = JSON.stringify({
+			status:true,
+			methodNumber:Number(request.body.method)
+			});
+		response.setHeader('Content-type', 'application/json; charset=utf-8');
+		response.send(methodDeleted2);
+	}
 });
 module.exports = routes;

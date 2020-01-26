@@ -30,3 +30,8 @@ section(class="wrapper__profile__content_settings wrapper__profile__move-default
 		div(class="wrapper__profile__content_settings__listVerbs__verbButtons alert alert-secondary")
 			h1(data-language="profileUserVerbList") #{lang.profile.profileUserVerbList.verbListText}
 			a(href="/listVerbs" class="btn btn-primary" data-language="profileUserVerbList") #{lang.profile.profileUserVerbList.goToListText}
+	div(class="link__delete-method" data-language="methodDelete4" id="methodDelete4")
+		button(class="link__delete-method__button" data-language="methodDelete4") Удалить все данные пользователя
+		div(class="link__delete-method__links")
+			a(href="/profile/method4-delete" data-language="methodDelete4" id="methodDelete4-Yes") Да
+			a(href="/profile/method4-delete" data-language="methodDelete4" id="methodDelete4-No") Нет

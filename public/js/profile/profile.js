@@ -636,10 +636,15 @@
 	const blockClick = {switchState : true};
 	//
 	window.addEventListener("load",function(){
-	//
+		//Display button 'Delete the whole methods data' and user profile
+		let allUserDataDelete = document.getElementById(`methodDelete${4}`);
+		allUserDataDelete.style.visibility = "visible";
+		//Start each method for data deleting
 		clickDeleteData("methodDelete1",slidePanelUpDown);
 		clickDeleteData("methodDelete2",slidePanelUpDown);
 		clickDeleteData("methodDelete3",slidePanelUpDown);
+		//Delete the whole user's data
+		clickDeleteData("methodDelete4",slidePanelUpDown);
 	});
 	//
 	function clickDeleteData(elId,funcToDo){
@@ -687,20 +692,28 @@
 				//Request to the server
 					deleteDataResults(methodN,hash).then((serverData)=>{
 						if(serverData.status){
-							//Clear all fields in the interface
-							clearFields(methodN);
-							//Buttons panel goes down
-							goDown.call(this.parentNode,"0px");//(Go up)
-							//Hide button 'Delete results'
-							document.getElementById("methodDelete"+methodN).style.visibility = "hidden";
-							//Delete pagination items, find the pagination block (UL element) according to the method to remove LI.
-							let ulMethod = document.querySelector(".pagination-"+methodN);
-							if(ulMethod.children.length > 0){//LI (exists/exist) 
-								for(let i = 0;ulMethod.children.length > i;i++){
-									ulMethod.removeChild(ulMethod.children[i]);
+							if(serverData.methodNumber != 4){//Delete data of the Methods 1,2,3
+								//Clear all fields in the interface
+								clearFields(methodN);
+								//Buttons panel goes down
+								goDown.call(this.parentNode,"0px");//(Go up)
+								//Hide button 'Delete results'
+								document.getElementById("methodDelete"+methodN).style.visibility = "hidden";
+								//Delete pagination items, find the pagination block (UL element) according to the method to remove LI.
+								let ulMethod = document.querySelector(".pagination-"+methodN);
+								if(ulMethod.children.length > 0){//LI (exists/exist) 
+									for(let i = 0;ulMethod.children.length > i;i++){
+										ulMethod.removeChild(ulMethod.children[i]);
+									}
 								}
+								//console.log("GOOD ",serverData," ",res);
+							}else{//Method 4 - Delete all User's data
+								//console.log(serverData.methodNumber);
+								//Buttons panel goes down
+								goDown.call(this.parentNode,"0px");//(Go up)
+								//Go back to the 'Start page', User data have been successfully deleted
+								window.location.href = "/";
 							}
-							//console.log("GOOD ",serverData);
 						}else{//The number of deleted rows is NOT the same in both databases
 							//console.log("BAD ",serverData);
 						}
