@@ -325,6 +325,11 @@ module.exports = {
 				"description":"Удалить результаты упражнения № 3",
 				"buttonYes":"Да",
 				"buttonNo":"Нет"
+			},
+			"methodDelete4":{
+				"description":"Удалить все данные пользователя",
+				"buttonYes":"Да",
+				"buttonNo":"Нет"
 			}
 		},
 		"singleBlockFailedResults":{
@@ -666,6 +671,11 @@ module.exports = {
 			},
 			"methodDelete3":{
 				"description":"Видалити результати вправи № 3",
+				"buttonYes":"Так",
+				"buttonNo":"Ні"
+			},
+			"methodDelete4":{
+				"description":"Видалити всі дані користувача",
 				"buttonYes":"Так",
 				"buttonNo":"Ні"
 			}
