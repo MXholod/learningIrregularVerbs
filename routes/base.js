@@ -93,6 +93,8 @@ routes.post("/authorize",(request,response)=>{
 					dateBegin:now,
 					dateLastVisit:now
 				},function(err,newDocs){
+					//Save first time user's visit to a Session as 'empty'
+					request.session.dateBeforeNow = "";
 					var lastVisit = date.retrieveTimeFromDb(now,'empty');
 					response.render("profile",{//Send to user profile
 						userLoginSession : request.session.login,
