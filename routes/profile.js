@@ -96,7 +96,12 @@ routes.get("/profile",(request,response)=>{
 		//User found according to the Session
 		if(docs.length > 0){
 			//Get saved previous date from Session to show User last visit
-			var lastVisit = date.retrieveTimeFromDb(request.session.dateBeforeNow,'default');
+			var lastVisit;
+			if(request.session.dateBeforeNow == ""){//If 'dateBeforeNow' is 'empty' first time user coming
+				lastVisit = date.retrieveTimeFromDb('','empty');
+			}else{
+				lastVisit = date.retrieveTimeFromDb(request.session.dateBeforeNow,'default');
+			}
 			response.render("profile",{//Send to user profile
 				userLoginSession : request.session.login,
 				userHashSession : sessionHash,
@@ -118,17 +123,7 @@ routes.get("/exercises",(request,response)=>{
 		userLoginSession : request.session.login
 	});
 });
-//Get the list of Irregular Verbs by AJAX
-/*routes.post("/getListVerbs",(request,response)=>{
-	//Array of list Verbs
-	var verbsList = response.locals.lang.verbsList;
-	//Set header
-	response.setHeader('Content-type', 'application/json; charset=utf-8');
-	//Send this object information back to User, 1 (is good)
-	var data = JSON.stringify({"verbs":verbsList});
-	response.send(data);
-});*/
-//AJAX processing
+//Getting the User's results by AJAX processing
 routes.post("/user_results",(request,response)=>{
 	//Send code error 0 to user
 	/*var obj = {
@@ -149,13 +144,12 @@ routes.post("/user_results",(request,response)=>{
 		response.send(data);
 	});
 });
-//Get User's failed result
+//Get User's failed results by AJAX processing
 routes.post("/user-failed-results",(request,response)=>{
 	let db = "m"+request.body.method+"_failed";//m1_failed
 	//"uid":"EOXhq4OocCN4afEF","login":"Maximus","failedAsString":"87,33,64,16","dateTime":1572020667139,"
 	dbs.databases[db].find({"uid":request.body.id,"dateTime": Number(request.body.dt) }, function (err, docs){
 		//let data = {"login": docs[0].login, "ids": docs[0].failedAsString,"date":request.body.dt};
-		//dbs.databases.verbs.find( {"_id": docs[0].failedAsString},function(err, docs){
 			//Prepare the data
 			let arrOfStringNumbers = docs[0].failedAsString.split(",");//"22,1,45,3" -> ["22","1","45","3"]
 			let arrOfNumbers = arrOfStringNumbers.map((item,ind,arr)=>{//[22,1,45,3]
@@ -174,11 +168,12 @@ routes.post("/user-failed-results",(request,response)=>{
 			});
 	});
 });
-//Deleting user's data results
+//Deleting User's data results by AJAX processing
 routes.delete("/delete-user-result",(request,response)=>{
 	let hash = request.body.hash;
 	let db_method = "method"+request.body.method;//"method1"
 	let m_method_db = "m"+request.body.method+"_failed";//m1_failed
+	const responseToClient = {status:false};
 	if(Number(request.body.method) !== 4){//If method numbers are like: 1,2,3
 		//First DB to select
 		dbs.databases[db_method].find({"hash":hash }, function (err, docs){
@@ -187,29 +182,66 @@ routes.delete("/delete-user-result",(request,response)=>{
 				dbs.databases[m_method_db].remove({ "uid":docs[0].uid }, { multi: true }, function (err, numRemoved) {
 					//Second DB delete
 					dbs.databases[db_method].remove({ "uid":docs[0].uid }, { multi: true }, function (err, numRemoved2) {
+						//numRemoved == numRemoved2 are always equal, even there's no mistake in 'mX_failed' DB because it will obtain an empty string value in 'failedAsString' property anyway.
+						//Set success status
+						responseToClient.status = true;
 						//Send object with success status to the client
-						const responseToClient = {status:false};
-						if(numRemoved == numRemoved2){//The number of deleted rows is the same in both databases
-							responseToClient.status = true;
-						}else{
-							responseToClient.status = false;
-						}
 						let methodDeleted = JSON.stringify(responseToClient);
 						response.setHeader('Content-type', 'application/json; charset=utf-8');
 						response.send(methodDeleted);
-						
 					});
 				});
 			}
 		});
-	}else{
-		//If method number is like: 4. Delete all User's data: Method results and Profile data.
-		let methodDeleted2 = JSON.stringify({
-			status:true,
-			methodNumber:Number(request.body.method)
-			});
-		response.setHeader('Content-type', 'application/json; charset=utf-8');
-		response.send(methodDeleted2);
+	}else{//If method number is like: 4. Delete all User's data: Method results and Profile data.
+		let db_method_all = "method"+request.body.deleteAllNumber;//"method1"
+		let m_method_db_all = "m"+request.body.deleteAllNumber+"_failed";//m1_failed
+			//Delete methods data 1,2,3
+			if(Number(request.body.deleteAllNumber) !== 4){
+				dbs.databases[db_method_all].find({"hash":hash }, function (err, docs){
+					if(docs.length > 0){
+						//First DB to delete
+						dbs.databases[m_method_db_all].remove({ "uid":docs[0].uid }, { multi: true }, function (err, numRemoved) {
+							//Second DB delete
+							dbs.databases[db_method_all].remove({ "uid":docs[0].uid }, { multi: true }, function (err, numRemoved2) {
+								//Send object with success status to the client
+								responseToClient.status = true;
+								responseToClient.requestNumber = Number(request.body.deleteAllNumber);
+								responseToClient.message = "Deleted Method "+Number(request.body.deleteAllNumber);
+								//Object to JSON
+								let methodsDeleted = JSON.stringify(responseToClient);
+								response.setHeader('Content-type', 'application/json; charset=utf-8');
+								response.send(methodsDeleted);
+							});
+						});
+					}else{
+						//Send object with success status to the client
+								responseToClient.status = true;
+								responseToClient.requestNumber = Number(request.body.deleteAllNumber);
+								responseToClient.message = "There is no Method's data "+Number(request.body.deleteAllNumber);
+								//Object to JSON
+								let methodsDeleted = JSON.stringify(responseToClient);
+								response.setHeader('Content-type', 'application/json; charset=utf-8');
+								response.send(methodsDeleted);
+					}
+				});
+			}else{//Delete User's data
+				dbs.databases['users'].find({"hash":hash }, function (err, docs){
+					if(docs.length > 0){
+						//First DB to delete
+						dbs.databases['users'].remove({ "hash":hash }, function (err, numRemoved) {
+							//Send object with success status to the client
+							responseToClient.status = true;
+							responseToClient.requestNumber = Number(request.body.deleteAllNumber);
+							responseToClient.message = "User's data and all the Methods were deleted";
+							//Object to JSON
+							let methodsDeleted = JSON.stringify(responseToClient);
+							response.setHeader('Content-type', 'application/json; charset=utf-8');
+							response.send(methodsDeleted);	
+						});
+					}
+				});
+			}
 	}
 });
 module.exports = routes;

@@ -672,6 +672,10 @@
 		//The first link is sending data
 		parent.children[1].children[0].addEventListener("click",function(event){
 			event.preventDefault();
+			this.style.pointerEvents = "none";//Disabled link
+			this.style.cursor = "default";//Disabled cursor
+			this.nextSibling.style.pointerEvents = "none";//Disabled link
+			this.nextSibling.style.cursor = "default";//Disabled cursor
 			//Context of element an 'A'
 			sendOrNotData.call(this,true,methodNumber);
 		},false);
@@ -684,15 +688,17 @@
 	}
 	//Click on button "Yes" or "No" to delete data
 	function sendOrNotData(canItSend,methodN){
+		let elemA = this;
 		//Delete user's results
 		if(canItSend){
 			if(blockClick.switchState){//If switcher isn't occupied
 				//Get current User's hash
 				let hash = document.getElementById("hiddenHash").firstChild.nodeValue;
-				//Request to the server
+				//Request to the server to delete specified Method
+				if(Number(methodN) !== 4){//Methods: 1,2,3
 					deleteDataResults(methodN,hash).then((serverData)=>{
-						if(serverData.status){
-							if(serverData.methodNumber != 4){//Delete data of the Methods 1,2,3
+						//serverData.requestNumber is !undefined
+						if(serverData.status && !serverData.requestNumber){
 								//Clear all fields in the interface
 								clearFields(methodN);
 								//Buttons panel goes down
@@ -706,22 +712,79 @@
 										ulMethod.removeChild(ulMethod.children[i]);
 									}
 								}
+								window.setTimeout(function(){
+									elemA.style.pointerEvents = "auto";//Enabled link
+									elemA.style.cursor = "pointer";//Enabled cursor
+								},1500);
 								//console.log("GOOD ",serverData," ",res);
-							}else{//Method 4 - Delete all User's data
-								//console.log(serverData.methodNumber);
-								//Buttons panel goes down
-								goDown.call(this.parentNode,"0px");//(Go up)
-								//Go back to the 'Start page', User data have been successfully deleted
-								window.location.href = "/";
-							}
 						}else{//The number of deleted rows is NOT the same in both databases
-							//console.log("BAD ",serverData);
+							console.log("Something went wrong ",serverData.status);
 						}
 					}).catch(function(err){
 						console.log(err);
-					});		
+					});
+				}else{//Method 4: Delete all the User's data. Methods 1,2,3 and profile data.
+					deleteDataResults('4',hash,1).then((serverData)=>{
+						//console.log(serverData.message);
+						if(serverData.status && serverData.requestNumber == 1){
+							deleteDataResults('4',hash,2).then((serverData)=>{
+								//console.log(serverData.message);
+								if(serverData.status && serverData.requestNumber == 2){
+										
+									deleteDataResults('4',hash,3).then((serverData)=>{
+									//console.log(serverData.message);
+									if(serverData.status && serverData.requestNumber == 3){
+											//User deleting
+											deleteDataResults('4',hash,4).then((serverData)=>{
+											//console.log(serverData.message);
+											if(serverData.status && serverData.requestNumber == 4){
+													//Hide buttons	
+													goDown.call(this.parentNode,"0px");//(Go up)
+													//Hide button 'Delete results'
+													window.setTimeout(function(){
+														elemA.style.pointerEvents = "auto";//Enabled link
+														elemA.style.cursor = "pointer";//Enabled cursor
+														elemA.nextSibling.style.pointerEvents = "auto";//Enabled link
+														elemA.nextSibling.style.cursor = "pointer";//Enabled cursor
+														//Go back to the 'Start page', User data have been successfully deleted
+														window.location.href = "/";
+													},1500);
+													
+											}else{//The number of deleted rows is NOT the same in both databases
+												//Here we will end Requests and redirect to main page
+												console.log("All data were deleted and User redirected to main the page");
+											}
+											}).catch(function(err){
+												console.log(err);
+											});
+											
+									}else{//The number of deleted rows is NOT the same in both databases
+										//Here we will end Requests and redirect to main page
+										console.log("All data were deleted and User redirected to main the page");
+									}
+									}).catch(function(err){
+										console.log(err);
+									});
+
+										
+								}else{//The number of deleted rows is NOT the same in both databases
+									//Here we will end Requests and redirect to main page
+									console.log("All data were deleted and User redirected to main the page");
+								}
+							}).catch(function(err){
+								console.log(err);
+							});
+								
+						}else{//The number of deleted rows is NOT the same in both databases
+							//Here we will end Requests and redirect to main page
+							console.log("All data were deleted and User redirected to main the page");
+						}
+					}).catch(function(err){
+						console.log(err);
+					});
+				}	
 			}
-		}else{
+		}else{//Decline Request to the server
 			if(blockClick.switchState){//If switcher isn't occupied
 				//Decline request
 				goDown.call(this.parentNode,"0px");//(Go up)
@@ -791,7 +854,7 @@
 		},time);
 	}
 	//Send data to delete them on the server
-	function deleteDataResults(methodNumber,hash){
+	function deleteDataResults(methodNumber,hash,deleteAllNumber=0){
 		return new Promise(function(resolve,reject){
 			//Get XMLHttpRequest
 			let xhr = getXmlHttp();
@@ -811,7 +874,8 @@
 			//Object to JSON	
 			var methodDeleting = JSON.stringify({
 					method:methodNumber,
-					hash:hash
+					hash:hash,
+					deleteAllNumber
 				});
 			//Send object of data
 			xhr.send(methodDeleting);
@@ -821,23 +885,25 @@
 	function clearFields(methodNum){
 		//Find the parent element (Panel)
 		let parentContainer = document.querySelector(`#listC${methodNum}`);
-		//Get all of his five children DIVs
-		let fiveDivRows = parentContainer.children;
-		//Set data in the loop
-		for(let i = 0;i < fiveDivRows.length;i++){
-			//Hide elements after data have been deleted.
-			fiveDivRows[i].style.visibility = "hidden";
-			//First line in row
-			fiveDivRows[i].firstChild.children[0].children[1].textContent = ""; 
-			fiveDivRows[i].firstChild.children[1].children[1].textContent = ""; 
-			fiveDivRows[i].firstChild.children[2].children[1].textContent = ""; 
-			fiveDivRows[i].firstChild.children[3].children[1].textContent = ""; 
-			//Second line in row
-			fiveDivRows[i].lastChild.children[0].textContent = "";//Cell is empty 
-			fiveDivRows[i].lastChild.children[1].children[1].textContent = ""; 
-			fiveDivRows[i].lastChild.children[2].children[1].textContent = ""; 
-				let attrVal = '/profile/method'+methodNum+'-mistaken-results';
-			fiveDivRows[i].lastChild.children[3].firstChild.setAttribute("href",attrVal);
+		if(parentContainer){
+			//Get all of his five children DIVs
+			let fiveDivRows = parentContainer.children;
+			//Set data in the loop
+			for(let i = 0;i < fiveDivRows.length;i++){
+				//Hide elements after data have been deleted.
+				fiveDivRows[i].style.visibility = "hidden";
+				//First line in row
+				fiveDivRows[i].firstChild.children[0].children[1].textContent = ""; 
+				fiveDivRows[i].firstChild.children[1].children[1].textContent = ""; 
+				fiveDivRows[i].firstChild.children[2].children[1].textContent = ""; 
+				fiveDivRows[i].firstChild.children[3].children[1].textContent = ""; 
+				//Second line in row
+				fiveDivRows[i].lastChild.children[0].textContent = "";//Cell is empty 
+				fiveDivRows[i].lastChild.children[1].children[1].textContent = ""; 
+				fiveDivRows[i].lastChild.children[2].children[1].textContent = ""; 
+					let attrVal = '/profile/method'+methodNum+'-mistaken-results';
+				fiveDivRows[i].lastChild.children[3].firstChild.setAttribute("href",attrVal);
+			}
 		}
 	}
 })();
