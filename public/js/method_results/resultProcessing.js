@@ -79,33 +79,43 @@
 		passedPages.textContent = pagesAmount;
 	}
 	//Compute rest of time
-	function timeFormat(exerciseTime,limitExerciseTime){
-		let time = "";
-		let secondsSpent = limitExerciseTime - exerciseTime;//200 - 170 = 30
-		if(exerciseTime == 0){
-			time = "0:00";
-			preparedData.time = time;
-			//console.log(time);
-			return;
+	function timeFormat(spentTime, totalTime){
+		let hours,minutes,seconds = 0;
+		//Amount of seconds in an hour
+		const secondsInHour = 60 * 60;//seconds * minutes = 3600
+		//Check incoming arguments
+		const correctArguments = ((typeof spentTime == 'number') && (typeof totalTime == 'number')) ? true : false;
+		//Arguments are correct and 'spentTime' is zero
+		if((correctArguments && (spentTime === 0)) && (totalTime < secondsInHour)){
+			preparedData.time = "00:00";
+			return true;
+		}else if((correctArguments && (spentTime === 0)) && (totalTime >= secondsInHour)){
+			preparedData.time = "00:00:00";
+			return true;
 		}
-		else if(secondsSpent < 60){
-			secondsSpent = secondsSpent <= 9 ? "0"+secondsSpent : secondsSpent;//"0:59"
-			preparedData.time = "0:"+secondsSpent;
-		}else if(secondsSpent >= 60){
-			var isFloat = secondsSpent%60 !== 0 ? true : false;  
-			if(isFloat){//Float
-				var min = Math.trunc(secondsSpent/60);
-				var sec = secondsSpent%60;
-				sec = sec <= 9 ? "0"+sec : sec;
-				preparedData.time = min+":"+sec;
-			}else{//Integer
-				var integerData = secondsSpent/60;
-				preparedData.time = integerData+":00";
+		//Difference between arguments should not be negative. Make a subtraction
+		const restOfSeconds = (correctArguments && (spentTime < totalTime))  ? spentTime : 0;
+		if(restOfSeconds > 0){
+			//Checking for hour format
+			if(totalTime >= secondsInHour){
+					hours = Math.floor(restOfSeconds / 60 / 60);//restOfSeconds / minutes / seconds
+						let formatedHours = (hours < 10) ? "0"+hours : hours;
+					minutes = Math.floor(restOfSeconds / 60) - (hours * 60);//(restOfSeconds / seconds) - (1 * 60)
+						let formatedMinutes = (minutes < 10) ? "0"+minutes : minutes;
+					seconds = (restOfSeconds % 60) < 10 ? "0"+(restOfSeconds % 60) : (restOfSeconds % 60);
+					preparedData.time = `${formatedHours}:${formatedMinutes}:${seconds}`;
+			}else{//Minutes and seconds
+					hours = Math.floor(restOfSeconds / 60 / 60);//restOfSeconds / minutes / seconds
+					minutes = Math.floor(restOfSeconds / 60) - (hours * 60);//(restOfSeconds / seconds) - (1 * 60)
+						let formatedMinutes = (minutes < 10) ? "0"+minutes : minutes;
+					seconds = (restOfSeconds % 60) < 10 ? "0"+(restOfSeconds % 60) : (restOfSeconds % 60);
+					preparedData.time = `${formatedMinutes}:${seconds}`;
 			}
+		}else{
+			preparedData.time = "--:--";
 		}
 		let timeBlock = document.querySelector(".scoreboard__time");
 		timeBlock.textContent = preparedData.time;
-		//console.log(time);
 	}
 	//Prepare data from Arrays
 	function combineData(...arr){
