@@ -244,4 +244,11 @@ routes.delete("/delete-user-result",(request,response)=>{
 			}
 	}
 });
+//Go to the developers page
+routes.get("/information",function(request,response){
+	response.render("authors-developers",{
+		title:"Authors & Developers",
+		userLoginSession : request.session.login
+	});//
+});
 module.exports = routes;

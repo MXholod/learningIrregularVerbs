@@ -1193,6 +1193,11 @@ html,body {
 			}
 		}
 	}
+	.wrapper__authors{
+		height:($base-height + 6px);
+		padding:40px 0px 0px 0px;
+		background-color:lightgreen;
+	}
 	.wrapper__list-verbs{
 		#toListVerbs{
 			position:absolute;
