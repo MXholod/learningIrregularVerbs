@@ -49,41 +49,51 @@ routes.get("/method1",(request,response)=>{
 				redirect(301,'/exercises');
 			}
 		});
-	}else{//Each other time
-		//If Session exists
-		if(request.session.numbers){
-			//Array with [['Normal with spoiled'],[only normal],[only spoiled]] 
-			//Unique numbers from Session 40,30,20,10
-			let sessionObjectIDs = JSON.parse(request.session.numbers);
-			//The first parameter is an Object with all IDs and the second is GET parameter.
-				//Return Array with [['Normal with spoiled'],[only normal],[only spoiled]]
-				let threeArrays = method_1.getPortionIDs(sessionObjectIDs,request.query.currentPageAmount);	
-				//Serialize data, last 40 rows and spoiled
-				let serializedArray = JSON.stringify(sessionObjectIDs);
-				//Save to Session 30 rows
-				request.session.numbers = serializedArray;
-				//Request to DB
-			dbs.databases.verbs.find({_id:{$in:threeArrays[0]}},function(err, docs){
-				if(docs.length > 0){
-			//Create an Array of data objects [{translatedWord:'ru|ua word',engArray:['e1','e2','e3'],id:1},{},..]
-					let templateData = helpers.exercises.arrayOfTasks(docs,language,true);
-					//Set specific property 'spoiled' for each object.
-					let templateDataSpoiled = method_1.preparedVerbs(templateData,threeArrays);
-					//Elements of Data Array are equal to random numbers Array. Objects in random order. 
-					let mixedWords = helpers.exercises.changePositions(threeArrays[1],templateDataSpoiled);
-					response.render("method-1-walk-through",{
-						userLoginSession : request.session.login,
-						title:"Method 1",
-						randomRows: mixedWords,//
-						//Query string argument for next page
-						currentNum: (Number(request.query.currentPageAmount)+1)
-					});
-				}else{
-					request.session.numbers = "";
-					redirect(301,'/exercises');
-				}
-			});	
-		}
+	}
+});
+routes.post("/method1",(request,response)=>{
+	const dataMethod = {numbers:[],pageNumber:0,randomRows:[]};
+	//Get current language rus|ukr
+	let language = response.locals.lang.identifier;
+	//If Session exists
+	if(request.session.numbers && (Number(request.body.page) !== 5)){
+		//Array with [['Normal with spoiled'],[only normal],[only spoiled]] 
+		//Unique numbers from Session 40,30,20,10
+		let sessionObjectIDs = JSON.parse(request.session.numbers);
+		//The first parameter is an Object with all IDs and the second is GET parameter.
+			//Return Array with [['Normal with spoiled'],[only normal],[only spoiled]]
+			let threeArrays = method_1.getPortionIDs(sessionObjectIDs,(Number(request.body.page) + 1));	
+			//Serialize data, last 40 rows and spoiled
+			let serializedArray = JSON.stringify(sessionObjectIDs);
+			//Save to Session 30 rows
+			request.session.numbers = serializedArray;
+			//Request to DB
+		dbs.databases.verbs.find({_id:{$in:threeArrays[0]}},function(err, docs){
+			if(docs.length > 0){
+		//Create an Array of data objects [{translatedWord:'ru|ua word',engArray:['e1','e2','e3'],id:1},{},..]
+				let templateData = helpers.exercises.arrayOfTasks(docs,language,true);
+				//Set specific property 'spoiled' for each object.
+				let templateDataSpoiled = method_1.preparedVerbs(templateData,threeArrays);
+				//Elements of Data Array are equal to random numbers Array. Objects in random order. 
+				let mixedWords = helpers.exercises.changePositions(threeArrays[1],templateDataSpoiled);
+				//
+				dataMethod.pageNumber = (Number(request.body.page) + 1);
+				dataMethod.randomRows =  mixedWords;
+				//Send headers
+				response.setHeader('Content-type', 'application/json; charset=utf-8');
+				response.send(JSON.stringify(dataMethod));
+			}else{
+				request.session.numbers = "";
+				redirect(301,'/exercises');
+			}
+		});	
+	}else{
+		//
+		dataMethod.pageNumber = 6;
+		dataMethod.randomRows = 0;//mixedWords;
+		//Send headers
+		response.setHeader('Content-type', 'application/json; charset=utf-8');
+		response.send(JSON.stringify(dataMethod));
 	}
 });
 routes.get("/method2",(request,response)=>{
