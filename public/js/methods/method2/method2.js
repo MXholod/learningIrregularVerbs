@@ -1,8 +1,106 @@
 console.log("Method-2");
+//Function creates cross-browser object XMLHttpRequest 
+function getXmlHttp(){
+	var xmlhttp;
+	try{
+		xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");//newer versions of IE5+
+	}catch(e){
+		try{
+			//Old versions of Internet Explorer (IE5 and IE6) use an ActiveX object 
+			//instead of the XMLHttpRequest object
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");//older versions of IE5+, 
+		}catch(E){
+			try{
+				//проверяем, поддерживает ли событие onload, это старый XMLHttpRequest,
+				//значит это IE8,9, и используем XDomainRequest
+				if("onload" in new XMLHttpRequest()){
+					xmlhttp = new XDomainRequest;
+				}else{
+					throw new Error("Not IE");
+				}
+			}catch(Ex){
+				xmlhttp = false;
+			}
+		}
+	}
+	if(!xmlhttp && typeof(XMLHttpRequest) != 'undefined'){
+		xmlhttp = new XMLHttpRequest();//IE7, Firefox, Safari etc
+	}
+	return xmlhttp;
+}
+//url - "/method2" getDataByAjax("/method1",2)
+function getDataByAjax(url,page){
+	return new Promise(function(resolve,reject){
+		//Get XMLHttpRequest
+		let xhr = getXmlHttp();
+		xhr.onload = function(){
+			try{
+				//Attempt to get the data from the server
+				resolve(JSON.parse(xhr.responseText));
+			}catch(e){
+				reject(e);
+			}
+		};
+		xhr.addEventListener("error", function() {
+			reject(new Error("Network error"));
+		});
+		xhr.open('POST',url,true);
+		xhr.setRequestHeader('Content-Type','application/json; charset=utf-8');
+		//Object to JSON	
+		var methodDeleting = JSON.stringify({
+				page:page
+			});
+		//Send object of data
+		xhr.send(methodDeleting);
+	});
+}
 (function(){
+	let ajaxPageCounter = 1;//Number of start page
 	let pages = {};//{'firstPage':[],'secondPage':[],'thirdPage':[],'forthPage':[],'fifthPage':[],'gCounter':250}
+	let page = [];//[{'id':2,'result':0},{'id':88,'result':1},{'id':30,'result':1},...]
 	let arrowMove;
 	let globalCounter = 0;//Specify time from page to page
+	function onDragEnter(e){
+		//console.log("onDragEnter ",e.type);
+	}
+	function onDragLeave(e){
+		//Clear box shadow
+		this.style.boxShadow = "none";
+	}
+	function onDragOver(e){
+		if(e.preventDefault){
+			e.preventDefault();
+			this.style.boxShadow = "0px 0px 0px 3px #fff inset";
+		}
+		e.dataTransfer.dropEffect = "move";
+	}
+	function onDrop(e){
+		e.stopPropagation();
+		e.preventDefault();
+		//Get id
+		var id = e.dataTransfer.getData("text");
+		var elem = document.getElementById(id);
+		//Check does element contains child element before placing.
+		var childExists = checkIsChild(this,"drag");
+		//If doesn't equal to null, element wasn't found in droppable zone.
+		if(!childExists){ 
+			this.appendChild(elem);
+		}else{//Replace one element with another, if place is occupied.
+			//Find parent element for draggable children elements.
+			var childrenPlace = document.querySelector(".wrapper__method2__single-words");
+			//Firstly we return back a child element to the children place.
+			childrenPlace.appendChild(childExists);
+			//Place new child element to the drop zone.
+			this.appendChild(elem);
+		}
+		//Clear box shadow
+		this.style.boxShadow = "none";
+		//Compare values drag and drop zones.
+		compareValues(elem,this);
+		//Counting draggable elements
+		watchingForLastDraggable();
+		return false;
+	}
 	window.addEventListener("load",function(){
 		//Find arrow move-on to the next page
 		arrowMove = document.querySelector(".wrapper__method2__move-on");
@@ -10,20 +108,18 @@ console.log("Method-2");
 	},false);
 	//Function 'start' subscribes elements on draggable and droppable events.
 	function strat(){
+		//Initial AJAX
+		transferDataByAjax();
 		//Start counter
 		let timeCounter = document.getElementById("timeCounter");
 		if(sessionStorage.getItem("method2")){
 			//Get serialized object
 			pages = JSON.parse(sessionStorage.getItem("method2"));
 		}
-		let gCounter = Number(pages.gCounter);
-		if(!pages.gCounter){//First page
-			window.setTimeout(function(){
-				startTimer(timeCounter,20,true);//253
-			},2000);
-		}else{//Other pages
-			startTimer(timeCounter,gCounter,true);	
-		}
+		//Start the method
+		window.setTimeout(function(){
+			startTimer(timeCounter,253,true);//253
+		},2000);
 		//Disable language panel during the test
 		disabledLanguagePanel();
 		//Find parent element
@@ -33,8 +129,9 @@ console.log("Method-2");
 		//Subscribe for drag events
 		for(var i = 0;i < arrDragable.length;i++){
 			arrDragable[i].addEventListener("dragstart",function(e){
-				//console.log(this.id);
+				//Let an element to be a draggable - 'move'
 				e.dataTransfer.effectAllowed = "move";
+				//this.id - is an attribut 'id' of a draggable elemen 
 				e.dataTransfer.setData("text",this.id);
 			},false);
 			arrDragable[i].addEventListener("drag",function(e){
@@ -48,50 +145,48 @@ console.log("Method-2");
 		let drops = document.querySelectorAll(".task__empty-field");
 		//Subscribe for drop events
 		for(var i = 0;i < drops.length;i++){
-			drops[i].addEventListener("dragenter",function(e){
-				//console.log(e.type);
-			},false);
-			drops[i].addEventListener("dragleave",function(e){
-				//Clear box shadow
-				this.style.boxShadow = "none";
-			},false);
-			drops[i].addEventListener("dragover",function(e){
-				if(e.preventDefault){
-					e.preventDefault();
-					this.style.boxShadow = "0px 0px 0px 3px #fff inset";
-				}
-				e.dataTransfer.dropEffect = "move";
-			},false);
-			drops[i].addEventListener("drop",function(e){
-				e.stopPropagation();
-				e.preventDefault();
-				var id = e.dataTransfer.getData("text");
-				var elem = document.getElementById(id);
-				//Check does element contains child element before placing.
-				var childExists = checkIsChild(this,"drag");
-				//If doesn't equal to null, element wasn't found in droppable zone.
-				if(!childExists){ 
-					this.appendChild(elem);
-				}else{//Replace one element with another, if place is occupied.
-					//Find parent element for draggable children elements.
-					var childrenPlace = document.querySelector(".wrapper__method2__single-words");
-					//Firstly we return back a child element to the children place.
-					childrenPlace.appendChild(childExists);
-					//Place new child element to the drop zone.
-					this.appendChild(elem);
-				}
-				//Clear box shadow
-				this.style.boxShadow = "none";
-				//Compare values drag and drop zones.
-				compareValues(elem,this);
-				//Counting draggable elements
-				watchingForLastDraggable();
-				return false;
-			},false);
+			drops[i].addEventListener("dragenter",onDragEnter,false);
+			drops[i].addEventListener("dragleave",onDragLeave,false);
+			drops[i].addEventListener("dragover",onDragOver,false);
+			drops[i].addEventListener("drop",onDrop,false);
 		}
 	}
+	function transferDataByAjax(){
+		//Subscribe on event 'mousedown' to save into the SessionStorage
+		arrowMove.children[0].addEventListener("click",function(e){
+			//
+				e.preventDefault();
+				if(parseInt(ajaxPageCounter) <= 5){
+					//Save the current Method's data into the sessionStorage
+					prepareDataResult(ajaxPageCounter);
+				}
+				//Get AJAX data to genarate new page
+				getDataByAjax("/method2",ajaxPageCounter).then((serverData)=>{
+					//
+					if(parseInt(serverData.pageNumber) <= 5){
+						//Incremented variable between server and client
+						ajaxPageCounter = serverData.pageNumber;
+						//Redraw amount of pages
+						document.getElementById("pageAmount").innerHTML = serverData.pageNumber;
+						//Firstly single words are going back
+						bringSingleWordsBack(serverData.singleWords);
+						//Secondary redraw empty spaces
+						redrawEmptyHoles(serverData.dropableRows);
+						//Hide next page arrow
+						arrowMove.style.display = "none";
+						//Reset current page data
+						page = [];
+					}else{
+						//Go to the result page route and save data to DB when time is up.
+						//window.location.href = "/show-result";
+					}
+				}).catch((err)=>{
+					console.log(err);
+				});
+		},false);
+	}
 	//childAttrVal - it is a sub 'string' (a part of 'id' value).
-	//Here we checking out does drop zone contain an element with id's value.
+	//Here we are checking out does drop zone contain an element with id's value.
 	function checkIsChild(parent,childAttrVal){
 			var childElem = null;
 			var len = parent.children.length;
@@ -139,37 +234,20 @@ console.log("Method-2");
 		let arrDragable = basePlace.querySelectorAll(".single-words__word");
 		//Children are less than 1
 		if(arrDragable.length <= 0){
-			//console.log("Elements are absent");
 			//Show 'move on' button
 			arrowMove.style.display = "block";
-			//Subscribe on event 'mousedown' to save into the SessionStorage
-			arrowMove.addEventListener("mousedown",function(e){
-				//Get 'a' element
-				this.children[0].onclick = function(e){
-					//e.preventDefault();
-					//Save data to the SessionStorage, pass 'anchor' as parameter
-					prepareDataResult(this);
-				};
-			},false);
 		}else{
 			//console.log("Elements ",arrDragable.length);
 			arrowMove.style.display = "none";
 		}
 	}
 	//Function invokes when everything is done, and user click the 'Move on' button. It returns an array of objects. Save data to the SessionStorage.
-	function prepareDataResult(aElement){ 
-		let page = [];//[{'id':2,'result':0},{'id':88,'result':1},{'id':30,'result':1},...]
+	function prepareDataResult(queryNumber){ 
 		if(sessionStorage.getItem("method2")){
 			//Get serialized object
 			pages = JSON.parse(sessionStorage.getItem("method2"));
 			//console.log("Storage exists");
 		}
-		//Get number of a current page
-			let length = aElement.getAttribute("href").length;
-			//Get query string part: 2,3,4,5,6
-			let strNumber = aElement.getAttribute("href").substring(length-1,length);
-			//Cast String to Number
-			let queryNumber = Number(strNumber);
 		//Pick all the data within the page
 		let arrRows = document.querySelectorAll(".task__row1");
 		arrRows.forEach((val,ind,arr)=>{
@@ -183,37 +261,35 @@ console.log("Method-2");
 			}
 		});
 		//Check query parameter from each page
-		let serialized;
 		switch(queryNumber){
-			case 2: pages['firstPage'] = page;
+			case 1: pages['firstPage'] = page;
 					pages['gCounter'] = globalCounter;
-					pages['pageAmount'] = (queryNumber - 1);
-					serialized = JSON.stringify(pages);
-			break;
-			case 3: pages['secondPage'] = page;
+					pages['pageAmount'] = queryNumber;
+				break;
+			case 2: pages['secondPage'] = page;
 					pages.gCounter = globalCounter;
-					pages.pageAmount = (queryNumber - 1);
-					serialized = JSON.stringify(pages);
-			break;
-			case 4: pages['thirdPage'] = page;
+					pages.pageAmount = queryNumber;
+				break;
+			case 3: pages['thirdPage'] = page;
+				break;
+			case 4: pages['forthPage'] = page;
+				break;
+			case 5: pages['fifthPage'] = page;
 					pages.gCounter = globalCounter;
-					pages.pageAmount = (queryNumber - 1);
-					serialized = JSON.stringify(pages);
-			break;
-			case 5: pages['forthPage'] = page;
-					pages.gCounter = globalCounter;
-					pages.pageAmount = (queryNumber - 1);
-					serialized = JSON.stringify(pages);
-			break;
-			case 6: pages['fifthPage'] = page;
-					pages.gCounter = globalCounter;
-					pages.pageAmount = (queryNumber - 1);
-					serialized = JSON.stringify(pages);
-			break;
+					pages.pageAmount = queryNumber;
+					//Hide the next page arrow
+					arrowMove.style.display = "none";
+					//Saving to the SessionStorage
+					sessionStorage.setItem("method2",JSON.stringify(pages));
+					//Go to the result page route and save data to DB when time is up.
+					window.setTimeout(()=>{window.location.href = "/show-result";},1000);
+				return;
 		}
+		pages.gCounter = globalCounter;
+		pages.pageAmount = queryNumber;
+		let serialized = JSON.stringify(pages);
 		//Saving to the SessionStorage
 		sessionStorage.setItem("method2",serialized);
-		//console.log(pages);
 	}
 	
 	//This function is for time counting, call this function from scripts below: method1, method2, method3
@@ -245,7 +321,7 @@ console.log("Method-2");
 					counter = 0;
 					//If time is up the button(link to the next page) wasn't pressed, imitate this behaviour 	
 						//to collect marked items.
-					prepareDataResult(arrowMove.children[0]);
+					prepareDataResult(ajaxPageCounter);
 					//Go to the result page route and save data to DB when time is up.
 					window.location.href = "/show-result";
 				}
@@ -269,5 +345,90 @@ console.log("Method-2");
 		let ukr = document.getElementById("ukr");
 		rus.disabled = true;
 		ukr.disabled = true;
+	}
+	//Redraw skiped words on the page, render new data
+	function redrawEmptyHoles(pageRowData){
+		const taskRows = document.getElementsByClassName("wrapper__method2__main__task");
+		Array.prototype.forEach.call(taskRows,(el,ind,arr)=>{
+			//Translated word
+			el.children[0].children[0].textContent = pageRowData[ind].translatedWord;
+			//'id','index' and 'result'
+			el.children[1].children[0].textContent = pageRowData[ind].id;
+			el.children[1].children[1].textContent = pageRowData[ind].index;
+			el.children[1].children[2].textContent = 0;
+			//Droppable place 1 in one row
+			worksInsideRedrawEmptyHoles(el.children[2].children[0],pageRowData[ind].engArray[0]);
+			//Droppable place 2 in one row
+			worksInsideRedrawEmptyHoles(el.children[2].children[1],pageRowData[ind].engArray[1]);
+			//Droppable place 3 in one row
+			worksInsideRedrawEmptyHoles(el.children[2].children[2],pageRowData[ind].engArray[2]);
+		});
+		//This function works inside of function 'redrawEmptyHoles'
+		//Checking only one field
+		function worksInsideRedrawEmptyHoles(elNode,data){
+			//If an element doesn't have an empty class. Drop zone doesn't exist
+			if(!elNode.classList.contains('task__empty-field')){
+				//Incoming data - is an empty string 
+				if(data == ""){
+					//Add event to one current item
+					elNode.addEventListener("dragenter",onDragEnter,false);
+					elNode.addEventListener("dragleave",onDragLeave,false);
+					elNode.addEventListener("dragover",onDragOver,false);
+					elNode.addEventListener("drop",onDrop,false);
+					elNode.classList.add('task__empty-field');
+					elNode.textContent = "";
+				}else{//If incoming data - is a word
+					elNode.textContent = data;
+				}
+			}else{//If an element has an empty class
+				//Incoming data - is an empty string 
+				if(data == ""){
+					elNode.textContent = "";
+				}else{//If incoming data - is a word
+					//Remove event from one current item
+					elNode.removeEventListener("dragenter",onDragEnter,false);
+					elNode.removeEventListener("dragleave",onDragLeave,false);
+					elNode.removeEventListener("dragover",onDragOver,false);
+					elNode.removeEventListener("drop",onDrop,false);
+					elNode.classList.remove('task__empty-field');
+					//Remove 'drop' event listeners
+					elNode.textContent = data; 
+				}
+			}
+			/*if(data == ""){
+				if(!elNode.classList.contains('task__empty-field')){
+					elNode.classList.add('task__empty-field');
+					elNode.textContent = "";
+				}
+			}else{
+				if(elNode.classList.contains('task__empty-field')){
+					elNode.classList.remove('task__empty-field');
+					//Remove 'drop' event listeners
+					elNode.textContent = data; 
+				}else{
+					elNode.textContent = data; 
+				}
+			}*/
+		}
+	}
+	//Bring 'single words' back to their places
+	function bringSingleWordsBack(singleWordsArray=[]){
+		if(singleWordsArray.length > 0){
+			const parentSingleWords = document.getElementsByClassName("wrapper__method2__single-words")[0];
+			const allDraggable = document.querySelectorAll('.single-words__word');
+			allDraggable.forEach((el,ind,arr)=>{
+				//Redraw an 'id' of a current element
+				allDraggable[ind].setAttribute("id",'drag'+(ind+1));
+				let wordInfoId = singleWordsArray[ind].id;
+				let wordInfoIndex = singleWordsArray[ind].index;
+				//Set attribute - data-wordInfo=value.id+','+value.index
+				allDraggable[ind].dataset.wordinfo = wordInfoId+","+wordInfoIndex;
+				//Redraw a 'word'
+				allDraggable[ind].innerHTML = singleWordsArray[ind].word;
+				//Append to the parent
+				parentSingleWords.appendChild(allDraggable[ind]);
+			});
+			//console.log(allDraggable);
+		}
 	}
 })();

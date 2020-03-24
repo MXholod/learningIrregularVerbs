@@ -56,7 +56,7 @@ routes.post("/method1",(request,response)=>{
 	//Get current language rus|ukr
 	let language = response.locals.lang.identifier;
 	//If Session exists
-	if(request.session.numbers && (Number(request.body.page) !== 5)){
+	if(request.session.numbers && (Number(request.body.page) <= 5)){
 		//Array with [['Normal with spoiled'],[only normal],[only spoiled]] 
 		//Unique numbers from Session 40,30,20,10
 		let sessionObjectIDs = JSON.parse(request.session.numbers);
@@ -88,9 +88,9 @@ routes.post("/method1",(request,response)=>{
 			}
 		});	
 	}else{
-		//
+		//Method is finished
 		dataMethod.pageNumber = 6;
-		dataMethod.randomRows = 0;//mixedWords;
+		dataMethod.randomRows = [];//mixedWords;
 		//Send headers
 		response.setHeader('Content-type', 'application/json; charset=utf-8');
 		response.send(JSON.stringify(dataMethod));
@@ -135,38 +135,54 @@ routes.get("/method2",(request,response)=>{
 				redirect(301,'/exercises');
 			}
 		});
-	}else{//Each other time
-		let arrUniqueNums = JSON.parse(request.session.numbers);
+	}
+});
+routes.post("/method2",(request,response)=>{
+	let dataMethod = {pageNumber:0,dropableRows:[],singleWords:[]};
+	//Get current language rus|ukr
+	let language = response.locals.lang.identifier;
+	//If Session exists
+	if(request.session.numbers && (Number(request.body.page) <= 5)){
+		//Each other time
+			let arrUniqueNums = JSON.parse(request.session.numbers);
 		//Get array [[...],[...]]
-		let twoArraysIDs = method_2.getPortionIDs(arrUniqueNums);
+			let twoArraysIDs = method_2.getPortionIDs(arrUniqueNums);
 		//Serialize the rest of IDs.
-		let serializedArray = JSON.stringify(twoArraysIDs[1]);
+			let serializedArray = JSON.stringify(twoArraysIDs[1]);
 		//Save the rest of IDs to the Session.
-		request.session.numbers = serializedArray;
+			request.session.numbers = serializedArray;
+		
 		//Request to DB
 		dbs.databases.verbs.find({_id:{$in:twoArraysIDs[0]}},function(err, docs){
 			if(docs.length > 0){
-			//Create an Array of data objects [{translatedWord:'ru|ua word',engArray:['e1','e2','e3'],id:1},{},..]
+				//Create an Array of data objects [{translatedWord:'ru|ua word',engArray:['e1','e2','e3'],id:1},{},..]
 				let templateData = helpers.exercises.arrayOfTasks(docs,language,true);
 				//Set an empty field to each row. Get two arrays.[[all objects],[missing words]]
 				let twoArray = method_2.setEmptyFieldInRow(templateData);
 				//Elements of Data Array are equal to random numbers Array. Objects in random order.
 				let mixedWords = helpers.exercises.changePositions(twoArraysIDs[0],twoArray[0]);
-				//Render template with data
-				response.render("method-2-walk-through",{
-					userLoginSession : request.session.login,
-					title:"Method 2",
-					//Query string argument for next page
-					currentNum: (Number(request.query.currentPageAmount)+1),
-					dropableRows:mixedWords,
-					singleWords: twoArray[1]
-					//lastLength: twoArraysIDs[1].length
-				});
+				//userLoginSession : request.session.login,
+				//title:"Method 2",
+				//Prepare data for the response
+					dataMethod.pageNumber = (Number(request.body.page) + 1);
+					dataMethod.dropableRows = mixedWords;
+					dataMethod.singleWords = twoArray[1];
+				//Send headers
+				response.setHeader('Content-type', 'application/json; charset=utf-8');
+				response.send(JSON.stringify(dataMethod));
 			}else{
 				request.session.numbers = "";
 				redirect(301,'/exercises');
 			}
-		});
+		});	
+	}else{
+		//Method is finished
+		dataMethod.pageNumber = 6;
+		dataMethod.dropableRows = [];
+		dataMethod.singleWords = [];
+		//Send headers
+		response.setHeader('Content-type','application/json; charset=utf-8');
+		response.send(JSON.stringify(dataMethod));
 	}
 });
 routes.get("/method3",(request,response)=>{
