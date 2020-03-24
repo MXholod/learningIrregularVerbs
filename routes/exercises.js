@@ -226,7 +226,14 @@ routes.get("/method3",(request,response)=>{
 				redirect(301,'/exercises');
 			}
 		});
-	}else{//Each other time
+	}
+});
+routes.post("/method3",(request,response)=>{
+	let dataMethod = {pageNumber:0,dropableRows:[],singleWords:[]};
+	//Get current language rus|ukr
+	let language = response.locals.lang.identifier;
+	//If Session exists
+	if(request.session.numbers && (Number(request.body.page) <= 5)){
 		let arrUniqueNums = JSON.parse(request.session.numbers);
 		//Get array [[...],[...]]
 		let twoArraysIDs = method_3.getPortionIDs(arrUniqueNums);
@@ -237,7 +244,7 @@ routes.get("/method3",(request,response)=>{
 		//Request to DB
 		dbs.databases.verbs.find({_id:{$in:twoArraysIDs[0]}},function(err, docs){
 			if(docs.length > 0){
-			//Create an Array of data objects [{translatedWord:'ru|ua word',engArray:['e1','e2','e3'],id:1},{},..]
+				//Create an Array of data objects [{translatedWord:'ru|ua word',engArray:['e1','e2','e3'],id:1},{},..]
 				let templateData = helpers.exercises.arrayOfTasks(docs,language,true);
 				//Set an empty field to each row. Get two arrays.[[all objects],[missing words]]
 				let twoArray = method_3.setEmptyFieldInRow(templateData);
@@ -245,21 +252,29 @@ routes.get("/method3",(request,response)=>{
 				let mixedWords = helpers.exercises.changePositions(twoArraysIDs[0],twoArray[0]);
 				//Elements of Single words data Array are equal to random numbers Array.
 				let mixedSingleWords = helpers.exercises.changePositions(twoArraysIDs[0],twoArray[1]);
-				//Render template with data
-				response.render("method-3-walk-through",{
-					userLoginSession : request.session.login,
-					title:"Method 3",
+					//userLoginSession : request.session.login,
+					//title:"Method 3",
 					//Query string argument for next page
-					currentNum: (Number(request.query.currentPageAmount)+1),
-					dropableRows:mixedWords,
-					singleWords: mixedSingleWords,
-					//lastLength: `${mixedSingleWords[0].word} - ${mixedSingleWords[1].word} - ${mixedSingleWords[2].word} - ${mixedSingleWords[3].word} - ${mixedSingleWords[4].word} - ${mixedSingleWords[5].word} - ${mixedSingleWords[6].word} - ${mixedSingleWords[7].word} - ${mixedSingleWords[8].word} - ${mixedSingleWords[9].word}`
-				});
-			}else{
-				request.session.numbers = "";
-				redirect(301,'/exercises');
+					//Prepare data for the response
+					dataMethod.pageNumber = (Number(request.body.page) + 1);
+					//Combine arrays and generate new property - 'singleWord'
+					for(let i = 0;i< mixedWords.length;i++){
+						mixedWords[i]['singleWord'] = mixedSingleWords[i];
+					}
+					dataMethod['clientData'] = mixedWords;
+				//Send headers
+				response.setHeader('Content-type', 'application/json; charset=utf-8');
+				response.send(JSON.stringify(dataMethod));
 			}
-		});
+		});	
+	}else{
+		//Method is finished
+		dataMethod.pageNumber = 6;
+		dataMethod.dropableRows = [];
+		dataMethod.singleWords = [];
+		//Send headers
+		response.setHeader('Content-type','application/json; charset=utf-8');
+		response.send(JSON.stringify(dataMethod));
 	}
 });
 module.exports = routes;
