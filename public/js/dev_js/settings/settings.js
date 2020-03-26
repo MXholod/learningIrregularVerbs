@@ -79,8 +79,9 @@
 			//Try to get SessionStorage key
 			var result = sessionStorage.getItem("settings");
 			if(result){//If object has already been written to the SessionStorage (avoid rewriting an object)
-				var JSONsettingsObj = sessionStorage.getItem("settings");
-				var settingsObj = JSON.parse(JSONsettingsObj);
+				//var JSONsettingsObj = sessionStorage.getItem("settings");
+				//var settingsObj = JSON.parse(JSONsettingsObj);
+				var settingsObj = JSON.parse(result);
 					//Write user profile button state
 					settingsObj.userButton = userBtn;
 					var newSettingsPanel = JSON.stringify(settingsObj);
@@ -200,12 +201,126 @@
 //Music control
 (function(){
 	window.addEventListener('load',function(){
+		//profile - '/authorize' or '/profile'
+		//exercises - '/exercises'
+		//result - '/show-result'		class="scoreboard__correct-choosen" - here is result 0-50 if 50 Good! less Bad!
+		//developers - '/information'
+		//methods - '/method1' '/method2' '/method3'
+		//Current path of the page 
+		var pathName = window.location.pathname;
+		//Get Method number
+		let methodNum = pathName.indexOf("/method");
+			if(methodNum !== -1){
+				pathName = "/method";
+			}
+		//console.log("pathname ",window.location.pathname);
+		//Gets audio element
+		var parentAU = document.getElementById("bgMusic");
+		var audio;
+		//If it's not a main page
+		if(pathName !== "/"){
+			//If Storage exists
+			if(typeof(Storage) !== "undefined"){
+				var settingsObj = JSON.parse(sessionStorage.getItem("settings"));
+				if(settingsObj.music == "turnOn"){
+					//Check URL path
+					switch(pathName){
+						case '/authorize' : audio = parentAU.getElementsByTagName("audio")[1];
+							break;
+						case '/profile' : audio = parentAU.getElementsByTagName("audio")[1];
+							break;
+						case '/exercises' : audio = parentAU.getElementsByTagName("audio")[2];
+							break;
+						case '/method' : audio = parentAU.getElementsByTagName("audio")[3];
+							break;
+						case '/information' : audio = parentAU.getElementsByTagName("audio")[4];
+							break;
+						case '/show-result' : 
+									//"method1","method2","method3"
+									let successResult = getResultFromStorage();
+									if(!successResult){
+										audio = parentAU.getElementsByTagName("audio")[5];
+									}else{
+										audio = parentAU.getElementsByTagName("audio")[6];
+									}
+									if(typeof(audio) !== 'undefined'){
+										audio.volume = 0.1;
+										audio.loop = false;
+										audio.play();
+										return;
+									}
+					}
+					if(typeof(audio) !== 'undefined'){
+						audio.volume = 0.1;
+						audio.loop = true;
+						audio.play();
+					}
+				}else{
+					//Check URL path
+					switch(pathName){
+						case '/authorize' : audio = parentAU.getElementsByTagName("audio")[1];
+							break;
+						case '/profile' : audio = parentAU.getElementsByTagName("audio")[1];
+							break;
+						case '/exercises' : audio = parentAU.getElementsByTagName("audio")[2];
+							break;
+						case '/method' : audio = parentAU.getElementsByTagName("audio")[3];
+							break;
+						case '/information' : audio = parentAU.getElementsByTagName("audio")[4];
+							break;
+						case '/show-result' : 
+									let successResult = getResultFromStorage();
+									if(!successResult){
+										audio = parentAU.getElementsByTagName("audio")[5];
+									}else{
+										audio = parentAU.getElementsByTagName("audio")[6];
+									}
+									if(typeof(audio) !== 'undefined'){
+										audio.loop = false;
+										audio.pause();
+										audio.currentTime = 0.0;
+										return;
+									}
+					}
+					if(typeof(audio) !== 'undefined'){
+						audio.pause();
+						audio.currentTime = 0.0;
+					}
+				}
+			}
+		}
+		//Evaluates success result number
+		function getResultFromStorage(){
+			let storageData;
+			let successNum = 0;
+			let i = 1;
+			//// !sessionStorage.getItem(`method${i}`)
+			while(i <= 3){
+				if(sessionStorage.getItem(`method${i}`)){
+					storageData = sessionStorage.getItem(`method${i}`);
+				}
+				i++;
+			}
+			//{"firstPage":[{id:23,result:0},{id:45,result:1}], "gCounter":90, "pageAmount":2}
+			storageData = JSON.parse(storageData);
+			Object.keys(storageData).forEach(function(key) {
+				if(successNum === 1) return;
+				//Exclude - pageAmount gCounter
+				if((key !== "pageAmount") && (key !== "gCounter")){
+					this[key].forEach((el)=>{
+						if(parseInt(el.result) !== 0){
+							successNum = 1;
+							return;
+						}
+					});
+					//console.log(key, ':', this[key]);
+				}
+			}, storageData);
+			return successNum === 0 ? false : true; 
+		}
 		//Detect radio buttons changing
 		function changeMusicState(id,func){
 			var radio = document.getElementById(id);
-			//Gets audio element
-			var parentAU = document.getElementById("bgMusic");
-			var audio = parentAU.getElementsByTagName("audio")[0];
 			radio.onchange = function(e){//Input radio is context
 				func.call(this,audio,event);
 			};
@@ -216,22 +331,23 @@
 		function turnOffTheMusic(id,func){
 			changeMusicState(id,func);
 		}
-		//Turn on the music
-		turnOnTheMusic("onMusic",function(au,event){
-			//Save data to SessionStorage
-			saveDataToSessionStorage(this,"music");//this - "onMusic"
-			//console.log("Turned on ",event.target);
-			au.volume = 0.1;
-			au.play();
-		});
-		//Turn off the music
-		turnOffTheMusic("offMusic",function(au){
-			//Save data to SessionStorage
-			saveDataToSessionStorage(this,"music");//this - "offMusic"
-			//console.log("Turned off ",this,au);
-			au.pause();
-			au.currentTime = 0.0;
-		});
-		
+		if(typeof(audio) !== 'undefined'){
+			//Turn on the music
+			turnOnTheMusic("onMusic",function(au,event){
+				//Save data to SessionStorage
+				saveDataToSessionStorage(this,"music");//this - "onMusic" - radio button context
+				//console.log("Turned on ",event.target);
+				au.volume = 0.1;
+				au.play();
+			});
+			//Turn off the music
+			turnOffTheMusic("offMusic",function(au){
+				//Save data to SessionStorage
+				saveDataToSessionStorage(this,"music");//this - "offMusic" - radio button context
+				//console.log("Turned off ",this,au);
+				au.pause();
+				au.currentTime = 0.0;
+			});
+		}
 	});
 })();

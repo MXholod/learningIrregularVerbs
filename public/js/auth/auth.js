@@ -19,6 +19,7 @@
 		var parentAU = document.getElementById("bgMusic");
 		var audio = parentAU.getElementsByTagName("audio")[0];
 		audio.volume = 0.1;
+		audio.loop = true;
 		audio.play();
 	}
 })();
