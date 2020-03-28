@@ -148,15 +148,54 @@ function getDataByAjax(url,page){
 	function getHiddenData(){
 		//Get hidden data
 		let hiddenChildren = this.parentNode.previousSibling.children;
-		//Correct word or words split by space.
-		let hiddenArr = hiddenChildren[3].textContent.split(" ");
-		//Comparison of each word that was divided apart by space with a user's word.
-		if((hiddenArr[0] === this.value) || (hiddenArr[1] === this.value) || (hiddenArr[2] === this.value)){
-			//Correct answer was given
-			hiddenChildren[2].textContent = 1;
-		}else{
-			//Incorrect answer was given
-			hiddenChildren[2].textContent = 0;
+		//Result 0 or 1
+		hiddenChildren[2].textContent =  compareWords.call(this,hiddenChildren[3].textContent);
+	}
+	//Function returns 0 if bad or 1 if good result
+	function compareWords(hiddenWord){
+		//Get input value
+		let value = this.value;
+		let slash = hiddenWord.indexOf('/');
+		//Slash presents
+		if(slash != -1){
+			if(value == hiddenWord){//'was/were' == 'was/were'
+				return 1;
+			}
+				let part1 = hiddenWord.slice(0,slash);
+				let wordLen = hiddenWord.length;
+				let part2 = hiddenWord.slice((slash+1),wordLen);
+				let wordSpace = part1+" "+part2;
+					if(value == wordSpace){//'was were' == 'was were'
+						return 1;
+					}
+					let wordComma = part1+","+part2;
+						if(value == wordComma){//'was,were' == 'was,were'
+							return 1;
+						}
+							return 0;
+		}
+		//Count spaces 'cleft, cleaved, clove' 'cleft, cleaved, cloven'
+		let words = hiddenWord.split(' ');
+		let spaces = words.length-1;//or so: hiddenWord.split(' ').length-1; hiddenWord.match(/ /g).length;
+		if(spaces !== 0){//Two or three words
+			switch(spaces){
+				case 1 : if((value == words[0]) || (value == words[1]) || (value == hiddenWord) || 
+							(value == words[0]+","+words[1]) || (value == words[0]+", "+words[1])){
+							return 1;
+						  }
+						  return 0;
+					break;
+				case 2 : if((value == words[0]) || (value == words[1]) || (value == words[2]) || (value == hiddenWord) || (value == words[0]+" "+words[1]) || (value == words[1]+" "+words[2]) || (value == words[0]+" "+words[2]) || (value == words[0]+","+words[1]) || (value == words[1]+","+words[2]) || (value == words[0]+","+words[2]) || (value == words[0]+","+words[1]+","+words[2]) || (value == words[0]+", "+words[1]) || (value == words[1]+", "+words[2]) || (value == words[0]+", "+words[2]) || (value == words[0]+", "+words[1]+", "+words[2])){
+							return 1;
+						  }
+						  return 0;
+					break;
+			}
+		}else{//Single word
+			if(value == hiddenWord){
+				return 1;
+			}
+			return 0;			
 		}
 	}
 	//Leave an input
