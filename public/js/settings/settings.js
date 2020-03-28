@@ -367,6 +367,8 @@ module.exports = __webpack_require__(4);
 					}
 				}
 			}
+		}else{//Main page '/'
+			audio = parentAU.getElementsByTagName("audio")[0];	
 		}
 		//Evaluates success result number
 		function getResultFromStorage(){
@@ -382,7 +384,7 @@ module.exports = __webpack_require__(4);
 			}
 			//{"firstPage":[{id:23,result:0},{id:45,result:1}], "gCounter":90, "pageAmount":2}
 			storageData = JSON.parse(storageData);
-			Object.keys(storageData).forEach(function(key) {
+			Object.keys(storageData).forEach(function(key){
 				if(successNum === 1) return;
 				//Exclude - pageAmount gCounter
 				if((key !== "pageAmount") && (key !== "gCounter")){
