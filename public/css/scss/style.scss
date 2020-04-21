@@ -1195,8 +1195,141 @@ html,body {
 	}
 	.wrapper__authors{
 		height:($base-height + 6px);
-		padding:40px 0px 0px 0px;
-		background-color:lightgreen;
+		width:($base-width + 10px);
+		background:#B3CBFE url("../../images/bb_floor.png") 0 0/810px 606px no-repeat padding-box border-box scroll;
+		.wrapper__authors__go-to-profile{
+			height:40px;
+			a{
+				position:relative;
+				top:10px;
+				left:360px;
+				padding:5px;
+				text-decoration:none;
+				border:2px solid #BE8117;
+				border-radius:10px;
+				color:#594116;
+				font-family:Lasco_Bold;
+				background-color:#C8B227;
+				font-size: 0.8em;
+				&:hover{
+					background-color:#E4D367;
+				}
+			}
+		}
+		.wrapper__authors__header{
+			height:100px;
+			background-color:#E3D38C;
+			border-top: 2px solid #fff;
+			border-bottom: 2px solid #fff;
+			h2{
+				text-align:center;
+				font-family:Lasco_Bold;
+				margin-top: 3px;
+			}
+			p{
+				font-family:Verdana;
+				font-size:0.8rem;
+				padding: 5px;
+			}
+		}
+		.wrapper__authors__list{
+			overflow:hidden;
+			padding:5px 10px;
+			@keyframes author-1{
+				0%{
+					left:-640px;
+				}
+				100%{
+					left:55px;
+				}
+			}
+			@keyframes author-2{
+				0%{
+					right:-790px;
+				}
+				100%{
+					right:-58px;
+				}
+			}
+			@keyframes ball-authors-1{
+				0%{
+					transform:rotate(0deg);
+					left:670px;
+				}
+				100%{
+					transform:rotate(360deg);
+					left:610px;
+				}
+			}
+			@keyframes ball-authors-2{
+				0%{
+					transform:rotate(0deg);
+					left:-120px;
+				}
+				100%{
+					transform:rotate(360deg);
+					left:-65px;
+				}
+			}
+			@mixin animate($name,$dur,$iter){
+				animation-name: $name;
+				animation-duration: $dur;
+				animation-iteration-count: $iter;
+				animation-timing-function: linear;
+			}
+			%span-item{
+				font-weight: bold;
+				padding-right: 10px;
+				font-family: Verdana;
+				font-size: 13px;
+			}
+			.wrapper__authors__list__author-1{
+				border:2px solid #000;
+				padding:5px;
+				margin:1.5rem;
+				box-shadow: -5px 5px 8px #888888;
+				width:600px;
+				background-color:#3D9937;
+				position:relative;
+				left:55px;
+				@include animate(author-1,2s,1);
+				ul li span:first-child{
+					@extend %span-item;
+				}
+				.wrapper__authors__list__author__ball-rotate-1{
+					background:transparent url("../../svg/ball.svg") 0 0/50px 50px no-repeat padding-box border-box scroll;
+					width:50px;
+					height:50px;
+					position:absolute;
+					bottom:0;
+					left:610px;
+					@include animate(ball-authors-1,1.8s,1);
+				}
+			}
+			.wrapper__authors__list__author-2{
+				border:2px solid #000;
+				padding:5px;
+				margin:1.5rem;
+				box-shadow: -5px 5px 8px #888888;
+				width:600px;
+				background-color:#3D9937;
+				position:relative;
+				right:-58px;
+				@include animate(author-2,2s,1);
+				ul li span:first-child{
+					@extend %span-item;
+				}
+				.wrapper__authors__list__author__ball-rotate-2{
+					background:transparent url("../../svg/ball.svg") 0 0/50px 50px no-repeat padding-box border-box scroll;
+					width:50px;
+					height:50px;
+					position:absolute;
+					bottom:0;
+					left:-65px;
+					@include animate(ball-authors-2,1.8s,1);
+				}
+			}
+		}
 	}
 	.wrapper__list-verbs{
 		#toListVerbs{

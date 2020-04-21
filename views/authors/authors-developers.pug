@@ -8,6 +8,44 @@ block variables
 	-method2=false;
 	-method3=false;
 	-resultPage=false;
+	-authors=true;
 block appContent
 	div(class="wrapper__authors")
-		<h1>Authors</h1>
+		div(class="wrapper__authors__go-to-profile" id="toProfileAuthors" data-language="toProfileAuthors")
+			a(href="http://localhost:3000/profile" data-language="toProfileAuthors") Вернуться к профилю
+		div(class="wrapper__authors__header")
+			h2 Authors of the project
+			p There is some text about authors
+		div(class="wrapper__authors__list")
+			div(class="wrapper__authors__list__author-1")
+				ul(class="list-group")
+					li(class="list-group-item list-group-item-secondary")
+						span Author:
+						span Mike
+					li(class="list-group-item list-group-item-secondary")
+						span Role:
+						span Frontend Developer, UI/UX
+					li(class="list-group-item list-group-item-secondary")
+						span Contact with me by email: 
+						span mishika@i.ua
+					li(class="list-group-item list-group-item-secondary")
+						span Contact with me on my portfolio site: 
+						span http://mikeportfolio.com.ua
+					li
+						div(class="wrapper__authors__list__author__ball-rotate-1")
+			div(class="wrapper__authors__list__author-2")
+				ul(class="list-group")
+					li(class="list-group-item list-group-item-warning")
+						span Author:
+						span Alenka
+					li(class="list-group-item list-group-item-warning")
+						span Role:
+						span Junior Frontend Developer, UI/UX
+					li(class="list-group-item list-group-item-warning")
+						span Contact with me by email:
+						span alenka@i.ua
+					li(class="list-group-item list-group-item-warning")
+						span Contact with me on my portfolio site: 
+						span http://alenkaportfolio.com.ua
+					li
+						div(class="wrapper__authors__list__author__ball-rotate-2")
