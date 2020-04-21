@@ -1229,7 +1229,13 @@ html,body {
 			p{
 				font-family:Verdana;
 				font-size:0.8rem;
-				padding: 5px;
+				padding: 2px 10px;
+				&:nth-child(3){
+					text-indent:10px;
+				}
+				&:nth-child(4){
+					text-align:right;
+				}
 			}
 		}
 		.wrapper__authors__list{

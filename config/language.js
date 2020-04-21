@@ -342,6 +342,37 @@ module.exports = {
 				"congratulationTitle":"Поздравляем! Вы не допустили ни одной ошибки!"
 			}
 		},
+		"authorsPage":{
+			"toProfileAuthors":{
+				"buttonTitle":"Вернуться к профилю"
+			},
+			"authorsHeader":{
+				"titleHeader":"Авторы программы",
+				"contentHeader":"Привет друг!",
+				"contentCenter":"Изучение английского языка - это труд, труд над самим собой. Постоянная зубрёжка правил грамматики, а также заучивание слов иногда отбивают дальнейшее желание к обучению. Именно поэтому мы представляем программу для изучения английских неправильных глагов тремя разными способами.",
+				"contentLast":"Будем рады помочь Вам в обучении."
+			},
+			"authorList1":{
+				"author":"Автор: ",
+				"authorName":"Михаил Холод (МХ)",
+				"authorRole":"Роль: ",
+				"authorRoleName":"Frontend Developer, UI/UX",
+				"authorEmail":"Почта: ",
+				"authorEmailName":"mishika@i.ua",
+				"authorSite":"Сайт портфолио автора программы: ",
+				"authorSiteName":"http://mikeportfolio.com.ua"
+			},
+			"authorList2":{
+				"author":"Автор: ",
+				"authorName":"Алёна Яворская",
+				"authorRole":"Роль: ",
+				"authorRoleName":"Junior Frontend Developer, UI/UX",
+				"authorEmail":"Почта: ",
+				"authorEmailName":"alenka@i.ua",
+				"authorSite":"Сайт портфолио автора программы: ",
+				"authorSiteName":"http://alenkaportfolio.com.ua"
+			}
+		},
 		"serverSisdeOnly":{
 			"emailRestoring":{
 				"topic":"Восстановление пароля",
@@ -693,6 +724,37 @@ module.exports = {
 		"singleBlockFailedResults":{
 			"displayIfZeroFailed":{
 				"congratulationTitle":"Вітаємо! Ви не допустили жодної помилки!"
+			}
+		},
+		"authorsPage":{
+			"toProfileAuthors":{
+				"buttonTitle":"Повернутися до профілю"
+			},
+			"authorsHeader":{
+				"titleHeader":"Автори програми",
+				"contentHeader":"Привіт друже!",
+				"contentCenter":"Вивчення англійської мови - це праця, праця над самим собою. Постійне зубріння правил граматики, а також заучування слів іноді відбивають подальше бажання до навчання. Саме тому ми представляємо програму для вивчення англійських неправильних дієслів трьома різними способами.",
+				"contentLast":"Будемо раді допомогти тобі у навчанні."
+			},
+			"authorList1":{
+				"author":"Автор: ",
+				"authorName":"Михайло Холод (МХ)",
+				"authorRole":"Роль: ",
+				"authorRoleName":"Frontend Developer, UI/UX",
+				"authorEmail":"Пошта: ",
+				"authorEmailName":"mishika@i.ua",
+				"authorSite":"Сайт портфоліо автора програми: ",
+				"authorSiteName":"http://mikeportfolio.com.ua"
+			},
+			"authorList2":{
+				"author":"Автор: ",
+				"authorName":"Альона Яворська",
+				"authorRole":"Роль: ",
+				"authorRoleName":"Junior Frontend Developer, UI/UX",
+				"authorEmail":"Пошта: ",
+				"authorEmailName":"alenka@i.ua",
+				"authorSite":"Сайт портфоліо автора програми: ",
+				"authorSiteName":"http://alenkaportfolio.com.ua"
 			}
 		},
 		"serverSisdeOnly":{

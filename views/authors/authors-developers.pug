@@ -12,40 +12,42 @@ block variables
 block appContent
 	div(class="wrapper__authors")
 		div(class="wrapper__authors__go-to-profile" id="toProfileAuthors" data-language="toProfileAuthors")
-			a(href="http://localhost:3000/profile" data-language="toProfileAuthors") Вернуться к профилю
-		div(class="wrapper__authors__header")
-			h2 Authors of the project
-			p There is some text about authors
+			a(href="http://localhost:3000/profile" data-language="toProfileAuthors") #{lang.authorsPage.toProfileAuthors.buttonTitle}
+		div(class="wrapper__authors__header" id="authorsHeader" data-language="authorsHeader")
+			h2(data-language="authorsHeader") #{lang.authorsPage.authorsHeader.titleHeader}
+			p(data-language="authorsHeader") #{lang.authorsPage.authorsHeader.contentHeader}
+			p(data-language="authorsHeader") #{lang.authorsPage.authorsHeader.contentCenter}
+			p(data-language="authorsHeader") #{lang.authorsPage.authorsHeader.contentLast}
 		div(class="wrapper__authors__list")
 			div(class="wrapper__authors__list__author-1")
-				ul(class="list-group")
+				ul(class="list-group" id="authorList1" data-language="authorList1")
 					li(class="list-group-item list-group-item-secondary")
-						span Author:
-						span Mike
+						span(data-language="authorList1") #{lang.authorsPage.authorList1.author}
+						span(data-language="authorList1") #{lang.authorsPage.authorList1.authorName}
 					li(class="list-group-item list-group-item-secondary")
-						span Role:
-						span Frontend Developer, UI/UX
+						span(data-language="authorList1") #{lang.authorsPage.authorList1.authorRole}
+						span(data-language="authorList1") #{lang.authorsPage.authorList1.authorRoleName}
 					li(class="list-group-item list-group-item-secondary")
-						span Contact with me by email: 
-						span mishika@i.ua
+						span(data-language="authorList1") #{lang.authorsPage.authorList1.authorEmail} 
+						span(data-language="authorList1") #{lang.authorsPage.authorList1.authorEmailName}
 					li(class="list-group-item list-group-item-secondary")
-						span Contact with me on my portfolio site: 
-						span http://mikeportfolio.com.ua
+						span(data-language="authorList1") #{lang.authorsPage.authorList1.authorSite} 
+						span(data-language="authorList1") #{lang.authorsPage.authorList1.authorSiteName}
 					li
 						div(class="wrapper__authors__list__author__ball-rotate-1")
 			div(class="wrapper__authors__list__author-2")
-				ul(class="list-group")
-					li(class="list-group-item list-group-item-warning")
-						span Author:
-						span Alenka
-					li(class="list-group-item list-group-item-warning")
-						span Role:
-						span Junior Frontend Developer, UI/UX
-					li(class="list-group-item list-group-item-warning")
-						span Contact with me by email:
-						span alenka@i.ua
-					li(class="list-group-item list-group-item-warning")
-						span Contact with me on my portfolio site: 
-						span http://alenkaportfolio.com.ua
+				ul(class="list-group" id="authorList2" data-language="authorList2")
+					li(class="list-group-item list-group-item-secondary")
+						span(data-language="authorList2") #{lang.authorsPage.authorList2.author}
+						span(data-language="authorList2") #{lang.authorsPage.authorList2.authorName}
+					li(class="list-group-item list-group-item-secondary")
+						span(data-language="authorList2") #{lang.authorsPage.authorList2.authorRole}
+						span(data-language="authorList2") #{lang.authorsPage.authorList2.authorRoleName}
+					li(class="list-group-item list-group-item-secondary")
+						span(data-language="authorList2") #{lang.authorsPage.authorList2.authorEmail} 
+						span(data-language="authorList2") #{lang.authorsPage.authorList2.authorEmailName}
+					li(class="list-group-item list-group-item-secondary")
+						span(data-language="authorList2") #{lang.authorsPage.authorList2.authorSite} 
+						span(data-language="authorList2") #{lang.authorsPage.authorList2.authorSiteName}
 					li
 						div(class="wrapper__authors__list__author__ball-rotate-2")
